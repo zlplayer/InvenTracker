@@ -1,0 +1,1 @@
+C:\Users\Konzo\source\repos\InvenTracker\inventracker.client\obj\Debug\inventracker.client.esproj.CoreCompileInputs.cache

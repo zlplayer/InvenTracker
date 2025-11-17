@@ -1,0 +1,11 @@
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\bin\Debug\net9.0\InvenTracker.Domain.deps.json
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\bin\Debug\net9.0\InvenTracker.Domain.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\bin\Debug\net9.0\InvenTracker.Domain.pdb
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\obj\Debug\net9.0\InvenTracker.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\obj\Debug\net9.0\InvenTracker.Domain.AssemblyInfoInputs.cache
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\obj\Debug\net9.0\InvenTracker.Domain.AssemblyInfo.cs
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\obj\Debug\net9.0\InvenTracker.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\obj\Debug\net9.0\InvenTracker.Domain.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\obj\Debug\net9.0\refint\InvenTracker.Domain.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\obj\Debug\net9.0\InvenTracker.Domain.pdb
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\obj\Debug\net9.0\ref\InvenTracker.Domain.dll

@@ -1,0 +1,17 @@
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\bin\Debug\net9.0\InvenTracker.Infrastructure.deps.json
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\bin\Debug\net9.0\InvenTracker.Infrastructure.runtimeconfig.json
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\bin\Debug\net9.0\InvenTracker.Infrastructure.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\bin\Debug\net9.0\InvenTracker.Infrastructure.pdb
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\bin\Debug\net9.0\InvenTracker.Domain.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\bin\Debug\net9.0\InvenTracker.Domain.pdb
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\obj\Debug\net9.0\InvenTracker.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\obj\Debug\net9.0\InvenTracker.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\obj\Debug\net9.0\InvenTracker.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\obj\Debug\net9.0\InvenTracker.Infrastructure.AssemblyInfo.cs
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\obj\Debug\net9.0\InvenTracker.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\obj\Debug\net9.0\InvenTra.1AC29D47.Up2Date
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\obj\Debug\net9.0\InvenTracker.Infrastructure.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\obj\Debug\net9.0\refint\InvenTracker.Infrastructure.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\obj\Debug\net9.0\InvenTracker.Infrastructure.pdb
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\obj\Debug\net9.0\InvenTracker.Infrastructure.genruntimeconfig.cache
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Infrastructure\obj\Debug\net9.0\ref\InvenTracker.Infrastructure.dll
