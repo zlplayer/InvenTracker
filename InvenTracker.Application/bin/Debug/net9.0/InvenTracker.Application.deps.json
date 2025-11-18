@@ -7,14 +7,30 @@
   "targets": {
     ".NETCoreApp,Version=v9.0": {
       "InvenTracker.Application/1.0.0": {
+        "dependencies": {
+          "InvenTracker.Domain": "1.0.0"
+        },
         "runtime": {
           "InvenTracker.Application.dll": {}
+        }
+      },
+      "InvenTracker.Domain/1.0.0": {
+        "runtime": {
+          "InvenTracker.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
   },
   "libraries": {
     "InvenTracker.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "InvenTracker.Domain/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

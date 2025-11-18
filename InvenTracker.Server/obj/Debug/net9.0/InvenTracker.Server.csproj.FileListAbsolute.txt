@@ -171,3 +171,4 @@ C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\In
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\InvenTracker.Application.pdb
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\InvenTracker.Infrastructure.pdb
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\InvenTracker.Domain.pdb
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\obj\Debug\net9.0\InvenTracker.Server.sourcelink.json

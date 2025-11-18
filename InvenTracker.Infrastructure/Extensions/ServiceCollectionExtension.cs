@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using InvenTracker.Domain.Interfaces;
+using InvenTracker.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,5 +12,8 @@ public static class ServiceCollectionExtension
     {
         services.AddDbContext<InvenTrackerDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("InvenTrackerDbContext")));
+
+        services.AddScoped<ICompanyRepositories, CompanyRepositories>();
+        services.AddScoped<IDepartmentRepositories, DepartmentRepositories>();
     }
 }

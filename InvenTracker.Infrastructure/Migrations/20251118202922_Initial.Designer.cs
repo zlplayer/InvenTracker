@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvenTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(InvenTrackerDbContext))]
-    [Migration("20251117214233_Initial")]
+    [Migration("20251118202922_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -25,10 +25,79 @@ namespace InvenTracker.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("InvenTracker.Domain.Entities.AddressCompany", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BuildingNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CompanyId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId")
+                        .IsUnique();
+
+                    b.ToTable("AddressCompany");
+                });
+
+            modelBuilder.Entity("InvenTracker.Domain.Entities.AddressDepartment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BuildingNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId")
+                        .IsUnique();
+
+                    b.ToTable("AddressDepartment");
+                });
+
             modelBuilder.Entity("InvenTracker.Domain.Entities.Company", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AddressId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -44,6 +113,9 @@ namespace InvenTracker.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AddressId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CompanyId")
@@ -170,6 +242,28 @@ namespace InvenTracker.Infrastructure.Migrations
                     b.ToTable("Wardrobes");
                 });
 
+            modelBuilder.Entity("InvenTracker.Domain.Entities.AddressCompany", b =>
+                {
+                    b.HasOne("InvenTracker.Domain.Entities.Company", "Company")
+                        .WithOne("Address")
+                        .HasForeignKey("InvenTracker.Domain.Entities.AddressCompany", "CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("InvenTracker.Domain.Entities.AddressDepartment", b =>
+                {
+                    b.HasOne("InvenTracker.Domain.Entities.Department", "Department")
+                        .WithOne("Address")
+                        .HasForeignKey("InvenTracker.Domain.Entities.AddressDepartment", "DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("InvenTracker.Domain.Entities.Department", b =>
                 {
                     b.HasOne("InvenTracker.Domain.Entities.Company", "Company")
@@ -224,6 +318,8 @@ namespace InvenTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("InvenTracker.Domain.Entities.Company", b =>
                 {
+                    b.Navigation("Address");
+
                     b.Navigation("Departments");
 
                     b.Navigation("Wardrobes");
@@ -231,6 +327,8 @@ namespace InvenTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("InvenTracker.Domain.Entities.Department", b =>
                 {
+                    b.Navigation("Address");
+
                     b.Navigation("Wardrobes");
                 });
 

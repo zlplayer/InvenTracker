@@ -9,3 +9,4 @@ C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\obj\Debug\net9.0\In
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\obj\Debug\net9.0\refint\InvenTracker.Domain.dll
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\obj\Debug\net9.0\InvenTracker.Domain.pdb
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\obj\Debug\net9.0\ref\InvenTracker.Domain.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Domain\obj\Debug\net9.0\InvenTracker.Domain.sourcelink.json

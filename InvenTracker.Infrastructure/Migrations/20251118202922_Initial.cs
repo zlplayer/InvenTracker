@@ -16,11 +16,34 @@ namespace InvenTracker.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AddressCompany",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BuildingNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AddressCompany", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AddressCompany_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -30,7 +53,8 @@ namespace InvenTracker.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AddressId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,6 +64,28 @@ namespace InvenTracker.Infrastructure.Migrations
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AddressDepartment",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BuildingNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AddressDepartment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AddressDepartment_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,6 +163,18 @@ namespace InvenTracker.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AddressCompany_CompanyId",
+                table: "AddressCompany",
+                column: "CompanyId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AddressDepartment_DepartmentId",
+                table: "AddressDepartment",
+                column: "DepartmentId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Departments_CompanyId",
                 table: "Departments",
                 column: "CompanyId");
@@ -145,6 +203,12 @@ namespace InvenTracker.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AddressCompany");
+
+            migrationBuilder.DropTable(
+                name: "AddressDepartment");
+
             migrationBuilder.DropTable(
                 name: "Items");
 

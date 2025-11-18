@@ -1033,6 +1033,9 @@
         }
       },
       "InvenTracker.Application/1.0.0": {
+        "dependencies": {
+          "InvenTracker.Domain": "1.0.0"
+        },
         "runtime": {
           "InvenTracker.Application.dll": {
             "assemblyVersion": "1.0.0.0",

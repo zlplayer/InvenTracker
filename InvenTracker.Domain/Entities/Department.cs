@@ -9,4 +9,7 @@ public class Department
     
     public Company Company { get; set; }
     public Guid CompanyId { get; set; }
+    
+    public AddressDepartment? Address { get; set; }
+    public Guid AddressId { get; set; }
 }

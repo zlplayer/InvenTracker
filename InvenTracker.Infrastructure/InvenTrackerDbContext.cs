@@ -10,6 +10,8 @@ public class InvenTrackerDbContext : DbContext
     public DbSet<Drawer>  Drawers { get; set; }
     public DbSet<Item>  Items { get; set; }
     public DbSet<Wardrobe>  Wardrobes { get; set; }
+    public DbSet<AddressCompany>  AddressCompanies { get; set; }
+    public DbSet<AddressDepartment>  AddressDepartments { get; set; }
 
     public InvenTrackerDbContext(DbContextOptions<InvenTrackerDbContext> options) : base(options)
     {
@@ -24,6 +26,18 @@ public class InvenTrackerDbContext : DbContext
             .WithMany(x => x.Departments)
             .HasForeignKey(x => x.CompanyId)
             .OnDelete(DeleteBehavior.NoAction);
+        
+        modelBuilder.Entity<Department>()
+            .HasOne(x=>x.Address)
+            .WithOne(x=>x.Department)
+            .HasForeignKey<AddressDepartment>(x => x.DepartmentId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        modelBuilder.Entity<Company>()
+            .HasOne(x=>x.Address)
+            .WithOne(x => x.Company)
+            .HasForeignKey<AddressCompany>(x => x.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Wardrobe>()
             .HasOne(x => x.Company)

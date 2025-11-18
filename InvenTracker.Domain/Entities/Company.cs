@@ -7,4 +7,7 @@ public class Company
     public List<Department> Departments { get; set; }
     public List<Wardrobe> Wardrobes { get; set; }
     
+    public AddressCompany? Address { get; set; }
+    public Guid AddressId { get; set; }
+    
 }
