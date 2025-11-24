@@ -21,7 +21,11 @@ public class CompanyRepositories:  ICompanyRepositories
     
     public async Task<Company?> GetCompany(Guid id){
         
-        var companyDetails= await _dbContext.Companies.Include(x=>x.Departments).Include(x=>x.Address).Include(x=>x.Wardrobes).FirstOrDefaultAsync(x=>x.Id == id);
+        var companyDetails= await _dbContext.Companies
+            .Include(x=>x.Departments)
+            .Include(x=>x.Address)
+            .Include(x=>x.Wardrobes)
+            .FirstOrDefaultAsync(x=>x.Id == id);
         
         if(companyDetails is null) throw new KeyNotFoundException($"Company with id {id} not found");
         
