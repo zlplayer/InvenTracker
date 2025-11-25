@@ -52,7 +52,7 @@ namespace InvenTracker.Infrastructure.Migrations
                     b.HasIndex("CompanyId")
                         .IsUnique();
 
-                    b.ToTable("AddressCompany");
+                    b.ToTable("AddressCompanies");
                 });
 
             modelBuilder.Entity("InvenTracker.Domain.Entities.AddressDepartment", b =>
@@ -85,7 +85,7 @@ namespace InvenTracker.Infrastructure.Migrations
                     b.HasIndex("DepartmentId")
                         .IsUnique();
 
-                    b.ToTable("AddressDepartment");
+                    b.ToTable("AddressDepartments");
                 });
 
             modelBuilder.Entity("InvenTracker.Domain.Entities.Company", b =>

@@ -1,6 +1,43 @@
-@weather = http://localhost:5121
+@api = https://localhost:7146
 
-GET {{weather}}/weatherforecast/
+GET {{api}}/weatherforecast/
 Accept: application/json
 
+### CompanyController
+GET {{api}}/api/Company/
+Accept: application/json
 ###
+GET {{api}}/api/Company/0ae42609-2d0b-4e0d-8d96-08de2c613f8c
+Accept: application/json
+###
+POST {{api}}/api/Company
+Content-Type: application/json
+
+{
+  "Name":"Testowa firma",
+  "AddressCompany": 
+  {
+    "Street":"Testowa ulica",
+    "BuildingNumber":"21",
+    "PostalCode":"30-100",
+    "City":"Rzeszów"
+  }
+}
+###
+PUT {{api}}/api/Company/9042402F-A851-4EAD-78EA-08DE2C6AB529
+Content-Type: application/json
+
+{
+  "Name":"Firma do testowania",
+  "AddressCompany":
+  {
+    "Street":"Testowa ulicaXSD",
+    "BuildingNumber":"21",
+    "PostalCode":"30-100",
+    "City":"Rzeszów"
+  }
+}
+
+###
+DELETE {{api}}/api/Company/9042402F-A851-4EAD-78EA-08DE2C6AB529
+

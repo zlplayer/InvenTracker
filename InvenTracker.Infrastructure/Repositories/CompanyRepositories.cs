@@ -15,16 +15,15 @@ public class CompanyRepositories:  ICompanyRepositories
 
     public async Task<IEnumerable<Company>> GetCompanies()=> await _dbContext.Companies
         .Include(x=>x.Address)
-        .Include(x=>x.Wardrobes.Count)
-        .Include(x=>x.Departments.Count)
+        .Include(x=>x.Wardrobes)
+        .Include(x=>x.Departments)
         .ToListAsync();
     
     public async Task<Company?> GetCompany(Guid id){
         
         var companyDetails= await _dbContext.Companies
-            .Include(x=>x.Departments)
+            .Include(x=>x.Departments).ThenInclude(x=>x.Address)
             .Include(x=>x.Address)
-            .Include(x=>x.Wardrobes)
             .FirstOrDefaultAsync(x=>x.Id == id);
         
         if(companyDetails is null) throw new KeyNotFoundException($"Company with id {id} not found");

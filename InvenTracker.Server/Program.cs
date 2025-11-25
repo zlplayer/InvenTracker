@@ -1,4 +1,6 @@
+using InvenTracker.Application.Extensions;
 using InvenTracker.Infrastructure.Extensions;
+using InvenTracker.Infrastructure.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +11,15 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<InvenTrackerSeeder>();
+    seeder.Seed();
+}
 
 app.UseDefaultFiles();
 app.MapStaticAssets();

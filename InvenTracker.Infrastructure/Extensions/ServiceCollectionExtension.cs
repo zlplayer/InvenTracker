@@ -1,5 +1,6 @@
 ﻿using InvenTracker.Domain.Interfaces;
 using InvenTracker.Infrastructure.Repositories;
+using InvenTracker.Infrastructure.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,5 +19,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IWardrobeRepositories, WardrobeRepositories>();
         services.AddScoped<IDrawerRepositories, DrawerRepositories>();
         services.AddScoped<IItemRepositories, ItemRepositories>();
+
+        services.AddScoped<InvenTrackerSeeder>();
     }
 }
