@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/gqMPnP/RDs=",
+  "dgSpecHash": "cJ3722YD82I=",
   "success": true,
   "projectFilePath": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Server\\InvenTracker.Server.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,8 @@
     "C:\\Users\\Konzo\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Konzo\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\Konzo\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\Konzo\\.nuget\\packages\\mediatr\\13.1.0\\mediatr.13.1.0.nupkg.sha512",
+    "C:\\Users\\Konzo\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\Konzo\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.9\\microsoft.aspnetcore.openapi.9.0.9.nupkg.sha512",
     "C:\\Users\\Konzo\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\9.0.11\\microsoft.aspnetcore.spaproxy.9.0.11.nupkg.sha512",
     "C:\\Users\\Konzo\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",

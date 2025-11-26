@@ -7,7 +7,7 @@ Accept: application/json
 GET {{api}}/api/Company/
 Accept: application/json
 ###
-GET {{api}}/api/Company/0ae42609-2d0b-4e0d-8d96-08de2c613f8c
+GET {{api}}/api/Company/53d7c4f2-8e80-4712-a0ce-207163cc88da
 Accept: application/json
 ###
 POST {{api}}/api/Company
@@ -24,7 +24,7 @@ Content-Type: application/json
   }
 }
 ###
-PUT {{api}}/api/Company/9042402F-A851-4EAD-78EA-08DE2C6AB529
+PUT {{api}}/api/Company/D0EC56E5-8497-4894-4D3C-08DE2D3CC3F3
 Content-Type: application/json
 
 {
@@ -39,5 +39,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{api}}/api/Company/9042402F-A851-4EAD-78EA-08DE2C6AB529
+DELETE {{api}}/api/Company/D0EC56E5-8497-4894-4D3C-08DE2D3CC3F3
 
