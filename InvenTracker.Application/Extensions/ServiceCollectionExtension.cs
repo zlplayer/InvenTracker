@@ -12,7 +12,5 @@ public static class ServiceCollectionExtension
         services.AddMediatR(cfg =>
               cfg.RegisterServicesFromAssemblyContaining<CreateCompanyCommand>()
           );
-
     }
-
 }
