@@ -39,5 +39,47 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{api}}/api/Company/D0EC56E5-8497-4894-4D3C-08DE2D3CC3F3
+DELETE {{api}}/api/Company/4C139D0F-FCE3-44CA-1330-08DE31DDBABD
 
+### DepartmentController
+GET {{api}}/api/Department/
+Accept: application/json
+
+###
+GET {{api}}/api/Department/A8F4C77F-E718-4147-BD6E-FCF677A27788
+Accept: application/json
+
+###
+POST {{api}}/api/Department/30933806-3c8a-4199-2649-08de31e1d5b4
+Content-Type: application/json
+
+{
+  "Name":"Firma do testowania22",
+  "Description": "Test opisu222",
+  "AddressDepartment":
+  {
+    "Street":"Testowa ulicaXS2222222D",
+    "BuildingNumber":"21231",
+    "PostalCode":"30-100",
+    "City":"Rzeszówff"
+  }
+}
+
+###
+PUT {{api}}/api/Department/ADCA22F8-0AE1-439C-D972-08DE31E59924
+Content-Type: application/json
+
+{
+  "Name":"Firma do testowania aktualizowana",
+  "Description": "Test opisu aktualizowany",
+  "AddressDepartment":
+  {
+    "Street":"Testowa ulica",
+    "BuildingNumber":"22",
+    "PostalCode":"30-100",
+    "City":"Rzeszówfw"
+  }
+}
+
+###
+DELETE {{api}}/api/Department/8B1352F0-8CDA-4A64-2C1A-08DE31E5F2D5

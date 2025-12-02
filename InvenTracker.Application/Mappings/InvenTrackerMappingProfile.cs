@@ -1,5 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Net.Security;
+using AutoMapper;
 using InvenTracker.Application.Dtos;
+using InvenTracker.Application.InvenTracker.Commands.CreateDepartaments;
+using InvenTracker.Application.InvenTracker.Commands.UpdateDepartaments;
 using InvenTracker.Domain.Entities;
 
 namespace InvenTracker.Application.Mappings;
@@ -17,14 +20,27 @@ public class InvenTrackerMappingProfile: Profile
             .ForMember(dest=>dest.AddressCompany, opt => opt.MapFrom(src => src.Address))
             .ForMember(dest =>dest.Departments, opt=>opt.MapFrom(src => src.Departments));
         
-        CreateMap<Department, GetDepartmentDto>()
-            .ForMember(dest => dest.AddressDepartment, opt => opt.MapFrom(src => src.Address));
-        
         CreateMap<CreateCompanyDto, Company>()
             .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.AddressCompany));
         
+        CreateMap<AddressCompany, GetAddressCompanyDto>().ReverseMap();
+
+        CreateMap<Department, GetDepartmentDto>()
+            .ForMember(dest => dest.AddressDepartment, opt => opt.MapFrom(src => src.Address))
+            .ForMember(dest => dest.Wardrobe, opt => opt.MapFrom(src => src.Wardrobes));
+
+        CreateMap<CreateDepartmentDto, Department>()
+            .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.AddressDepartment));
+
+        CreateMap<CreateDepartmentCommand, Department>()
+            .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
+            .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.AddressDepartment));
+
+        CreateMap<UpdateDepartmentCommand, Department>()
+            .ForMember(dest=>dest.Address,opt=>opt.MapFrom(src=>src.AddressDepartment));
+        
         CreateMap<AddressDepartment, GetAddressDepartmentDto>().ReverseMap();
         
-        CreateMap<AddressCompany, GetAddressCompanyDto>().ReverseMap();
+        CreateMap<Wardrobe,  GetWardrobeDto>().ReverseMap();
     }
 }

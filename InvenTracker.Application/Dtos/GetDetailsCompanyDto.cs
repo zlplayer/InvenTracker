@@ -2,6 +2,7 @@
 
 public class GetDetailsCompanyDto
 {
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public GetAddressCompanyDto? AddressCompany { get; set; }
     public  IEnumerable<GetDepartmentDto?> Departments { get; set; } = new List<GetDepartmentDto>();

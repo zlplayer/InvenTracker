@@ -1,5 +1,6 @@
 ﻿using InvenTracker.Application.Dtos;
 using InvenTracker.Application.InvenTracker.Commands.CreateCompany;
+using InvenTracker.Application.InvenTracker.Commands.CreateDepartaments;
 using InvenTracker.Application.InvenTracker.Commands.DeleteCompany;
 using InvenTracker.Application.InvenTracker.Commands.UpdateCompany;
 using InvenTracker.Application.InvenTracker.Queries.GetAllCompanies;
@@ -37,7 +38,7 @@ public class CompanyController : ControllerBase
     public async Task<IActionResult> CreateCompany([FromBody] CreateCompanyCommand  companyCommand)
     {
         await _mediator.Send(companyCommand);
-        return Ok();
+        return Created();
     }
 
     [HttpPut("{id}")]
@@ -52,6 +53,6 @@ public class CompanyController : ControllerBase
     public async Task<IActionResult> DeleteCompany(Guid id)
     {
         await _mediator.Send(new DeleteCompanyCommand{CompanyId = id});
-        return Ok();
+        return NoContent();
     }
 }

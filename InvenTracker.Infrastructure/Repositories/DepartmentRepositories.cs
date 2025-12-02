@@ -15,7 +15,7 @@ public class DepartmentRepositories : IDepartmentRepositories
 
     public async Task<IEnumerable<Department>> GetDepartments()=> await _dbContext.Departments
         .Include(x=>x.Address)
-        .Include(x=>x.Wardrobes.Count)
+        .Include(x=>x.Wardrobes)
         .ToListAsync();
 
     public async Task<Department> GetDepartment(Guid id)
@@ -30,7 +30,7 @@ public class DepartmentRepositories : IDepartmentRepositories
         return departmetDetails;
     }
     
-    public async Task CreateCompany(Department department)
+    public async Task CreateDepartment(Department department)
     {
         await _dbContext.Departments.AddAsync(department);
         await _dbContext.SaveChangesAsync();

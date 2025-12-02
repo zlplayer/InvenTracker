@@ -1,10 +1,8 @@
 ﻿namespace InvenTracker.Application.Dtos;
 
-public class GetDepartmentDto
+public class CreateDepartmentDto
 {
-    public Guid Id { get; set; }
     public string Name { get; set; } 
     public string Description { get; set; }
     public GetAddressDepartmentDto AddressDepartment { get; set; }
-    public IEnumerable<GetWardrobeDto> Wardrobe { get; set; } =  new List<GetWardrobeDto>();
 }
