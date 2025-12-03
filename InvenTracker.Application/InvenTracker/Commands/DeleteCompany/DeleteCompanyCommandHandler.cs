@@ -6,12 +6,10 @@ namespace InvenTracker.Application.InvenTracker.Commands.DeleteCompany;
 
 public class DeleteCompanyCommandHandler:IRequestHandler<DeleteCompanyCommand>
 {
-    private readonly IMapper _mapper;
     private readonly ICompanyRepositories _companyRepositories;
 
     public DeleteCompanyCommandHandler(IMapper mapper, ICompanyRepositories companyRepositories)
     {
-        _mapper=mapper;
         _companyRepositories=companyRepositories;
     }
     

@@ -6,12 +6,10 @@ namespace InvenTracker.Application.InvenTracker.Commands.DeleteDepartaments;
 
 public class DeleteDepartmentCommandHandler:IRequestHandler<DeleteDepartmentCommand>
 {
-    private readonly IMapper _mapper;
     private readonly IDepartmentRepositories _departmentRepositories;
     
     public DeleteDepartmentCommandHandler(IMapper mapper, IDepartmentRepositories departmentRepositories)
     {
-        _mapper = mapper;
         _departmentRepositories=  departmentRepositories;
     }
 

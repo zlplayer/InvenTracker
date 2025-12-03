@@ -42,5 +42,10 @@ public class InvenTrackerMappingProfile: Profile
         CreateMap<AddressDepartment, GetAddressDepartmentDto>().ReverseMap();
         
         CreateMap<Wardrobe,  GetWardrobeDto>().ReverseMap();
-    }
+        
+        CreateMap<Wardrobe, GetDetailsWardrobeDto>()
+            .ForMember(dest=>dest.Drawers, opt => opt.MapFrom(src => src.Drawers));
+
+        CreateMap<Drawer, GetDrawerDto>().ReverseMap();
+    }   
 }
