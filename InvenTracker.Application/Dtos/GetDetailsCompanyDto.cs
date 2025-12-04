@@ -6,4 +6,6 @@ public class GetDetailsCompanyDto
     public string Name { get; set; }
     public GetAddressCompanyDto? AddressCompany { get; set; }
     public  IEnumerable<GetDepartmentDto?> Departments { get; set; } = new List<GetDepartmentDto>();
+    public IEnumerable<GetWardrobeDto> Wardrobe { get; set; } = new List<GetWardrobeDto>();
+
 }

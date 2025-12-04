@@ -7,7 +7,7 @@ Accept: application/json
 GET {{api}}/api/Company/
 Accept: application/json
 ###
-GET {{api}}/api/Company/53d7c4f2-8e80-4712-a0ce-207163cc88da
+GET {{api}}/api/Company/30933806-3C8A-4199-2649-08DE31E1D5B4
 Accept: application/json
 ###
 POST {{api}}/api/Company
@@ -46,7 +46,7 @@ GET {{api}}/api/Department/
 Accept: application/json
 
 ###
-GET {{api}}/api/Department/A8F4C77F-E718-4147-BD6E-FCF677A27788
+GET {{api}}/api/Department/ADCA22F8-0AE1-439C-D972-08DE31E59924
 Accept: application/json
 
 ###
@@ -91,3 +91,50 @@ Accept: application/json
 ###
 GET {{api}}/api/Wardrobe/72a841c2-d44a-429d-9fc3-d943850e11f2
 Accept: application/json
+
+###
+POST {{api}}/api/Wardrobe/company/30933806-3C8A-4199-2649-08DE31E1D5B4/department/ADCA22F8-0AE1-439C-D972-08DE31E59924
+Content-Type: application/json
+
+{
+  "Name": "Testowa szafa",
+  "Model": "Test",
+  "SerialNumber": "321D321",
+  "SoftwareVersion": "321"
+}
+
+###
+POST {{api}}/api/Wardrobe/company/30933806-3C8A-4199-2649-08DE31E1D5B4
+Content-Type: application/json
+
+{
+  "Name": "Testowa szafa dla Firmy",
+  "Model": "Test",
+  "SerialNumber": "321D321",
+  "SoftwareVersion": "321"
+}
+
+###
+POST {{api}}/api/Wardrobe/department/ADCA22F8-0AE1-439C-D972-08DE31E59924
+Content-Type: application/json
+
+{
+  "Name": "Testowa szafa dla oddziału",
+  "Model": "Test",
+  "SerialNumber": "321D321",
+  "SoftwareVersion": "321"
+}
+
+###
+PUT {{api}}/api/Wardrobe/A041EB4F-0D6A-436A-1EC4-08DE3374EF5C
+Content-Type: application/json
+
+{
+  "Name": "Testowa szafa",
+  "Model": "Test",
+  "SerialNumber": "321D321",
+  "SoftwareVersion": "321"
+}
+
+###
+DELETE {{api}}/api/Wardrobe/BAE154BC-7CA8-4379-C5F9-08DE3378D21F

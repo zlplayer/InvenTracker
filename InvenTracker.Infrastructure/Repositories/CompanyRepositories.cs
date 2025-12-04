@@ -24,6 +24,7 @@ public class CompanyRepositories:  ICompanyRepositories
         var companyDetails= await _dbContext.Companies
             .Include(x=>x.Departments).ThenInclude(x=>x.Address)
             .Include(x=>x.Address)
+            .Include(x=>x.Wardrobes)
             .FirstOrDefaultAsync(x=>x.Id == id);
         
         if(companyDetails is null) throw new KeyNotFoundException($"Company with id {id} not found");
