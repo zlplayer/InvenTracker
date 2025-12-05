@@ -138,3 +138,40 @@ Content-Type: application/json
 
 ###
 DELETE {{api}}/api/Wardrobe/BAE154BC-7CA8-4379-C5F9-08DE3378D21F
+
+###
+GET {{api}}/api/Drawer/Wardrobe/A041EB4F-0D6A-436A-1EC4-08DE3374EF5C
+Accept: application/json
+
+###
+GET {{api}}/api/Drawer/A1576BC2-E2A7-47FE-A4E8-08DE345963B7
+Accept: application/json
+
+### 
+POST {{api}}/api/Drawer/A041EB4F-0D6A-436A-1EC4-08DE3374EF5C
+Content-Type: application/json
+
+{
+  "Name": "A01",
+  "x": 1,
+  "Y": 1,
+  "Z": 10,
+  "Width": 20,
+  "Height": 30
+}
+
+### 
+PUT {{api}}/api/Drawer/A1576BC2-E2A7-47FE-A4E8-08DE345963B7
+Content-Type: application/json
+
+{
+  "Name": "Szuflada - A01",
+  "x": 0,
+  "Y": 0,
+  "Z": 10,
+  "Width": 30,
+  "Height": 30
+}
+
+###
+DELETE {{api}}/api/Drawer/A1576BC2-E2A7-47FE-A4E8-08DE345963B7

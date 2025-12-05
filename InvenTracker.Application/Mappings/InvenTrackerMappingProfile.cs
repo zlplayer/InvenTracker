@@ -2,8 +2,10 @@
 using AutoMapper;
 using InvenTracker.Application.Dtos;
 using InvenTracker.Application.InvenTracker.Commands.CreateDepartaments;
+using InvenTracker.Application.InvenTracker.Commands.CreateDrawers;
 using InvenTracker.Application.InvenTracker.Commands.CreateWardrobe;
 using InvenTracker.Application.InvenTracker.Commands.UpdateDepartaments;
+using InvenTracker.Application.InvenTracker.Commands.UpdateDrawers;
 using InvenTracker.Domain.Entities;
 
 namespace InvenTracker.Application.Mappings;
@@ -54,6 +56,16 @@ public class InvenTrackerMappingProfile: Profile
 
         CreateMap<UpdateWardrobeDto, Wardrobe>();
         
-        CreateMap<Drawer, GetDrawerDto>().ReverseMap();
+        CreateMap<Drawer, GetDrawerDto>();
+        
+        CreateMap<Drawer, GetDetailsDrawerDto>()
+            .ForMember(dest=>dest.Items, opt=>opt.MapFrom(src=>src.Items));
+       
+        CreateMap<CreateDrawerCommand, Drawer>()
+            .ForMember(dest => dest.WardrobeId, opt => opt.MapFrom(src => src.WardrobeId));
+
+        CreateMap<UpdateDrawerCommand, Drawer>();
+        
+        CreateMap<Item, GetItemDto>().ReverseMap();
     }   
 }

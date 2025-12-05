@@ -4,9 +4,10 @@ namespace InvenTracker.Domain.Interfaces;
 
 public interface IDrawerRepositories
 {
-    Task<IEnumerable<Drawer>> GetWardrobes();
-    Task<Drawer?> GetWardrobe(Guid drawerId);
+    Task<IEnumerable<Drawer>> GetDrawers();
+    Task<Drawer?> GetDrawer(Guid drawerId);
     Task CreateDrawer(Drawer drawer);
     Task UpdateDrawer(Drawer drawer);
     Task DeleteDrawer(Drawer drawer);
+    Task<IEnumerable<Drawer>> GetDrawersByWardrobeId(Guid wardrobeId);
 }
