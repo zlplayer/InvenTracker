@@ -175,3 +175,35 @@ Content-Type: application/json
 
 ###
 DELETE {{api}}/api/Drawer/A1576BC2-E2A7-47FE-A4E8-08DE345963B7
+
+### Item
+
+GET {{api}}/api/Item
+Accept: application/json
+
+### 
+POST {{api}}/api/Item/FB02B11D-4304-46A1-A4E9-08DE345963B7
+Content-Type: application/json
+
+{
+  "Name":"Testowy przedmiot",
+  "Description": "Testowy opis",
+  "Status": "Dostępny",
+  "Quantity": 10,
+  "Partition": 2
+}
+
+### 
+PUT {{api}}/api/Item/cfd84807-1f08-4ebe-e8b2-08de35007339
+Content-Type: application/json
+
+{
+  "Name":"Testowy przedmiot aktualizacja",
+  "Description": "Testowy opis aktualizacja",
+  "Status": "Dostępny",
+  "Quantity": 10,
+  "Partition": 2
+}
+
+###
+DELETE {{api}}/api/Item/cfd84807-1f08-4ebe-e8b2-08de35007339
