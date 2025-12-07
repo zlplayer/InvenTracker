@@ -21,9 +21,34 @@ public class InvenTrackerSeeder
                 _dbContext.Companies.AddRange(companies);
                 _dbContext.SaveChanges();
             }
+
+            if (!_dbContext.Roles.Any())
+            {
+                var roles = GetRoles();
+                _dbContext.Roles.AddRange(roles);
+                _dbContext.SaveChanges();
+            }
         }
     }
 
+
+    private IEnumerable<Role> GetRoles()
+    {
+        return new List<Role>()
+        {
+            new Role
+            {
+                Id = Guid.NewGuid(),
+                Name = "Admin",
+            },
+            new Role
+            {
+                Id = Guid.NewGuid(),
+                Name = "User",
+            }
+        };
+    }
+    
     private IEnumerable<Company> GetCompanies()
     {
         var companies = new List<Company>();

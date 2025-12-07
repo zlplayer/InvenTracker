@@ -12,6 +12,8 @@ public class InvenTrackerDbContext : DbContext
     public DbSet<Wardrobe>  Wardrobes { get; set; }
     public DbSet<AddressCompany>  AddressCompanies { get; set; }
     public DbSet<AddressDepartment>  AddressDepartments { get; set; }
+    public DbSet<User>  Users { get; set; }
+    public DbSet<Role>  Roles { get; set; }
 
     public InvenTrackerDbContext(DbContextOptions<InvenTrackerDbContext> options) : base(options)
     {
@@ -50,5 +52,13 @@ public class InvenTrackerDbContext : DbContext
             .WithMany(x => x.Wardrobes)
             .HasForeignKey(x => x.DepartmentId)
             .OnDelete(DeleteBehavior.NoAction);
+
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasIndex(e=>e.Email).IsUnique();
+            entity.Property(e => e.Username).IsRequired();
+        });
+
     }
 }
