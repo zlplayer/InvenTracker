@@ -5,6 +5,8 @@ using InvenTracker.Application.InvenTracker.Commands.CreateDepartaments;
 using InvenTracker.Application.InvenTracker.Commands.CreateDrawers;
 using InvenTracker.Application.InvenTracker.Commands.CreateItem;
 using InvenTracker.Application.InvenTracker.Commands.CreateWardrobe;
+using InvenTracker.Application.InvenTracker.Commands.LoginCommand;
+using InvenTracker.Application.InvenTracker.Commands.RegisterCommand;
 using InvenTracker.Application.InvenTracker.Commands.UpdateDepartaments;
 using InvenTracker.Application.InvenTracker.Commands.UpdateDrawers;
 using InvenTracker.Domain.Entities;
@@ -73,5 +75,14 @@ public class InvenTrackerMappingProfile: Profile
             .ForMember(dest=>dest.DrawerId,opt=>opt.MapFrom(src=>src.DrawerId));
         
         CreateMap<UpdateItemDto, Item>().ReverseMap();
+        
+        CreateMap<User, UserDto>()
+            .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.Name)).ReverseMap();
+        CreateMap<RegisterDto, RegisterCommand>();
+        CreateMap<LoginDto, LoginCommand>();
+
+        CreateMap<RegisterCommand, User>()
+            .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
+
     }   
 }

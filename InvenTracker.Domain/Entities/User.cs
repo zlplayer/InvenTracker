@@ -10,7 +10,7 @@ public class User
     public string LastName { get; set; }
     public string Username { get; set; }
     public string PasswordHash { get; set; }
-    
-    public Guid RoleId { get; set; }
+
+    public Guid RoleId { get; set; } = Guid.Parse("22222222-2222-2222-2222-222222222222");
     public Role Role { get; set; }
 }

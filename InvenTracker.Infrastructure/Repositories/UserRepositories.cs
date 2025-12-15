@@ -21,10 +21,18 @@ public class UserRepositories : IUserRepositories
     
     public async Task<User?> GetUser(Guid id)
     {
-        var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
+        var user = await _dbContext.Users.Include(x=>x.Role).FirstOrDefaultAsync(x => x.Id == id);
         return user;
     }
-
+        
+    public async Task<User?> GetUserByUsername(string username)
+    {
+        var user = await _dbContext.Users
+            .Include(x => x.Role)
+            .FirstOrDefaultAsync(x => x.Username == username);
+        return user;
+    }
+    
     public async Task<User?> GetUserByEmail(string email)
     {
         var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Email == email);

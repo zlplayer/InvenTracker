@@ -207,3 +207,38 @@ Content-Type: application/json
 
 ###
 DELETE {{api}}/api/Item/cfd84807-1f08-4ebe-e8b2-08de35007339
+
+
+### Auth
+
+POST {{api}}/api/Auth/register
+Content-Type: application/json
+
+{
+  "Email": "admin@gmail.com",
+  "Username": "admin",
+  "Password": "Admin123",
+  "FirstName": "Jan",
+  "LastName": "Kowalski"
+}
+
+###
+POST {{api}}/api/Auth/login
+Content-Type: application/json
+
+{
+  "Username": "admin",
+  "Password": "Admin123"
+}
+
+### User
+
+GET {{api}}/api/User/3f788849-5e59-4690-c7de-08de3c1c6174
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjNmNzg4ODQ5LTVlNTktNDY5MC1jN2RlLTA4ZGUzYzFjNjE3NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhZG1pbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWluQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3NjU4Mzk1MzksImlzcyI6IkludmVuVHJhY2tlciIsImF1ZCI6IkludmVuVHJhY2tlclVzZXJzIn0.46NedftGnYs4_eGDB8lLCykmGXf5DZFnO6s0b61TMRQ
+
+###
+
+GET {{api}}/api/User/me
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjNmNzg4ODQ5LTVlNTktNDY5MC1jN2RlLTA4ZGUzYzFjNjE3NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhZG1pbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWluQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3NjU4Mzk1MzksImlzcyI6IkludmVuVHJhY2tlciIsImF1ZCI6IkludmVuVHJhY2tlclVzZXJzIn0.46NedftGnYs4_eGDB8lLCykmGXf5DZFnO6s0b61TMRQ
