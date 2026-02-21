@@ -1,8 +1,12 @@
 ﻿using System.Text;
+using FluentValidation;
 using InvenTracker.Application.Auth;
+using InvenTracker.Application.Behaviors;
 using InvenTracker.Application.InvenTracker.Commands.CreateCompany;
+using InvenTracker.Application.InvenTracker.Commands.RegisterCommand;
 using InvenTracker.Application.Iterfaces;
 using InvenTracker.Application.Mappings;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -16,9 +20,13 @@ public static class ServiceCollectionExtension
     public static void AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddAutoMapper(cfg => cfg.AddProfile<InvenTrackerMappingProfile>());
+
         services.AddMediatR(cfg =>
               cfg.RegisterServicesFromAssemblyContaining<CreateCompanyCommand>()
           );
+
+        services.AddValidatorsFromAssemblyContaining<RegisterCommandValidator>();
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         services.AddScoped<IJwtAuth, JwtAuth>();
 

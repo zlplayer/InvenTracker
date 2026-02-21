@@ -140,11 +140,11 @@ Content-Type: application/json
 DELETE {{api}}/api/Wardrobe/BAE154BC-7CA8-4379-C5F9-08DE3378D21F
 
 ###
-GET {{api}}/api/Drawer/Wardrobe/A041EB4F-0D6A-436A-1EC4-08DE3374EF5C
+GET {{api}}/api/Drawer/Wardrobe/FB02B11D-4304-46A1-A4E9-08DE345963B7
 Accept: application/json
 
 ###
-GET {{api}}/api/Drawer/A1576BC2-E2A7-47FE-A4E8-08DE345963B7
+GET {{api}}/api/Drawer/FB02B11D-4304-46A1-A4E9-08DE345963B7
 Accept: application/json
 
 ### 
@@ -152,12 +152,13 @@ POST {{api}}/api/Drawer/A041EB4F-0D6A-436A-1EC4-08DE3374EF5C
 Content-Type: application/json
 
 {
-  "Name": "A01",
-  "x": 1,
+  "Name": "H01",
+  "X": 1,
   "Y": 1,
   "Z": 10,
   "Width": 20,
-  "Height": 30
+  "Height": 30,
+  "TotalPartitions": 10
 }
 
 ### 
@@ -175,6 +176,20 @@ Content-Type: application/json
 
 ###
 DELETE {{api}}/api/Drawer/A1576BC2-E2A7-47FE-A4E8-08DE345963B7
+
+### Divide Drawer (podziel szufladę na mniejszą)
+POST {{api}}/api/Drawer/1831D39C-4D08-4094-79EC-08DE7142BA2B/divide
+Content-Type: application/json
+
+{
+  "Name": "H01-1",
+  "X": 1,
+  "Y": 1,
+  "Z": 10,
+  "Width": 10,
+  "Height": 20,
+  "TotalPartitions": 3
+}
 
 ### Item
 
@@ -215,9 +230,10 @@ POST {{api}}/api/Auth/register
 Content-Type: application/json
 
 {
-  "Email": "admin@gmail.com",
-  "Username": "admin",
+  "Email": "bekaxdds@gmail.com",
+  "Username": "aasa",
   "Password": "Admin123",
+  "ConfirmPassword": "CWL",
   "FirstName": "Jan",
   "LastName": "Kowalski"
 }

@@ -6,11 +6,11 @@ using MediatR;
 
 namespace InvenTracker.Application.InvenTracker.Commands.RegisterCommand;
 
-public class RegisterCommandHandler: IRequestHandler<RegisterCommand>
+public class RegisterCommandHandler: IRequestHandler<RegisterCommand, Unit>
 {
     private readonly IUserRepositories _userRepository;
     private readonly IMapper _mapper;
-    
+
     public RegisterCommandHandler(IUserRepositories userRepository, IMapper mapper)
     {
         _userRepository = userRepository;
@@ -18,24 +18,13 @@ public class RegisterCommandHandler: IRequestHandler<RegisterCommand>
     }
 
 
-    public async Task Handle(RegisterCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        var existingUser = await _userRepository.GetUserByEmail(request.Email);
-        if (existingUser != null)
-        {
-            throw new Exception("Użytkownik z takim emailem już istnieje");
-        }
-
-        var existingUsername = await _userRepository.GetUserByUsername(request.Username);
-        if (existingUsername != null)
-        {
-            throw new Exception("Użytkownik z taką nazwą już istnieje");
-        }
-        
         request.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
-        
+
         var user = _mapper.Map<User>(request);
-        
-        await _userRepository.CreateUser(user); 
+        await _userRepository.CreateUser(user);
+
+        return Unit.Value;
     }
 }

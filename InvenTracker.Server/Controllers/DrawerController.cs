@@ -1,4 +1,5 @@
 ﻿using InvenTracker.Application.Dtos;
+using InvenTracker.Application.InvenTracker.Commands.CreateDivideDrawer;
 using InvenTracker.Application.InvenTracker.Commands.CreateDrawers;
 using InvenTracker.Application.InvenTracker.Commands.DeleteDrawers;
 using InvenTracker.Application.InvenTracker.Commands.UpdateDrawers;
@@ -54,5 +55,13 @@ public class DrawerController:ControllerBase
     {
         await _mediator.Send(new DeleteDrawerCommand { DrawerId = drawerId });
         return NoContent();
+    }
+
+    [HttpPost("{drawerId}/divide")]
+    public async Task<IActionResult> CreateDivideDrawer(Guid drawerId, [FromBody] CreateDivideDrawerCommand createDivideDrawerCommand)
+    {
+        createDivideDrawerCommand.DrawerId = drawerId;
+        await _mediator.Send(createDivideDrawerCommand);
+        return Created();
     }
 }

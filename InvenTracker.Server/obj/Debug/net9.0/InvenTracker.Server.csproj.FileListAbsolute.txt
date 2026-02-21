@@ -177,3 +177,5 @@ C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\Me
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\MediatR.Contracts.dll
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\BCrypt.Net-Next.dll
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\FluentValidation.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\FluentValidation.DependencyInjectionExtensions.dll

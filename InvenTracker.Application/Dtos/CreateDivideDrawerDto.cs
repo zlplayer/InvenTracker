@@ -1,6 +1,6 @@
 ﻿namespace InvenTracker.Application.Dtos;
 
-public class CreateDrawerDto
+public class CreateDivideDrawerDto
 {
     public string Name { get; set; }
     public int X { get; set; }

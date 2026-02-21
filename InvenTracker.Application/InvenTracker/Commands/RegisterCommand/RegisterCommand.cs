@@ -3,7 +3,7 @@ using MediatR;
 
 namespace InvenTracker.Application.InvenTracker.Commands.RegisterCommand;
 
-public class RegisterCommand: RegisterDto, IRequest
+public class RegisterCommand: RegisterDto, IRequest<Unit>
 {
 
 }
