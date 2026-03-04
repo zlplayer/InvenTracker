@@ -14,6 +14,8 @@ public class InvenTrackerDbContext : DbContext
     public DbSet<AddressDepartment>  AddressDepartments { get; set; }
     public DbSet<User>  Users { get; set; }
     public DbSet<Role>  Roles { get; set; }
+    public DbSet<Partition>  Partitions { get; set; }
+    public DbSet<ItemPartition>  ItemPartitions { get; set; }
 
     public InvenTrackerDbContext(DbContextOptions<InvenTrackerDbContext> options) : base(options)
     {

@@ -20,6 +20,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<IDrawerRepositories, DrawerRepositories>();
         services.AddScoped<IItemRepositories, ItemRepositories>();
         services.AddScoped<IUserRepositories, UserRepositories>();
+        services.AddScoped<IPartitionRepositories, PartitionRepositories>();
+        services.AddScoped<IItemPartitionRepositories, ItemPartitionRepositories>();
 
         services.AddScoped<InvenTrackerSeeder>();
     }

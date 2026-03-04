@@ -6,5 +6,4 @@ public class UpdateItemDto
     public string Description { get; set; }
     public string Status { get; set; }
     public int Quantity { get; set; }
-    public int Partition { get; set; }
 }

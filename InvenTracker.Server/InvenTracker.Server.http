@@ -140,44 +140,79 @@ Content-Type: application/json
 DELETE {{api}}/api/Wardrobe/BAE154BC-7CA8-4379-C5F9-08DE3378D21F
 
 ###
-GET {{api}}/api/Drawer/Wardrobe/FB02B11D-4304-46A1-A4E9-08DE345963B7
+GET {{api}}/api/Drawer/Wardrobe/7FEC04B6-B96B-41FD-8073-7D297BF64D3B
 Accept: application/json
 
 ###
-GET {{api}}/api/Drawer/FB02B11D-4304-46A1-A4E9-08DE345963B7
+GET {{api}}/api/Drawer/BF672872-2873-4169-96AB-29E3F0D563F5
 Accept: application/json
 
 ### 
-POST {{api}}/api/Drawer/A041EB4F-0D6A-436A-1EC4-08DE3374EF5C
+POST {{api}}/api/Drawer/FEB3A4FB-7A9E-4B50-A489-F96A858D678E
 Content-Type: application/json
 
 {
-  "Name": "H01",
-  "X": 1,
-  "Y": 1,
-  "Z": 10,
-  "Width": 20,
-  "Height": 30,
-  "TotalPartitions": 10
+  "Name": "Test",
+  "X": 5,
+  "Y": 5,
+  "WidthDrawer": 20,
+  "HeightDrawer": 30,
+  "TotalPartitions": 5,
+  "WidthPartition": 15,
+  "HeightPartition": 25
 }
 
 ### 
-PUT {{api}}/api/Drawer/A1576BC2-E2A7-47FE-A4E8-08DE345963B7
+PUT {{api}}/api/Drawer/86805389-6F2D-44F7-C36E-08DE788CD732
 Content-Type: application/json
 
 {
-  "Name": "Szuflada - A01",
-  "x": 0,
-  "Y": 0,
-  "Z": 10,
-  "Width": 30,
-  "Height": 30
+  "Name": "Szuflada - testowa",
+  "x": 10,
+  "Y": 10,
+  "WidthDrawer": 10,
+  "HeightDrawer": 10,
+  "TotalPartitions": 1
 }
 
 ###
-DELETE {{api}}/api/Drawer/A1576BC2-E2A7-47FE-A4E8-08DE345963B7
+DELETE {{api}}/api/Drawer/8CC08A9A-C497-458C-BD34-08DE78975890
 
-### Divide Drawer (podziel szufladę na mniejszą)
+### Partition to są przegrody
+GET {{api}}/api/Partition/Drawer/86214B07-0589-496C-BCB2-3075E1AD503B
+Accept: application/json
+
+###
+GET {{api}}/api/Partition/6b85c6bf-9858-4f99-9fca-2962275d58f8
+Accept: application/json
+
+###
+POST {{api}}/api/Partition
+Content-Type: application/json
+
+{
+  "Z": 5,
+  "HeightPartition": 25,
+  "WidthPartition": 35,
+  "LengthPartition": 25,
+  "DrawerId": "86214B07-0589-496C-BCB2-3075E1AD503B"
+}
+
+###
+PUT {{api}}/api/Partition/53F183C1-B772-4E2C-AAA9-08DE78A2EE14
+Content-Type: application/json
+
+{
+  "Z": 4,
+  "HeightPartition": 20,
+  "WidthPartition": 30,
+  "LengthPartition": 25
+}
+
+###
+DELETE {{api}}/api/Partition/53F183C1-B772-4E2C-AAA9-08DE78A2EE14
+
+### Divide Drawer (podziel szufladę na mniejszą) to nie działa XD
 POST {{api}}/api/Drawer/1831D39C-4D08-4094-79EC-08DE7142BA2B/divide
 Content-Type: application/json
 
@@ -196,32 +231,58 @@ Content-Type: application/json
 GET {{api}}/api/Item
 Accept: application/json
 
+###
+GET {{api}}/api/Item/2DBCA734-9A04-450D-B720-0E29A6F3AFDC
+Accept: application/json
+
 ### 
-POST {{api}}/api/Item/FB02B11D-4304-46A1-A4E9-08DE345963B7
+POST {{api}}/api/Item/
 Content-Type: application/json
 
 {
   "Name":"Testowy przedmiot",
   "Description": "Testowy opis",
-  "Status": "Dostępny",
-  "Quantity": 10,
-  "Partition": 2
+  "Status": "Dostępny"
 }
 
 ### 
-PUT {{api}}/api/Item/cfd84807-1f08-4ebe-e8b2-08de35007339
+PUT {{api}}/api/Item/254ead76-fe8d-4612-fb55-08de79711327
 Content-Type: application/json
 
 {
   "Name":"Testowy przedmiot aktualizacja",
   "Description": "Testowy opis aktualizacja",
-  "Status": "Dostępny",
-  "Quantity": 10,
-  "Partition": 2
+  "Status": "Dostępny"
 }
 
 ###
-DELETE {{api}}/api/Item/cfd84807-1f08-4ebe-e8b2-08de35007339
+DELETE {{api}}/api/Item/254ead76-fe8d-4612-fb55-08de79711327
+
+
+### ItemPartition
+POST {{api}}/api/ItemPartition
+Content-Type: application/json
+
+{
+  "ItemId": "9B6D40D9-2098-444E-940C-08DE797A72A5",
+  "PartitionId": "3A6D667B-6F30-4702-50E8-08DE797A72A3",
+  "QuantityItem": 10
+}
+
+
+###
+PUT {{api}}/api/ItemPartition/40BCB8E4-DA39-43C1-2B95-08DE797B6832
+Content-Type: application/json
+
+{
+  "ItemId": "656CF39D-6A97-46A7-9202-36E078E0A8A5",
+  "PartitionId": "09CCD5B3-364F-404E-14DD-08DE797B7BBB",
+  "QuantityItem": 9
+}
+
+###
+DELETE {{api}}/api/ItemPartition/40BCB8E4-DA39-43C1-2B95-08DE797B6832
+Content-Type: application/json
 
 
 ### Auth

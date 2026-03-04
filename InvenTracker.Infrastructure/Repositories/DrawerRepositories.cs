@@ -14,9 +14,9 @@ public class DrawerRepositories:IDrawerRepositories
 
     public async Task<IEnumerable<Drawer>> GetDrawers() => await _dbContext.Drawers.ToListAsync();
     
-    public async Task<IEnumerable<Drawer>> GetDrawersByWardrobeId(Guid  wardrobeId) => await _dbContext.Drawers.Where(x => x.WardrobeId == wardrobeId).Include(x=>x.Items).ToListAsync();
-    
-    public async Task<Drawer?> GetDrawer(Guid drawerId) =>await _dbContext.Drawers.Include(x=>x.Items).FirstOrDefaultAsync(x=>x.Id == drawerId);
+    public async Task<IEnumerable<Drawer>> GetDrawersByWardrobeId(Guid  wardrobeId) => await _dbContext.Drawers.Where(x => x.WardrobeId == wardrobeId).Include(x=>x.Partitions.OrderBy(p=>p.Z)).ToListAsync();
+
+    public async Task<Drawer?> GetDrawer(Guid drawerId) =>await _dbContext.Drawers.Include(x=>x.Partitions.OrderBy(p=>p.Z)).ThenInclude(x=>x.ItemPartitions).ThenInclude(x=>x.Item).FirstOrDefaultAsync(x=>x.Id == drawerId);
     
     public async Task CreateDrawer(Drawer drawer)
     {

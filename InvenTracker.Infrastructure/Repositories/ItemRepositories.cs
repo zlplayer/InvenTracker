@@ -14,7 +14,7 @@ public class ItemRepositories:IItemRepositories
 
     public async Task<IEnumerable<Item>> GetItems() => await _dbContext.Items.ToListAsync();
     
-    public async Task<Item?> GetItem(Guid itemId) => await _dbContext.Items.FirstOrDefaultAsync(x=>x.Id == itemId);
+    public async Task<Item?> GetItem(Guid itemId) => await _dbContext.Items.Include(x=>x.ItemPartitions).ThenInclude(x=>x.Partition).FirstOrDefaultAsync(x=>x.Id == itemId);
     
     public async Task CreateItem(Item item)
     {

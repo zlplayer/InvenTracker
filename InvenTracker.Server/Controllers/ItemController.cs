@@ -2,6 +2,7 @@
 using InvenTracker.Application.InvenTracker.Commands.DeleteItems;
 using InvenTracker.Application.InvenTracker.Commands.UpdateItem;
 using InvenTracker.Application.InvenTracker.Queries.GetAllItems;
+using InvenTracker.Application.InvenTracker.Queries.GetItem;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,11 +25,17 @@ public class ItemController:ControllerBase
         var item = await _mediator.Send(new GetAllItemsQuery());
         return Ok(item);
     }
-
-    [HttpPost("{drawerId}")]
-    public async Task<IActionResult> CreateItem(Guid drawerId, [FromBody] CreateItemCommand itemCommand)
+    
+    [HttpGet("{itemId}")]
+    public async Task<IActionResult> GetItemById(Guid itemId)
     {
-        itemCommand.DrawerId=drawerId;
+        var item = await _mediator.Send(new GetItemQuery{ ItemId = itemId });
+        return Ok(item);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateItem(Guid partitionId, [FromBody] CreateItemCommand itemCommand)
+    {
         await _mediator.Send(itemCommand);
         return Created();
     }

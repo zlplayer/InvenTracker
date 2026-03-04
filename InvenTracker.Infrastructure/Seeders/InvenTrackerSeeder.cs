@@ -1,11 +1,11 @@
-﻿using InvenTracker.Domain.Entities;
+using InvenTracker.Domain.Entities;
 
 namespace InvenTracker.Infrastructure.Seeders;
 
 public class InvenTrackerSeeder
 {
     private readonly InvenTrackerDbContext _dbContext;
-    
+
     public InvenTrackerSeeder(InvenTrackerDbContext dbContext)
     {
         _dbContext = dbContext;
@@ -48,7 +48,7 @@ public class InvenTrackerSeeder
             }
         };
     }
-    
+
     private IEnumerable<Company> GetCompanies()
     {
         var companies = new List<Company>();
@@ -127,72 +127,110 @@ public class InvenTrackerSeeder
             Drawers = new List<Drawer>()
         };
 
-        // Szuflady dla szafy A1
+        // Szuflada 1-1
         var drawer1 = new Drawer
         {
             Id = Guid.NewGuid(),
             Name = "Szuflada 1-1",
             X = 0,
             Y = 0,
-            Z = 0,
-            Width = 50,
-            Height = 20,
+            WidthDrawer = 50,
+            HeightDrawer = 20,
+            LengthDrawer = 100,
+            TotalPartitions = 2,
             WardrobeId = wardrobe1.Id,
-            Items = new List<Item>
+        };
+
+        var partition1 = new Partition
+        {
+            Id = Guid.NewGuid(),
+            Z = 1,
+            HeightPartition = 100,
+            WidthPartition = 100,
+            LengthPartition = 10,
+            DrawerId = drawer1.Id,
+            ItemPartitions = new List<ItemPartition>
             {
-                new Item
+                new ItemPartition
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Kabel HDMI 2m",
-                    Description = "Kabel HDMI 2.0 do monitorów",
-                    Status = "Dostępny",
-                    Quantity = 15,
-                    Partition = 1
-                },
-                new Item
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Mysz bezprzewodowa Logitech",
-                    Description = "Mysz optyczna Logitech M185",
-                    Status = "Dostępny",
-                    Quantity = 8,
-                    Partition = 2
+                    Item = new Item
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Kabel HDMI 2m",
+                        Description = "Kabel HDMI 2.0 do monitorów",
+                        Status = "Dostępny",
+                    }
                 }
             }
         };
 
+        drawer1.Partitions.Add(partition1);
+
+        // Szuflada 1-2
         var drawer2 = new Drawer
         {
             Id = Guid.NewGuid(),
             Name = "Szuflada 1-2",
             X = 0,
             Y = 1,
-            Z = 0,
-            Width = 50,
-            Height = 20,
+            WidthDrawer = 50,
+            HeightDrawer = 20,
+            LengthDrawer = 100,
+            TotalPartitions = 2,
             WardrobeId = wardrobe1.Id,
-            Items = new List<Item>
+        };
+
+        var partition2 = new Partition
+        {
+            Id = Guid.NewGuid(),
+            Z = 1,
+            HeightPartition = 100,
+            WidthPartition = 50,
+            LengthPartition = 100,
+            DrawerId = drawer2.Id,
+            ItemPartitions = new List<ItemPartition>
             {
-                new Item
+                new ItemPartition
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Klawiatura USB",
-                    Description = "Klawiatura membranowa Dell KB216",
-                    Status = "Dostępny",
-                    Quantity = 12,
-                    Partition = 1
-                },
-                new Item
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Zasilacz uniwersalny",
-                    Description = "Zasilacz 65W USB-C",
-                    Status = "Niski stan",
-                    Quantity = 3,
-                    Partition = 2
+                    Item = new Item
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Klawiatura USB",
+                        Description = "Klawiatura membranowa Dell KB216",
+                        Status = "Dostępny",
+                    }
                 }
             }
         };
+
+        var partition3 = new Partition
+        {
+            Id = Guid.NewGuid(),
+            Z = 2,
+            HeightPartition = 100,
+            WidthPartition = 50,
+            LengthPartition = 10,
+            DrawerId = drawer2.Id,
+            ItemPartitions = new List<ItemPartition>
+            {
+                new ItemPartition
+                {
+                    Id = Guid.NewGuid(),
+                    Item = new Item
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Zasilacz uniwersalny",
+                        Description = "Zasilacz 65W USB-C",
+                        Status = "Niski stan",
+                    }
+                }
+            }
+        };
+
+        drawer2.Partitions.Add(partition2);
+        drawer2.Partitions.Add(partition3);
 
         wardrobe1.Drawers.Add(drawer1);
         wardrobe1.Drawers.Add(drawer2);
@@ -216,33 +254,63 @@ public class InvenTrackerSeeder
             Name = "Szuflada D1-1",
             X = 0,
             Y = 0,
-            Z = 0,
-            Width = 60,
-            Height = 25,
+            WidthDrawer = 60,
+            HeightDrawer = 25,
+            LengthDrawer = 100,
+            TotalPartitions = 2,
             WardrobeId = wardrobe2.Id,
-            Items = new List<Item>
+        };
+
+        var partition4 = new Partition
+        {
+            Id = Guid.NewGuid(),
+            Z = 1,
+            HeightPartition = 100,
+            WidthPartition = 50,
+            LengthPartition = 10,
+            DrawerId = drawer3.Id,
+            ItemPartitions = new List<ItemPartition>
             {
-                new Item
+                new ItemPartition
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Raspberry Pi 4",
-                    Description = "Raspberry Pi 4 Model B 8GB RAM",
-                    Status = "Dostępny",
-                    Quantity = 5,
-                    Partition = 1
-                },
-                new Item
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Kabel Ethernet Cat6",
-                    Description = "Kabel sieciowy 3m",
-                    Status = "Dostępny",
-                    Quantity = 20,
-                    Partition = 2
+                    Item = new Item
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Raspberry Pi 4",
+                        Description = "Raspberry Pi 4 Model B 8GB RAM",
+                        Status = "Dostępny",
+                    }
                 }
             }
         };
 
+        var partition5 = new Partition
+        {
+            Id = Guid.NewGuid(),
+            Z = 2,
+            HeightPartition = 100,
+            WidthPartition = 50,
+            LengthPartition = 10,
+            DrawerId = drawer3.Id,
+            ItemPartitions = new List<ItemPartition>
+            {
+                new ItemPartition
+                {
+                    Id = Guid.NewGuid(),
+                    Item = new Item
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Kabel Ethernet Cat6",
+                        Description = "Kabel sieciowy 3m",
+                        Status = "Dostępny",
+                    }
+                }
+            }
+        };
+
+        drawer3.Partitions.Add(partition4);
+        drawer3.Partitions.Add(partition5);
         wardrobe2.Drawers.Add(drawer3);
 
         itSupportDept.Wardrobes.Add(wardrobe1);
@@ -330,32 +398,63 @@ public class InvenTrackerSeeder
             Name = "Szuflada E1-1",
             X = 0,
             Y = 0,
-            Z = 0,
-            Width = 40,
-            Height = 15,
+            WidthDrawer = 40,
+            HeightDrawer = 15,
+            LengthDrawer = 100,
+            TotalPartitions = 2,
             WardrobeId = wardrobe3.Id,
-            Items = new List<Item>
+        };
+
+        var partition6 = new Partition
+        {
+            Id = Guid.NewGuid(),
+            Z = 1,
+            HeightPartition = 100,
+            WidthPartition = 50,
+            LengthPartition = 10,
+            DrawerId = drawer4.Id,
+            ItemPartitions = new List<ItemPartition>
             {
-                new Item
+                new ItemPartition
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Rękawice medyczne L",
-                    Description = "Rękawice lateksowe rozmiar L",
-                    Status = "Dostępny",
-                    Quantity = 100,
-                    Partition = 1
-                },
-                new Item
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Maseczki chirurgiczne",
-                    Description = "Maseczki jednorazowe 3-warstwowe",
-                    Status = "Dostępny",
-                    Quantity = 200,
-                    Partition = 2
+                    Item = new Item
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Rękawice medyczne L",
+                        Description = "Rękawice lateksowe rozmiar L",
+                        Status = "Dostępny",
+                    }
                 }
             }
         };
+
+        var partition7 = new Partition
+        {
+            Id = Guid.NewGuid(),
+            Z = 2,
+            HeightPartition = 100,
+            WidthPartition = 50,
+            LengthPartition = 10,
+            DrawerId = drawer4.Id,
+            ItemPartitions = new List<ItemPartition>
+            {
+                new ItemPartition
+                {
+                    Id = Guid.NewGuid(),
+                    Item = new Item
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Maseczki chirurgiczne",
+                        Description = "Maseczki jednorazowe 3-warstwowe",
+                        Status = "Dostępny",
+                    }
+                }
+            }
+        };
+
+        drawer4.Partitions.Add(partition6);
+        drawer4.Partitions.Add(partition7);
 
         var drawer5 = new Drawer
         {
@@ -363,32 +462,63 @@ public class InvenTrackerSeeder
             Name = "Szuflada E1-2",
             X = 0,
             Y = 1,
-            Z = 0,
-            Width = 40,
-            Height = 15,
+            WidthDrawer = 40,
+            HeightDrawer = 15,
+            LengthDrawer = 100,
+            TotalPartitions = 2,
             WardrobeId = wardrobe3.Id,
-            Items = new List<Item>
+        };
+
+        var partition8 = new Partition
+        {
+            Id = Guid.NewGuid(),
+            Z = 1,
+            HeightPartition = 100,
+            WidthPartition = 50,
+            LengthPartition = 10,
+            DrawerId = drawer5.Id,
+            ItemPartitions = new List<ItemPartition>
             {
-                new Item
+                new ItemPartition
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Strzykawki 10ml",
-                    Description = "Strzykawki jednorazowe 10ml",
-                    Status = "Dostępny",
-                    Quantity = 50,
-                    Partition = 1
-                },
-                new Item
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Opatrunki sterylne",
-                    Description = "Opatrunki 10x10cm",
-                    Status = "Niski stan",
-                    Quantity = 15,
-                    Partition = 2
+                    Item = new Item
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Strzykawki 10ml",
+                        Description = "Strzykawki jednorazowe 10ml",
+                        Status = "Dostępny",
+                    }
                 }
             }
         };
+
+        var partition9 = new Partition
+        {
+            Id = Guid.NewGuid(),
+            Z = 2,
+            HeightPartition = 100,
+            WidthPartition = 50,
+            LengthPartition = 10,
+            DrawerId = drawer5.Id,
+            ItemPartitions = new List<ItemPartition>
+            {
+                new ItemPartition
+                {
+                    Id = Guid.NewGuid(),
+                    Item = new Item
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Opatrunki sterylne",
+                        Description = "Opatrunki 10x10cm",
+                        Status = "Niski stan",
+                    }
+                }
+            }
+        };
+
+        drawer5.Partitions.Add(partition8);
+        drawer5.Partitions.Add(partition9);
 
         wardrobe3.Drawers.Add(drawer4);
         wardrobe3.Drawers.Add(drawer5);
@@ -412,33 +542,63 @@ public class InvenTrackerSeeder
             Name = "Szuflada L1-1",
             X = 0,
             Y = 0,
-            Z = 0,
-            Width = 45,
-            Height = 18,
+            WidthDrawer = 45,
+            HeightDrawer = 18,
+            LengthDrawer = 100,
+            TotalPartitions = 2,
             WardrobeId = wardrobe4.Id,
-            Items = new List<Item>
+        };
+
+        var partition10 = new Partition
+        {
+            Id = Guid.NewGuid(),
+            Z = 1,
+            HeightPartition = 100,
+            WidthPartition = 50,
+            LengthPartition = 10,
+            DrawerId = drawer6.Id,
+            ItemPartitions = new List<ItemPartition>
             {
-                new Item
+                new ItemPartition
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Probówki z EDTA",
-                    Description = "Probówki do badań krwi 5ml",
-                    Status = "Dostępny",
-                    Quantity = 80,
-                    Partition = 1
-                },
-                new Item
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Pipety automatyczne",
-                    Description = "Pipety 100-1000µl",
-                    Status = "Dostępny",
-                    Quantity = 6,
-                    Partition = 2
+                    Item = new Item
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Probówki z EDTA",
+                        Description = "Probówki do badań krwi 5ml",
+                        Status = "Dostępny",
+                    }
                 }
             }
         };
 
+        var partition11 = new Partition
+        {
+            Id = Guid.NewGuid(),
+            Z = 2,
+            HeightPartition = 100,
+            WidthPartition = 50,
+            LengthPartition = 10,
+            DrawerId = drawer6.Id,
+            ItemPartitions = new List<ItemPartition>
+            {
+                new ItemPartition
+                {
+                    Id = Guid.NewGuid(),
+                    Item = new Item
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = "Pipety automatyczne",
+                        Description = "Pipety 100-1000µl",
+                        Status = "Dostępny",
+                    }
+                }
+            }
+        };
+
+        drawer6.Partitions.Add(partition10);
+        drawer6.Partitions.Add(partition11);
         wardrobe4.Drawers.Add(drawer6);
 
         emergencyDept.Wardrobes.Add(wardrobe3);

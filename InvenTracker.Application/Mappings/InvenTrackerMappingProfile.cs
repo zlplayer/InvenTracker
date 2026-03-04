@@ -5,11 +5,16 @@ using InvenTracker.Application.InvenTracker.Commands.CreateDepartaments;
 using InvenTracker.Application.InvenTracker.Commands.CreateDivideDrawer;
 using InvenTracker.Application.InvenTracker.Commands.CreateDrawers;
 using InvenTracker.Application.InvenTracker.Commands.CreateItem;
+using InvenTracker.Application.InvenTracker.Commands.CreateItemPartition;
+using InvenTracker.Application.InvenTracker.Commands.CreatePartition;
 using InvenTracker.Application.InvenTracker.Commands.CreateWardrobe;
 using InvenTracker.Application.InvenTracker.Commands.LoginCommand;
 using InvenTracker.Application.InvenTracker.Commands.RegisterCommand;
 using InvenTracker.Application.InvenTracker.Commands.UpdateDepartaments;
 using InvenTracker.Application.InvenTracker.Commands.UpdateDrawers;
+using InvenTracker.Application.InvenTracker.Commands.UpdateItemPartition;
+using InvenTracker.Application.InvenTracker.Commands.UpdatePartition;
+using InvenTracker.Application.InvenTracker.Queries.GetAllPartitionsByDrawerId;
 using InvenTracker.Domain.Entities;
 
 namespace InvenTracker.Application.Mappings;
@@ -61,13 +66,12 @@ public class InvenTrackerMappingProfile: Profile
         CreateMap<UpdateWardrobeDto, Wardrobe>();
         
         CreateMap<Drawer, GetDrawerDto>();
-        
-        CreateMap<Drawer, GetDetailsDrawerDto>()
-            .ForMember(dest=>dest.Items, opt=>opt.MapFrom(src=>src.Items));
-       
+
+        CreateMap<Drawer, GetDetailsDrawerDto>();
+
+
         CreateMap<CreateDrawerCommand, Drawer>()
-            .ForMember(dest => dest.WardrobeId, opt => opt.MapFrom(src => src.WardrobeId))
-            .ForMember(dest => dest.AvailablePartitions, opt => opt.MapFrom(src => src.TotalPartitions));
+            .ForMember(dest => dest.WardrobeId, opt => opt.MapFrom(src => src.WardrobeId));
 
         CreateMap<UpdateDrawerCommand, Drawer>();
 
@@ -76,11 +80,12 @@ public class InvenTrackerMappingProfile: Profile
             .ForMember(dest => dest.AvailablePartitions, opt => opt.MapFrom(src => src.TotalPartitions));
         
         CreateMap<Item, GetItemDto>().ReverseMap();
-        
-        CreateMap<CreateItemCommand, Item>()
-            .ForMember(dest=>dest.DrawerId,opt=>opt.MapFrom(src=>src.DrawerId));
+
+        CreateMap<CreateItemCommand, Item>();
         
         CreateMap<UpdateItemDto, Item>().ReverseMap();
+
+        CreateMap<Item, GetDetailsItemDto>();
         
         CreateMap<User, UserDto>()
             .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.Name)).ReverseMap();
@@ -90,5 +95,14 @@ public class InvenTrackerMappingProfile: Profile
         CreateMap<RegisterCommand, User>()
             .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
 
+
+        CreateMap<Partition, GetDetailsPartitionsDto>().ReverseMap().ForMember(dest=>dest.ItemPartitions,opt=>opt.MapFrom(src=>src.Item));
+        CreateMap<CreatePartitionCommand, Partition>();
+        CreateMap<CreatePartitionDto, Partition>().ReverseMap();
+        CreateMap<UpdatePartitionCommand, Partition>().ReverseMap();
+        CreateMap<Partition, GetAllPartitionsByDrawerIdQuery>().ReverseMap();
+        
+        CreateMap<CreateItemPartitionCommand, ItemPartition>();
+        CreateMap<UpdateItemPartitionCommand, ItemPartition>();
     }   
 }

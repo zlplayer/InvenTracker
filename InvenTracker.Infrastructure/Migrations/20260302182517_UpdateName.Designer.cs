@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvenTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(InvenTrackerDbContext))]
-    [Migration("20251204205037_UpdateRalationWardrobe")]
-    partial class UpdateRalationWardrobe
+    [Migration("20260302182517_UpdateName")]
+    partial class UpdateName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -142,17 +142,29 @@ namespace InvenTracker.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Height")
+                    b.Property<int?>("AvailablePartitions")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HeightDrawer")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("WardrobeId")
+                    b.Property<Guid?>("ParentDrawerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Width")
+                    b.Property<Guid>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("TotalPartitions")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("WardrobeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("WidthDrawer")
                         .HasColumnType("int");
 
                     b.Property<int>("X")
@@ -161,10 +173,9 @@ namespace InvenTracker.Infrastructure.Migrations
                     b.Property<int>("Y")
                         .HasColumnType("int");
 
-                    b.Property<int>("Z")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentDrawerId");
 
                     b.HasIndex("WardrobeId");
 
@@ -181,15 +192,12 @@ namespace InvenTracker.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("DrawerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Partition")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PartitionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -200,9 +208,89 @@ namespace InvenTracker.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DrawerId");
+                    b.HasIndex("PartitionId")
+                        .IsUnique();
 
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("InvenTracker.Domain.Entities.Partition", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DrawerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("HeightPartition")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WidthPartition")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Z")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DrawerId");
+
+                    b.ToTable("Partitions");
+                });
+
+            modelBuilder.Entity("InvenTracker.Domain.Entities.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("InvenTracker.Domain.Entities.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("InvenTracker.Domain.Entities.Wardrobe", b =>
@@ -277,24 +365,50 @@ namespace InvenTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("InvenTracker.Domain.Entities.Drawer", b =>
                 {
+                    b.HasOne("InvenTracker.Domain.Entities.Drawer", "ParentDrawer")
+                        .WithMany("SubDrawers")
+                        .HasForeignKey("ParentDrawerId");
+
                     b.HasOne("InvenTracker.Domain.Entities.Wardrobe", "Wardrobe")
                         .WithMany("Drawers")
-                        .HasForeignKey("WardrobeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WardrobeId");
+
+                    b.Navigation("ParentDrawer");
 
                     b.Navigation("Wardrobe");
                 });
 
             modelBuilder.Entity("InvenTracker.Domain.Entities.Item", b =>
                 {
+                    b.HasOne("InvenTracker.Domain.Entities.Partition", "Partition")
+                        .WithOne("Item")
+                        .HasForeignKey("InvenTracker.Domain.Entities.Item", "PartitionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Partition");
+                });
+
+            modelBuilder.Entity("InvenTracker.Domain.Entities.Partition", b =>
+                {
                     b.HasOne("InvenTracker.Domain.Entities.Drawer", "Drawer")
-                        .WithMany("Items")
+                        .WithMany("Partitions")
                         .HasForeignKey("DrawerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Drawer");
+                });
+
+            modelBuilder.Entity("InvenTracker.Domain.Entities.User", b =>
+                {
+                    b.HasOne("InvenTracker.Domain.Entities.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("InvenTracker.Domain.Entities.Wardrobe", b =>
@@ -332,7 +446,14 @@ namespace InvenTracker.Infrastructure.Migrations
 
             modelBuilder.Entity("InvenTracker.Domain.Entities.Drawer", b =>
                 {
-                    b.Navigation("Items");
+                    b.Navigation("Partitions");
+
+                    b.Navigation("SubDrawers");
+                });
+
+            modelBuilder.Entity("InvenTracker.Domain.Entities.Partition", b =>
+                {
+                    b.Navigation("Item");
                 });
 
             modelBuilder.Entity("InvenTracker.Domain.Entities.Wardrobe", b =>
