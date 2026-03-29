@@ -13,9 +13,16 @@ public class PartitionRepositories:IPartitionRepositories
         _dbContext = dbContext;
     }
     
-    public async Task<IEnumerable<Partition>> GetPartitions(Guid drawerId) => await _dbContext.Partitions.Where(x => x.DrawerId == drawerId).ToListAsync();
+    public async Task<IEnumerable<Partition>> GetPartitions(Guid drawerId) => await _dbContext.Partitions
+        .Include(x => x.ItemPartitions)
+        .ThenInclude(x => x.Item)
+        .Where(x => x.DrawerId == drawerId)
+        .ToListAsync();
 
-    public async Task<Partition?> GetPartitionById(Guid id) => await _dbContext.Partitions.FirstOrDefaultAsync(p => p.Id == id);
+    public async Task<Partition?> GetPartitionById(Guid id) => await _dbContext.Partitions
+        .Include(x => x.ItemPartitions)
+        .ThenInclude(x => x.Item)
+        .FirstOrDefaultAsync(p => p.Id == id);
     
     public async Task CreatePartition(Partition partition)
     {

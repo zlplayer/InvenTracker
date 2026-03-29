@@ -89,7 +89,7 @@ GET {{api}}/api/Wardrobe
 Accept: application/json
 
 ###
-GET {{api}}/api/Wardrobe/72a841c2-d44a-429d-9fc3-d943850e11f2
+GET {{api}}/api/Wardrobe/97ba753c-67a0-470b-af5a-4939b4b3ed58
 Accept: application/json
 
 ###
@@ -139,12 +139,12 @@ Content-Type: application/json
 ###
 DELETE {{api}}/api/Wardrobe/BAE154BC-7CA8-4379-C5F9-08DE3378D21F
 
-###
-GET {{api}}/api/Drawer/Wardrobe/7FEC04B6-B96B-41FD-8073-7D297BF64D3B
+### tu się item nie wyswitla dla przegrody
+GET {{api}}/api/Drawer/Wardrobe/97ba753c-67a0-470b-af5a-4939b4b3ed58
 Accept: application/json
 
 ###
-GET {{api}}/api/Drawer/BF672872-2873-4169-96AB-29E3F0D563F5
+GET {{api}}/api/Drawer/86214b07-0589-496c-bcb2-3075e1ad503b
 Accept: application/json
 
 ### 
@@ -179,11 +179,11 @@ Content-Type: application/json
 DELETE {{api}}/api/Drawer/8CC08A9A-C497-458C-BD34-08DE78975890
 
 ### Partition to są przegrody
-GET {{api}}/api/Partition/Drawer/86214B07-0589-496C-BCB2-3075E1AD503B
+GET {{api}}/api/Partition/Drawer/CCD0981D-E1A2-4513-87B7-DA10308F7F87
 Accept: application/json
 
 ###
-GET {{api}}/api/Partition/6b85c6bf-9858-4f99-9fca-2962275d58f8
+GET {{api}}/api/Partition/4BC2C9D5-EBF3-4B0A-AD58-FACC587937E9
 Accept: application/json
 
 ###
@@ -232,7 +232,7 @@ GET {{api}}/api/Item
 Accept: application/json
 
 ###
-GET {{api}}/api/Item/2DBCA734-9A04-450D-B720-0E29A6F3AFDC
+GET {{api}}/api/Item/656cf39d-6a97-46a7-9202-36e078e0a8a5
 Accept: application/json
 
 ### 
@@ -246,7 +246,7 @@ Content-Type: application/json
 }
 
 ### 
-PUT {{api}}/api/Item/254ead76-fe8d-4612-fb55-08de79711327
+PUT {{api}}/api/Item/656cf39d-6a97-46a7-9202-36e078e0a8a5
 Content-Type: application/json
 
 {
@@ -260,6 +260,7 @@ DELETE {{api}}/api/Item/254ead76-fe8d-4612-fb55-08de79711327
 
 
 ### ItemPartition
+
 POST {{api}}/api/ItemPartition
 Content-Type: application/json
 

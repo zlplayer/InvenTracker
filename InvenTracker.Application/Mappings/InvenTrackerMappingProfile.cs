@@ -77,7 +77,10 @@ public class InvenTrackerMappingProfile: Profile
 
         CreateMap<CreateDivideDrawerCommand, Drawer>()
             .ForMember(dest => dest.ParentDrawerId, opt => opt.MapFrom(src => src.DrawerId))
-            .ForMember(dest => dest.AvailablePartitions, opt => opt.MapFrom(src => src.TotalPartitions));
+            .ForMember(dest => dest.AvailablePartitions, opt => opt.MapFrom(src => src.TotalPartitions))
+            .ForMember(dest => dest.WidthDrawer, opt => opt.MapFrom(src => src.Width))
+            .ForMember(dest => dest.HeightDrawer, opt => opt.MapFrom(src => src.Height))
+            .ForMember(dest => dest.LengthDrawer, opt => opt.MapFrom(src => src.Z));
         
         CreateMap<Item, GetItemDto>().ReverseMap();
 
@@ -87,6 +90,8 @@ public class InvenTrackerMappingProfile: Profile
 
         CreateMap<Item, GetDetailsItemDto>();
         
+        CreateMap<UpdatePasswordDto, User>().ReverseMap();
+        CreateMap<UpdateUserDto, User>().ReverseMap();
         CreateMap<User, UserDto>()
             .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Role.Name)).ReverseMap();
         CreateMap<RegisterDto, RegisterCommand>();
@@ -96,7 +101,16 @@ public class InvenTrackerMappingProfile: Profile
             .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
 
 
-        CreateMap<Partition, GetDetailsPartitionsDto>().ReverseMap().ForMember(dest=>dest.ItemPartitions,opt=>opt.MapFrom(src=>src.Item));
+        CreateMap<ItemPartition, GetItemDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Item.Id))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Item.Name))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Item.Description))
+            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Item.Status))
+            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.QuantityItem));
+
+        CreateMap<Partition, GetDetailsPartitionsDto>()
+            .ForMember(dest => dest.Item, opt => opt.MapFrom(src => src.ItemPartitions.FirstOrDefault()))
+            .ReverseMap().ForMember(dest => dest.ItemPartitions, opt => opt.MapFrom(src => src.Item));
         CreateMap<CreatePartitionCommand, Partition>();
         CreateMap<CreatePartitionDto, Partition>().ReverseMap();
         CreateMap<UpdatePartitionCommand, Partition>().ReverseMap();

@@ -9,4 +9,5 @@ public class CreateDivideDrawerDto
     public int Width { get; set; }
     public int Height { get; set; }
     public int? TotalPartitions { get; set; }
+    public Guid PartitionId { get; set; }
 }

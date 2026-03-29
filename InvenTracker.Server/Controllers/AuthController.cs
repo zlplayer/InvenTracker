@@ -1,6 +1,7 @@
 ﻿using InvenTracker.Application.InvenTracker.Commands.LoginCommand;
 using InvenTracker.Application.InvenTracker.Commands.RegisterCommand;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenTracker.Server.Controllers;
@@ -17,6 +18,7 @@ public class AuthController: ControllerBase
 
     }
     [HttpPost("register")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Register([FromBody] RegisterCommand command)
     {
         await _mediator.Send(command);
