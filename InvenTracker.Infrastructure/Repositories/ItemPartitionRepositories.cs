@@ -15,6 +15,17 @@ public class ItemPartitionRepositories:IItemPartitionRepositories
 
     public async Task<ItemPartition?> GetItemPartition(Guid id) => await _dbContext.ItemPartitions.FirstOrDefaultAsync(x=>x.Id == id);
     
+    public async Task<ItemPartition?> GetItemPartitionByWardrobeAndItem(Guid wardrobeId, Guid itemId)
+    {
+        return await _dbContext.ItemPartitions
+            .Include(ip => ip.Item)
+            .Include(ip => ip.Partition)
+            .ThenInclude(p => p.Drawer)
+            .FirstOrDefaultAsync(ip =>
+                ip.ItemId == itemId &&
+                ip.Partition.Drawer.WardrobeId == wardrobeId);
+    }
+    
     public async Task CreateItemPartition(ItemPartition itemPartition)
     {
         await _dbContext.ItemPartitions.AddAsync(itemPartition);
@@ -32,4 +43,6 @@ public class ItemPartitionRepositories:IItemPartitionRepositories
         _dbContext.ItemPartitions.Remove(itemPartition);
         await _dbContext.SaveChangesAsync();
     }
+    
+    
 }

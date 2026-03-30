@@ -89,7 +89,7 @@ GET {{api}}/api/Wardrobe
 Accept: application/json
 
 ###
-GET {{api}}/api/Wardrobe/97ba753c-67a0-470b-af5a-4939b4b3ed58
+GET {{api}}/api/Wardrobe/57ad8f42-2faa-4d54-9881-a59a14c7d370
 Accept: application/json
 
 ###
@@ -285,6 +285,11 @@ Content-Type: application/json
 DELETE {{api}}/api/ItemPartition/40BCB8E4-DA39-43C1-2B95-08DE797B6832
 Content-Type: application/json
 
+
+### pobieranie przedmiotu z szafy
+
+GET {{api}}/api/ItemPartition/wardrobe/57ad8f42-2faa-4d54-9881-a59a14c7d370/item/6f9de407-1bc3-495c-b3c0-8f74a58a92b7?quantity=8
+Accept: application/json
 
 ### Auth
 

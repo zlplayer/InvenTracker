@@ -1,5 +1,6 @@
 ﻿using InvenTracker.Application.InvenTracker.Commands.CreateItemPartition;
 using InvenTracker.Application.InvenTracker.Commands.DeleteItemPartition;
+using InvenTracker.Application.InvenTracker.Commands.RetrieveItemPartition;
 using InvenTracker.Application.InvenTracker.Commands.UpdateItemPartition;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -37,5 +38,17 @@ public class ItemPartitionController : ControllerBase
     {
         await _mediator.Send(new DeleteItemPartitionCommand { Id = itemPartitionId });
         return NoContent();
+    }
+
+    [HttpGet("wardrobe/{wardrobeId}/item/{itemId}")]
+    public async Task<IActionResult> RetrieveItemPartition(Guid wardrobeId, Guid itemId, [FromQuery] int quantity)
+    {
+        var result = await _mediator.Send(new RetrieveItemPartitionCommand
+        {
+            WardrobeId = wardrobeId,
+            ItemId = itemId,
+            Quantity = quantity
+        });
+        return Ok(result);
     }
 }
