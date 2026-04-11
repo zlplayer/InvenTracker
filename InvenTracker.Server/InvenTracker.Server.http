@@ -265,11 +265,10 @@ POST {{api}}/api/ItemPartition
 Content-Type: application/json
 
 {
-  "ItemId": "9B6D40D9-2098-444E-940C-08DE797A72A5",
+  "ItemId": "656CF39D-6A97-46A7-9202-36E078E0A8A5",
   "PartitionId": "3A6D667B-6F30-4702-50E8-08DE797A72A3",
   "QuantityItem": 10
 }
-
 
 ###
 PUT {{api}}/api/ItemPartition/40BCB8E4-DA39-43C1-2B95-08DE797B6832
@@ -277,7 +276,7 @@ Content-Type: application/json
 
 {
   "ItemId": "656CF39D-6A97-46A7-9202-36E078E0A8A5",
-  "PartitionId": "09CCD5B3-364F-404E-14DD-08DE797B7BBB",
+  "PartitionId": "3A6D667B-6F30-4702-50E8-08DE797A72A3",
   "QuantityItem": 9
 }
 
@@ -288,7 +287,22 @@ Content-Type: application/json
 
 ### pobieranie przedmiotu z szafy
 
-GET {{api}}/api/ItemPartition/wardrobe/57ad8f42-2faa-4d54-9881-a59a14c7d370/item/6f9de407-1bc3-495c-b3c0-8f74a58a92b7?quantity=8
+GET {{api}}/api/ItemPartition/wardrobe/97BA753C-67A0-470B-AF5A-4939B4B3ED58/item/656CF39D-6A97-46A7-9202-36E078E0A8A5?quantity=1
+Accept: application/json
+
+### pobieranie przedmiotu z szafy FIFO
+
+GET {{api}}/api/ItemPartition/fifo/wardrobe/97BA753C-67A0-470B-AF5A-4939B4B3ED58/item/656CF39D-6A97-46A7-9202-36E078E0A8A5?quantity=1&userId=4C6DE142-BE4A-437E-BCDE-08DE97F47956
+Accept: application/json
+
+### ItemHistory - historia usera
+
+GET {{api}}/api/ItemHistory/user/4C6DE142-BE4A-437E-BCDE-08DE97F47956
+Accept: application/json
+
+### ItemHistory - historia szafy
+
+GET {{api}}/api/ItemHistory/wardrobe/97BA753C-67A0-470B-AF5A-4939B4B3ED58
 Accept: application/json
 
 ### Auth
@@ -297,10 +311,10 @@ POST {{api}}/api/Auth/register
 Content-Type: application/json
 
 {
-  "Email": "bekaxdds@gmail.com",
-  "Username": "aasa",
+  "Email": "admin@gmail.com",
+  "Username": "admin",
   "Password": "Admin123",
-  "ConfirmPassword": "CWL",
+  "ConfirmPassword": "Admin123",
   "FirstName": "Jan",
   "LastName": "Kowalski"
 }

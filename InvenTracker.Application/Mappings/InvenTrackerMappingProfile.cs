@@ -118,5 +118,7 @@ public class InvenTrackerMappingProfile: Profile
         
         CreateMap<CreateItemPartitionCommand, ItemPartition>();
         CreateMap<UpdateItemPartitionCommand, ItemPartition>();
+
+        CreateMap<ItemHistory, GetItemHistoryDto>();
     }   
 }

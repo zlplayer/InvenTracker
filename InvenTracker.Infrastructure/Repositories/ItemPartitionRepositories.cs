@@ -21,9 +21,24 @@ public class ItemPartitionRepositories:IItemPartitionRepositories
             .Include(ip => ip.Item)
             .Include(ip => ip.Partition)
             .ThenInclude(p => p.Drawer)
+            .ThenInclude(d => d.Wardrobe)
             .FirstOrDefaultAsync(ip =>
                 ip.ItemId == itemId &&
                 ip.Partition.Drawer.WardrobeId == wardrobeId);
+    }
+
+    public async Task<ItemPartition?> GetItemPartitionByWardrobeAndItemFifo(Guid wardrobeId, Guid itemId)
+    {
+        return await _dbContext.ItemPartitions
+            .Include(ip => ip.Item)
+            .Include(ip => ip.Partition)
+            .ThenInclude(p => p.Drawer)
+            .ThenInclude(d => d.Wardrobe)
+            .Where(ip =>
+                ip.ItemId == itemId &&
+                ip.Partition.Drawer.WardrobeId == wardrobeId)
+            .OrderBy(ip => ip.AddDate)
+            .FirstOrDefaultAsync();
     }
     
     public async Task CreateItemPartition(ItemPartition itemPartition)

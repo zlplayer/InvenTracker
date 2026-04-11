@@ -16,6 +16,7 @@ public class InvenTrackerDbContext : DbContext
     public DbSet<Role>  Roles { get; set; }
     public DbSet<Partition>  Partitions { get; set; }
     public DbSet<ItemPartition>  ItemPartitions { get; set; }
+    public DbSet<ItemHistory>  ItemHistories { get; set; }
 
     public InvenTrackerDbContext(DbContextOptions<InvenTrackerDbContext> options) : base(options)
     {
@@ -61,6 +62,11 @@ public class InvenTrackerDbContext : DbContext
             entity.HasIndex(e=>e.Email).IsUnique();
             entity.Property(e => e.Username).IsRequired();
         });
-
+        
+        modelBuilder.Entity<ItemHistory>()                                                                                                                                                                                                                                                                               
+            .HasOne(x => x.User)                                                                                                                                                                                                                                                                                         
+            .WithMany()                                                                                                                                                                                                                                                                                                  
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

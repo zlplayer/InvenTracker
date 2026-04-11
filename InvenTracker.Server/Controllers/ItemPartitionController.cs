@@ -1,6 +1,7 @@
 ﻿using InvenTracker.Application.InvenTracker.Commands.CreateItemPartition;
 using InvenTracker.Application.InvenTracker.Commands.DeleteItemPartition;
 using InvenTracker.Application.InvenTracker.Commands.RetrieveItemPartition;
+using InvenTracker.Application.InvenTracker.Commands.RetrieveItemPartitionFifo;
 using InvenTracker.Application.InvenTracker.Commands.UpdateItemPartition;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -41,13 +42,27 @@ public class ItemPartitionController : ControllerBase
     }
 
     [HttpGet("wardrobe/{wardrobeId}/item/{itemId}")]
-    public async Task<IActionResult> RetrieveItemPartition(Guid wardrobeId, Guid itemId, [FromQuery] int quantity)
+    public async Task<IActionResult> RetrieveItemPartition(Guid wardrobeId, Guid itemId, [FromQuery] int quantity, [FromQuery] Guid userId)
     {
         var result = await _mediator.Send(new RetrieveItemPartitionCommand
         {
             WardrobeId = wardrobeId,
             ItemId = itemId,
-            Quantity = quantity
+            Quantity = quantity,
+            UserId = userId
+        });
+        return Ok(result);
+    }
+    
+    [HttpGet("fifo/wardrobe/{wardrobeId}/item/{itemId}")]
+    public async Task<IActionResult> RetrieveItemPartitionFifo(Guid wardrobeId, Guid itemId, [FromQuery] int quantity, [FromQuery] Guid userId)
+    {
+        var result = await _mediator.Send(new RetrieveItemPartitionFifoCommand
+        {
+            WardrobeId = wardrobeId,
+            ItemId = itemId,
+            Quantity = quantity,
+            UserId = userId
         });
         return Ok(result);
     }

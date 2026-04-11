@@ -9,4 +9,5 @@ public interface IItemPartitionRepositories
     Task CreateItemPartition(ItemPartition itemPartition);
     Task UpdateItemPartition(ItemPartition itemPartition);
     Task DeleteItemPartition(ItemPartition itemPartition);
+    Task<ItemPartition?> GetItemPartitionByWardrobeAndItemFifo(Guid wardrobeId, Guid itemId);
 }

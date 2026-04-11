@@ -18,7 +18,7 @@ public class AuthController: ControllerBase
 
     }
     [HttpPost("register")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public async Task<IActionResult> Register([FromBody] RegisterCommand command)
     {
         await _mediator.Send(command);

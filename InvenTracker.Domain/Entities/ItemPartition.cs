@@ -9,5 +9,6 @@ public class ItemPartition
     public Guid PartitionId { get; set; }
     
     public int QuantityItem { get; set; }
-
+    
+    public DateTime AddDate { get; set; } = DateTime.UtcNow;
 }

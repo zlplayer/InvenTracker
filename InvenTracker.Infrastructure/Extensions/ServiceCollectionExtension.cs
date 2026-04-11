@@ -22,6 +22,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IUserRepositories, UserRepositories>();
         services.AddScoped<IPartitionRepositories, PartitionRepositories>();
         services.AddScoped<IItemPartitionRepositories, ItemPartitionRepositories>();
+        services.AddScoped<IItemHistoryRepositories, ItemHistoryRepositories>();
 
         services.AddScoped<InvenTrackerSeeder>();
     }
