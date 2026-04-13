@@ -203,6 +203,9 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
+              "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Application\\InvenTracker.Application.csproj": {
+                "projectPath": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Application\\InvenTracker.Application.csproj"
+              },
               "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Domain\\InvenTracker.Domain.csproj": {
                 "projectPath": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Domain\\InvenTracker.Domain.csproj"
               }
@@ -234,6 +237,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.11, )"
+            },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2026.2.4, )"
             }
           },
           "imports": [

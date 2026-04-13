@@ -1,78 +1,83 @@
-﻿using InvenTracker.Domain.Entities;
+using InvenTracker.Domain.Entities;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
+using System.Text;
 
 namespace InvenTracker.Application.InvenTracker.Commands.RetrieveItemPartitionFifo;
 
-public class RetrieveItemPartitionFifoCommandHandler:IRequestHandler<RetrieveItemPartitionFifoCommand, string>
+public class RetrieveItemPartitionFifoCommandHandler : IRequestHandler<RetrieveItemPartitionFifoCommand, string>
 {
     private readonly IItemPartitionRepositories _itemPartitionRepositories;
     private readonly IItemHistoryRepositories _itemHistoryRepositories;
 
     public RetrieveItemPartitionFifoCommandHandler(IItemPartitionRepositories itemPartitionRepositories, IItemHistoryRepositories itemHistoryRepositories)
     {
-        _itemPartitionRepositories=itemPartitionRepositories;
+        _itemPartitionRepositories = itemPartitionRepositories;
         _itemHistoryRepositories = itemHistoryRepositories;
     }
-    
+
     public async Task<string> Handle(RetrieveItemPartitionFifoCommand request, CancellationToken cancellationToken)
     {
-        var itemPartition = await _itemPartitionRepositories
-            .GetItemPartitionByWardrobeAndItemFifo(request.WardrobeId, request.ItemId);
+        var partitions = await _itemPartitionRepositories
+            .GetAllItemPartitionsByWardrobeAndItemFifo(request.WardrobeId, request.ItemId);
 
-        if (itemPartition == null)
-            throw new KeyNotFoundException($"Item {request.ItemId} not found in wardrobe {request.WardrobeId}");
-        
-        var quntity = itemPartition.QuantityItem - request.Quantity;
+        if (partitions.Count == 0)
+            throw new KeyNotFoundException($"Przedmiot {request.ItemId} nie znaleziony w szafie {request.WardrobeId}");
 
-        if (quntity == 0)
+        var totalAvailable = partitions.Sum(p => p.QuantityItem);
+        if (totalAvailable < request.Quantity)
+            throw new InvalidOperationException(
+                $"Nie można pobrać {request.Quantity} szt. — dostępne łącznie: {totalAvailable} szt. w {partitions.Count} przegrodzie/przegrodach");
+
+        var remaining = request.Quantity;
+        var summary = new StringBuilder();
+        var itemName = partitions[0].Item.Name;
+
+        foreach (var partition in partitions)
         {
-            var itemPartitionDetail = await _itemPartitionRepositories.GetItemPartition(itemPartition.Id);
-            if (itemPartitionDetail == null) throw new KeyNotFoundException($"Item {itemPartition.Id} not found");
-            await _itemPartitionRepositories.DeleteItemPartition(itemPartitionDetail);
+            if (remaining == 0) break;
+
+            var takenFromThis = Math.Min(partition.QuantityItem, remaining);
+            remaining -= takenFromThis;
 
             await _itemHistoryRepositories.CreateItemHistory(new ItemHistory
             {
                 UserId = request.UserId,
                 WardrobeId = request.WardrobeId,
-                WardrobeName = itemPartition.Partition.Drawer.Wardrobe?.Name,
-                DrawerName = itemPartition.Partition.Drawer.Name,
-                PartitionName = itemPartition.Partition.Z.ToString(),
-                ItemName = itemPartition.Item.Name,
-                Quantity = request.Quantity,
+                WardrobeName = partition.Partition.Drawer.Wardrobe?.Name,
+                DrawerName = partition.Partition.Drawer.Name,
+                PartitionName = partition.Partition.Z.ToString(),
+                ItemName = itemName,
+                Quantity = takenFromThis,
                 ActionType = "GET"
             });
 
-            return
-                $"Wyciągnieto całą ilość przedmiotu {itemPartition.Item.Name} w szufladzie {itemPartition.Partition.Drawer.Name} o współrzędnych X= {itemPartition.Partition.Drawer.X}, Y= {itemPartition.Partition.Drawer.Y}  w przegrodzie {itemPartition.Partition.Z}, przegroda została zwolniona";
-
-        }
-        else if (quntity > 0)
-        {
-            var itemPartitionDetail = await _itemPartitionRepositories.GetItemPartition(itemPartition.Id);
-            if (itemPartitionDetail == null) throw new KeyNotFoundException($"Item {itemPartition.Id} not found");
-            itemPartitionDetail.QuantityItem = quntity;
-            await _itemPartitionRepositories.UpdateItemPartition(itemPartitionDetail);
-
-            await _itemHistoryRepositories.CreateItemHistory(new ItemHistory
+            if (takenFromThis == partition.QuantityItem)
             {
-                UserId = request.UserId,
-                WardrobeId = request.WardrobeId,
-                WardrobeName = itemPartition.Partition.Drawer.Wardrobe?.Name,
-                DrawerName = itemPartition.Partition.Drawer.Name,
-                PartitionName = itemPartition.Partition.Z.ToString(),
-                ItemName = itemPartition.Item.Name,
-                Quantity = request.Quantity,
-                ActionType = "GET"
-            });
+                var detail = await _itemPartitionRepositories.GetItemPartition(partition.Id);
+                if (detail != null)
+                    await _itemPartitionRepositories.DeleteItemPartition(detail);
 
-            return
-                $"Znaleziono przedmiot {itemPartition.Item.Name} w szufladzie {itemPartition.Partition.Drawer.Name} o współrzędnych X= {itemPartition.Partition.Drawer.X}, Y= {itemPartition.Partition.Drawer.Y}  w przegrodzie {itemPartition.Partition.Z}, wyciągnieto: {request.Quantity} aktualna ilość to {quntity}";
+                summary.AppendLine(
+                    $"Szuflada {partition.Partition.Drawer.Name} (X={partition.Partition.Drawer.X}, Y={partition.Partition.Drawer.Y}), " +
+                    $"przegroda {partition.Partition.Z}: pobrano {takenFromThis} szt. — przegroda zwolniona");
+            }
+            else
+            {
+                var leftAfter = partition.QuantityItem - takenFromThis;
+                var detail = await _itemPartitionRepositories.GetItemPartition(partition.Id);
+                if (detail != null)
+                {
+                    detail.QuantityItem = leftAfter;
+                    await _itemPartitionRepositories.UpdateItemPartition(detail);
+                }
+
+                summary.AppendLine(
+                    $"Szuflada {partition.Partition.Drawer.Name} (X={partition.Partition.Drawer.X}, Y={partition.Partition.Drawer.Y}), " +
+                    $"przegroda {partition.Partition.Z}: pobrano {takenFromThis} szt. — pozostało {leftAfter} szt.");
+            }
         }
-        else
-        {
-            return 
-                $"Nie można wyciągnąć więcej {itemPartition.Item.Name} niż jest w szufladzie obecnie ilość to {itemPartition.QuantityItem}";
-        }
+
+        return $"Pobrano łącznie {request.Quantity} szt. przedmiotu '{itemName}':\n{summary}";
     }
 }

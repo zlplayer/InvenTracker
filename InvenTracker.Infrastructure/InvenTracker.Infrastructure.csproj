@@ -12,10 +12,12 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="QuestPDF" Version="2026.2.4" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\InvenTracker.Domain\InvenTracker.Domain.csproj" />
+      <ProjectReference Include="..\InvenTracker.Application\InvenTracker.Application.csproj" />
     </ItemGroup>
 
 </Project>

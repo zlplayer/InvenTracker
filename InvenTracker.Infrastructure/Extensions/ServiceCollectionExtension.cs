@@ -1,9 +1,12 @@
-﻿using InvenTracker.Domain.Interfaces;
+﻿using InvenTracker.Application.Iterfaces;
+using InvenTracker.Domain.Interfaces;
 using InvenTracker.Infrastructure.Repositories;
 using InvenTracker.Infrastructure.Seeders;
+using InvenTracker.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using QuestPDF.Infrastructure;
 
 namespace InvenTracker.Infrastructure.Extensions;
 
@@ -11,6 +14,8 @@ public static class ServiceCollectionExtension
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        QuestPDF.Settings.License = LicenseType.Community;
+
         services.AddDbContext<InvenTrackerDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("InvenTrackerDbContext")));
 
@@ -25,5 +30,6 @@ public static class ServiceCollectionExtension
         services.AddScoped<IItemHistoryRepositories, ItemHistoryRepositories>();
 
         services.AddScoped<InvenTrackerSeeder>();
+        services.AddScoped<IPdfService, PdfService>();
     }
 }

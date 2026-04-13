@@ -119,6 +119,9 @@ public class InvenTrackerMappingProfile: Profile
         CreateMap<CreateItemPartitionCommand, ItemPartition>();
         CreateMap<UpdateItemPartitionCommand, ItemPartition>();
 
-        CreateMap<ItemHistory, GetItemHistoryDto>();
+        CreateMap<ItemHistory, GetItemHistoryDto>()
+            .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User != null
+                ? $"{src.User.FirstName} {src.User.LastName}"
+                : "Nieznany"));
     }   
 }

@@ -292,7 +292,7 @@ Accept: application/json
 
 ### pobieranie przedmiotu z szafy FIFO
 
-GET {{api}}/api/ItemPartition/fifo/wardrobe/97BA753C-67A0-470B-AF5A-4939B4B3ED58/item/656CF39D-6A97-46A7-9202-36E078E0A8A5?quantity=1&userId=4C6DE142-BE4A-437E-BCDE-08DE97F47956
+GET {{api}}/api/ItemPartition/fifo/wardrobe/97BA753C-67A0-470B-AF5A-4939B4B3ED58/item/656CF39D-6A97-46A7-9202-36E078E0A8A5?quantity=15&userId=4C6DE142-BE4A-437E-BCDE-08DE97F47956
 Accept: application/json
 
 ### ItemHistory - historia usera
@@ -339,3 +339,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hc
 GET {{api}}/api/User/me
 Accept: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjNmNzg4ODQ5LTVlNTktNDY5MC1jN2RlLTA4ZGUzYzFjNjE3NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhZG1pbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWluQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3NjU4Mzk1MzksImlzcyI6IkludmVuVHJhY2tlciIsImF1ZCI6IkludmVuVHJhY2tlclVzZXJzIn0.46NedftGnYs4_eGDB8lLCykmGXf5DZFnO6s0b61TMRQ
+
+### generowanie pdf z listą pobrać uzytkownika z szafy
+GET {{api}}/api/pdf/pickup-report?userId=4C6DE142-BE4A-437E-BCDE-08DE97F47956&from=2026-04-01&to=2026-04-13
+
+### generowanie pdf z listą pobrać przedmiotów z szafy
+GET {{api}}/api/pdf/wardrobe-report?wardrobeId=97BA753C-67A0-470B-AF5A-4939B4B3ED58&from=2026-04-01&to=2026-04-13
