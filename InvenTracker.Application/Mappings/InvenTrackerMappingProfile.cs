@@ -57,7 +57,8 @@ public class InvenTrackerMappingProfile: Profile
         CreateMap<Wardrobe,  GetWardrobeDto>().ReverseMap();
         
         CreateMap<Wardrobe, GetDetailsWardrobeDto>()
-            .ForMember(dest=>dest.Drawers, opt => opt.MapFrom(src => src.Drawers));
+            .ForMember(dest=>dest.Drawers, opt => opt.MapFrom(src => src.Drawers))
+            .ForMember(dest=>dest.Users, opt=>opt.MapFrom(src=>src.ResponsibleUsers.Select(r => r.User)));
 
         CreateMap<CreateWardrobeCommand, Wardrobe>()
             .ForMember(dest => dest.CompanyId, opt => opt.MapFrom(src => src.CompanyId))
@@ -106,7 +107,10 @@ public class InvenTrackerMappingProfile: Profile
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Item.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Item.Description))
             .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Item.Status))
-            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.QuantityItem));
+            .ForMember(dest => dest.MinimumQuantityItem, opt => opt.MapFrom(src => src.MinimumQuantityItem))
+            .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.QuantityItem))
+            .ForMember(dest => dest.IsPackaged, opt => opt.MapFrom(src => src.Item.IsPackaged))
+            .ForMember(dest => dest.QuantityPerPackage, opt => opt.MapFrom(src => src.Item.QuantityPerPackage));
 
         CreateMap<Partition, GetDetailsPartitionsDto>()
             .ForMember(dest => dest.Item, opt => opt.MapFrom(src => src.ItemPartitions.FirstOrDefault()))

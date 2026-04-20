@@ -20,6 +20,8 @@ public class WardrobeRepositories: IWardrobeRepositories
             .ThenInclude(x => x.Partitions)
                 .ThenInclude(x => x.ItemPartitions)
                     .ThenInclude(x => x.Item)
+        .Include(x=>x.ResponsibleUsers)
+            .ThenInclude(x => x.User)
         .FirstOrDefaultAsync(x => x.Id == wardrobeId);
 
     public async Task CreateWardrobe(Wardrobe wadrobe)

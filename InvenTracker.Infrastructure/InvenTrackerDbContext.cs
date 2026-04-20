@@ -17,6 +17,7 @@ public class InvenTrackerDbContext : DbContext
     public DbSet<Partition>  Partitions { get; set; }
     public DbSet<ItemPartition>  ItemPartitions { get; set; }
     public DbSet<ItemHistory>  ItemHistories { get; set; }
+    public  DbSet<WardrobeResponsible> WardrobesResponsibles { get; set; }
 
     public InvenTrackerDbContext(DbContextOptions<InvenTrackerDbContext> options) : base(options)
     {
@@ -66,6 +67,18 @@ public class InvenTrackerDbContext : DbContext
         modelBuilder.Entity<ItemHistory>()                                                                                                                                                                                                                                                                               
             .HasOne(x => x.User)                                                                                                                                                                                                                                                                                         
             .WithMany()                                                                                                                                                                                                                                                                                                  
+            .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<WardrobeResponsible>()
+            .HasOne(x => x.Wardrobe)
+            .WithMany(x => x.ResponsibleUsers)
+            .HasForeignKey(x => x.WardrobeId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<WardrobeResponsible>()
+            .HasOne(x => x.User)
+            .WithMany()
             .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.NoAction);
     }

@@ -8,4 +8,5 @@ public class GetDetailsWardrobeDto
     public string SerialNumber { get; set; }
     public string SoftwareVersion { get; set; }
     public IEnumerable<GetDrawerDto>  Drawers { get; set; }= new List<GetDrawerDto>();
+    public IEnumerable<UserDto> Users { get; set; } = new List<UserDto>();
 }

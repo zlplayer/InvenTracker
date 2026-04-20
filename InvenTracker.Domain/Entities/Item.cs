@@ -6,6 +6,8 @@ public class Item
     public string Name { get; set; }
     public string Description { get; set; }
     public string Status { get; set; }
-    
+    public bool IsPackaged { get; set; }
+    public int? QuantityPerPackage { get; set; }
+
     public List<ItemPartition> ItemPartitions { get; set; }
 }

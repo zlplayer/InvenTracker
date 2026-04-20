@@ -18,4 +18,6 @@ public class Wardrobe
 
     
     public List<Drawer> Drawers { get; set; } 
+    public List<WardrobeResponsible> ResponsibleUsers { get; set; } = new();
+
 }

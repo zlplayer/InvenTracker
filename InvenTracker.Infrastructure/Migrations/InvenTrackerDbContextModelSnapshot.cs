@@ -192,9 +192,15 @@ namespace InvenTracker.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsPackaged")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("QuantityPerPackage")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -260,6 +266,9 @@ namespace InvenTracker.Infrastructure.Migrations
 
                     b.Property<Guid>("ItemId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("MinimumQuantityItem")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("PartitionId")
                         .HasColumnType("uniqueidentifier");
@@ -395,6 +404,27 @@ namespace InvenTracker.Infrastructure.Migrations
                     b.ToTable("Wardrobes");
                 });
 
+            modelBuilder.Entity("InvenTracker.Domain.Entities.WardrobeResponsible", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("WardrobeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("WardrobeId");
+
+                    b.ToTable("WardrobesResponsibles");
+                });
+
             modelBuilder.Entity("InvenTracker.Domain.Entities.AddressCompany", b =>
                 {
                     b.HasOne("InvenTracker.Domain.Entities.Company", "Company")
@@ -512,6 +542,25 @@ namespace InvenTracker.Infrastructure.Migrations
                     b.Navigation("Department");
                 });
 
+            modelBuilder.Entity("InvenTracker.Domain.Entities.WardrobeResponsible", b =>
+                {
+                    b.HasOne("InvenTracker.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("InvenTracker.Domain.Entities.Wardrobe", "Wardrobe")
+                        .WithMany("ResponsibleUsers")
+                        .HasForeignKey("WardrobeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("Wardrobe");
+                });
+
             modelBuilder.Entity("InvenTracker.Domain.Entities.Company", b =>
                 {
                     b.Navigation("Address");
@@ -548,6 +597,8 @@ namespace InvenTracker.Infrastructure.Migrations
             modelBuilder.Entity("InvenTracker.Domain.Entities.Wardrobe", b =>
                 {
                     b.Navigation("Drawers");
+
+                    b.Navigation("ResponsibleUsers");
                 });
 #pragma warning restore 612, 618
         }

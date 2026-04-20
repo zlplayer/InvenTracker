@@ -1,5 +1,6 @@
 ﻿using InvenTracker.Application.Iterfaces;
 using InvenTracker.Domain.Interfaces;
+using InvenTracker.Domain.Interfaces;
 using InvenTracker.Infrastructure.Repositories;
 using InvenTracker.Infrastructure.Seeders;
 using InvenTracker.Infrastructure.Services;
@@ -28,6 +29,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IPartitionRepositories, PartitionRepositories>();
         services.AddScoped<IItemPartitionRepositories, ItemPartitionRepositories>();
         services.AddScoped<IItemHistoryRepositories, ItemHistoryRepositories>();
+        services.AddScoped<IWardrobeResponsibleRepositories, WardrobeResponsibleRepositories>();
 
         services.AddScoped<InvenTrackerSeeder>();
         services.AddScoped<IPdfService, PdfService>();
