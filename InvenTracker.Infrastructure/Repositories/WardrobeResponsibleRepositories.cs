@@ -13,6 +13,9 @@ public class WardrobeResponsibleRepositories : IWardrobeResponsibleRepositories
         _dbContext = dbContext;
     }
 
+    public async Task<IEnumerable<WardrobeResponsible>> GetWardrobeResponsiblesByWardrobeId(Guid wardrobeId) => await _dbContext.WardrobesResponsibles.Include(x=>x.User).Where(w => w.WardrobeId == wardrobeId).ToListAsync();
+    
+
     public async Task<WardrobeResponsible?> GetWardrobeResponsible(Guid id) =>
         await _dbContext.WardrobesResponsibles.FirstOrDefaultAsync(x => x.Id == id);
 

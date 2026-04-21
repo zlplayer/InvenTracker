@@ -292,7 +292,7 @@ Accept: application/json
 
 ### pobieranie przedmiotu z szafy FIFO
 
-GET {{api}}/api/ItemPartition/fifo/wardrobe/97BA753C-67A0-470B-AF5A-4939B4B3ED58/item/656CF39D-6A97-46A7-9202-36E078E0A8A5?quantity=15&userId=4C6DE142-BE4A-437E-BCDE-08DE97F47956
+GET {{api}}/api/ItemPartition/fifo/wardrobe/97BA753C-67A0-470B-AF5A-4939B4B3ED58/item/656CF39D-6A97-46A7-9202-36E078E0A8A5?quantity=5&userId=4C6DE142-BE4A-437E-BCDE-08DE97F47956
 Accept: application/json
 
 ### ItemHistory - historia usera
@@ -345,3 +345,12 @@ GET {{api}}/api/pdf/pickup-report?userId=4C6DE142-BE4A-437E-BCDE-08DE97F47956&fr
 
 ### generowanie pdf z listą pobrać przedmiotów z szafy
 GET {{api}}/api/pdf/wardrobe-report?wardrobeId=97BA753C-67A0-470B-AF5A-4939B4B3ED58&from=2026-04-01&to=2026-04-13
+
+### przypisanie osoby odpowiedzialnej do szafy
+ POST {{api}}/api/WardrobeResponsible
+Content-Type: application/json
+
+{
+  "WardrobeId": "97BA753C-67A0-470B-AF5A-4939B4B3ED58",
+  "UserId": "4C6DE142-BE4A-437E-BCDE-08DE97F47956"
+}

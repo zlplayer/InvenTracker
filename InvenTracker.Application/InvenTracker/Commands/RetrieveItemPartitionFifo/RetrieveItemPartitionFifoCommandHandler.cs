@@ -2,6 +2,7 @@ using InvenTracker.Domain.Entities;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 using System.Text;
+using InvenTracker.Application.Iterfaces;
 
 namespace InvenTracker.Application.InvenTracker.Commands.RetrieveItemPartitionFifo;
 
@@ -9,11 +10,20 @@ public class RetrieveItemPartitionFifoCommandHandler : IRequestHandler<RetrieveI
 {
     private readonly IItemPartitionRepositories _itemPartitionRepositories;
     private readonly IItemHistoryRepositories _itemHistoryRepositories;
+    private readonly IEmailService _emailService;
+    private readonly IWardrobeResponsibleRepositories _wardrobeResponsibleRepositories ;
 
-    public RetrieveItemPartitionFifoCommandHandler(IItemPartitionRepositories itemPartitionRepositories, IItemHistoryRepositories itemHistoryRepositories)
+
+    public RetrieveItemPartitionFifoCommandHandler(
+        IItemPartitionRepositories itemPartitionRepositories, 
+        IItemHistoryRepositories itemHistoryRepositories, 
+        IEmailService  emailService, 
+        IWardrobeResponsibleRepositories wardrobeResponsibleRepositories)
     {
         _itemPartitionRepositories = itemPartitionRepositories;
         _itemHistoryRepositories = itemHistoryRepositories;
+        _emailService = emailService;
+        _wardrobeResponsibleRepositories = wardrobeResponsibleRepositories;
     }
 
     public async Task<string> Handle(RetrieveItemPartitionFifoCommand request, CancellationToken cancellationToken)
@@ -32,7 +42,8 @@ public class RetrieveItemPartitionFifoCommandHandler : IRequestHandler<RetrieveI
         var remaining = request.Quantity;
         var summary = new StringBuilder();
         var itemName = partitions[0].Item.Name;
-
+        var belowMinPartitions = new List<ItemPartition>();
+        
         foreach (var partition in partitions)
         {
             if (remaining == 0) break;
@@ -52,32 +63,38 @@ public class RetrieveItemPartitionFifoCommandHandler : IRequestHandler<RetrieveI
                 ActionType = "GET"
             });
 
-            if (takenFromThis == partition.QuantityItem)
+            var leftAfter = partition.QuantityItem - takenFromThis;
+            var detail = await _itemPartitionRepositories.GetItemPartition(partition.Id);
+            if (detail != null)
             {
-                var detail = await _itemPartitionRepositories.GetItemPartition(partition.Id);
-                if (detail != null)
-                    await _itemPartitionRepositories.DeleteItemPartition(detail);
-
-                summary.AppendLine(
-                    $"Szuflada {partition.Partition.Drawer.Name} (X={partition.Partition.Drawer.X}, Y={partition.Partition.Drawer.Y}), " +
-                    $"przegroda {partition.Partition.Z}: pobrano {takenFromThis} szt. — przegroda zwolniona");
+                detail.QuantityItem = leftAfter;
+                await _itemPartitionRepositories.UpdateItemPartition(detail);
+                if (leftAfter <= detail.MinimumQuantityItem)
+                    belowMinPartitions.Add(detail);
             }
-            else
-            {
-                var leftAfter = partition.QuantityItem - takenFromThis;
-                var detail = await _itemPartitionRepositories.GetItemPartition(partition.Id);
-                if (detail != null)
-                {
-                    detail.QuantityItem = leftAfter;
-                    await _itemPartitionRepositories.UpdateItemPartition(detail);
-                }
 
-                summary.AppendLine(
-                    $"Szuflada {partition.Partition.Drawer.Name} (X={partition.Partition.Drawer.X}, Y={partition.Partition.Drawer.Y}), " +
-                    $"przegroda {partition.Partition.Z}: pobrano {takenFromThis} szt. — pozostało {leftAfter} szt.");
-            }
+            var status = leftAfter == 0 ? "przegroda pusta" : $"pozostało {leftAfter} szt.";
+            summary.AppendLine(
+                $"Szuflada {partition.Partition.Drawer.Name} (X={partition.Partition.Drawer.X}, Y={partition.Partition.Drawer.Y}), " +
+                $"przegroda {partition.Partition.Z}: pobrano {takenFromThis} szt. — {status}");
         }
 
+
+        var responsibles = await _wardrobeResponsibleRepositories
+            .GetWardrobeResponsiblesByWardrobeId(request.WardrobeId);
+
+        if(belowMinPartitions.Any())
+        {
+            foreach (var belowMinPartition in belowMinPartitions)
+            {
+                foreach (var responsible in responsibles)
+                {
+                    await _emailService.SendLowStockAlertAsync(
+                        responsible.User.Email, belowMinPartition.Item.Name, belowMinPartition.QuantityItem, belowMinPartition.MinimumQuantityItem );
+                }
+            }
+        }
+        
         return $"Pobrano łącznie {request.Quantity} szt. przedmiotu '{itemName}':\n{summary}";
     }
 }

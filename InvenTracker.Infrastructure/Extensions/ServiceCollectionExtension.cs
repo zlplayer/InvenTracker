@@ -1,5 +1,5 @@
 ﻿using InvenTracker.Application.Iterfaces;
-using InvenTracker.Domain.Interfaces;
+using InvenTracker.Application.Settings;
 using InvenTracker.Domain.Interfaces;
 using InvenTracker.Infrastructure.Repositories;
 using InvenTracker.Infrastructure.Seeders;
@@ -33,5 +33,9 @@ public static class ServiceCollectionExtension
 
         services.AddScoped<InvenTrackerSeeder>();
         services.AddScoped<IPdfService, PdfService>();
+        
+        services.Configure<EmailSettings>(configuration.GetSection("Email"));
+        //  - services.Configure<EmailSettings>(...) - mówi .NET "weź sekcję "Email" z appsettings.json i mapuj ją na klasę EmailSettings". To właśnie sprawia że IOptions<EmailSettings> działa w konstruktorze.
+        services.AddScoped<IEmailService, EmailService>(); 
     }
 }
