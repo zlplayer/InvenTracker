@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using InvenTracker.Application.InvenTracker.Commands.DeleteUser;
 using InvenTracker.Application.InvenTracker.Commands.UpdatePassword;
 using InvenTracker.Application.InvenTracker.Commands.UpdateUser;
@@ -22,6 +22,7 @@ public class UserController: ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize(Roles = "Admin,Technik")]
     public async Task<IActionResult> GetUser(Guid id)
     {
         var userDto = await _mediator.Send(new GetUserQuery{UserId = id});
@@ -37,10 +38,11 @@ public class UserController: ControllerBase
         var userDto = await _mediator.Send(new GetUserQuery{ UserId = userId });
         return Ok(userDto);
     }
-    
+
     //te funkcje na dole nie są przetestowane
-    
+
     [HttpPut("{userId}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateUser(Guid userId, UpdateUserCommand request)
     {
         request.UserId = userId;
@@ -49,6 +51,7 @@ public class UserController: ControllerBase
     }
 
     [HttpDelete("{userId}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteUser(Guid userId)
     {
         await _mediator.Send(new DeleteUserCommand{UserId = userId});
@@ -56,6 +59,7 @@ public class UserController: ControllerBase
     }
 
     [HttpPut("updateRole")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateUserRole(UpdateUserRoleCommand request)
     {
        await  _mediator.Send(request);
@@ -63,6 +67,7 @@ public class UserController: ControllerBase
     }
 
     [HttpPut("updatePassword/{userId}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdatePassword(Guid userId,UpdatePasswordCommand request)
     {
         request.UserId = userId;

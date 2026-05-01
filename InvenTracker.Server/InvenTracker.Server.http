@@ -292,7 +292,7 @@ Accept: application/json
 
 ### pobieranie przedmiotu z szafy FIFO
 
-GET {{api}}/api/ItemPartition/fifo/wardrobe/97BA753C-67A0-470B-AF5A-4939B4B3ED58/item/656CF39D-6A97-46A7-9202-36E078E0A8A5?quantity=5&userId=4C6DE142-BE4A-437E-BCDE-08DE97F47956
+GET {{api}}/api/ItemPartition/fifo/wardrobe/97BA753C-67A0-470B-AF5A-4939B4B3ED58/item/656CF39D-6A97-46A7-9202-36E078E0A8A5?quantity=1&userId=4C6DE142-BE4A-437E-BCDE-08DE97F47956
 Accept: application/json
 
 ### ItemHistory - historia usera
@@ -353,4 +353,15 @@ Content-Type: application/json
 {
   "WardrobeId": "97BA753C-67A0-470B-AF5A-4939B4B3ED58",
   "UserId": "4C6DE142-BE4A-437E-BCDE-08DE97F47956"
+}
+
+### zwracanie przedmiotu do szafy
+PUT {{api}}/api/ItemPartition/return/item
+Content-Type: application/json
+
+{
+  "UserId": "4C6DE142-BE4A-437E-BCDE-08DE97F47956",
+  "WardrobeId": "97BA753C-67A0-470B-AF5A-4939B4B3ED58",
+  "ItemPartitionId": "424198AC-5C80-4D26-6D51-08DE9992EE5F",
+  "Quantity": 4
 }

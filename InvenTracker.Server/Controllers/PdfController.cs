@@ -1,12 +1,14 @@
 using InvenTracker.Application.InvenTracker.Queries.GeneratePickupReportPdf;
 using InvenTracker.Application.InvenTracker.Queries.GenerateWardrobePickupReportPdf;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenTracker.Server.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = "Admin,Technik")]
 public class PdfController : ControllerBase
 {
     private readonly IMediator _mediator;

@@ -2,12 +2,14 @@ using InvenTracker.Application.InvenTracker.Commands.CreateWardrobeResponsible;
 using InvenTracker.Application.InvenTracker.Commands.DeleteWardrobeResponsible;
 using InvenTracker.Application.InvenTracker.Commands.UpdateWardrobeResponsible;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenTracker.Server.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Roles = "Admin,Technik")]
 public class WardrobeResponsibleController : ControllerBase
 {
     private readonly IMediator _mediator;

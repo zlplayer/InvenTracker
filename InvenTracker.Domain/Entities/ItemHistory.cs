@@ -12,8 +12,11 @@ public class ItemHistory
     public string DrawerName { get; set; }
     public string PartitionName { get; set; }
     public string ItemName { get; set; }
-
+    
     public int Quantity { get; set; } // ilość jaką uzytkownik wyciągną 
     public string ActionType { get; set; }
     public DateTime ActionAt { get; set; } = DateTime.UtcNow;
+    
+    public Guid? ItemPartitionId { get; set; }
+    public ItemPartition? ItemPartition { get; set; }
 }

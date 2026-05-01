@@ -55,6 +55,7 @@ public class RetrieveItemPartitionFifoCommandHandler : IRequestHandler<RetrieveI
             {
                 UserId = request.UserId,
                 WardrobeId = request.WardrobeId,
+                ItemPartitionId =  partition.Id,
                 WardrobeName = partition.Partition.Drawer.Wardrobe?.Name,
                 DrawerName = partition.Partition.Drawer.Name,
                 PartitionName = partition.Partition.Z.ToString(),

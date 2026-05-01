@@ -1,15 +1,17 @@
-﻿using InvenTracker.Application.InvenTracker.Commands.CreateWardrobe;
+using InvenTracker.Application.InvenTracker.Commands.CreateWardrobe;
 using InvenTracker.Application.InvenTracker.Commands.DeleteWardrobe;
 using InvenTracker.Application.InvenTracker.Commands.UpdateWardrobe;
 using InvenTracker.Application.InvenTracker.Queries.GetAllWardrobes;
 using InvenTracker.Application.InvenTracker.Queries.GetWardrobe;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenTracker.Server.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class WardrobeController: ControllerBase
 {
     private readonly IMediator _mediator;
@@ -34,6 +36,7 @@ public class WardrobeController: ControllerBase
     }
 
     [HttpDelete("{wardrobeId}")]
+    [Authorize(Roles = "Admin,Technik")]
     public async Task<IActionResult> DeleteWardrobe(Guid wardrobeId)
     {
         await _mediator.Send(new DeleteWardrobeCommand { WardrobeId = wardrobeId });
@@ -41,6 +44,7 @@ public class WardrobeController: ControllerBase
     }
 
     [HttpPost("company/{companyId}/department/{departmentId}")]
+    [Authorize(Roles = "Admin,Technik")]
     public async Task<IActionResult> CreateWardrobeForBoth(Guid companyId, Guid departmentId, [FromBody] CreateWardrobeCommand command)
     {
         command.CompanyId = companyId;
@@ -48,7 +52,9 @@ public class WardrobeController: ControllerBase
         await  _mediator.Send(command);
         return Ok();
     }
+
     [HttpPost("company/{companyId}")]
+    [Authorize(Roles = "Admin,Technik")]
     public async Task<IActionResult> CreateWardrobeForCompany(Guid companyId, [FromBody] CreateWardrobeCommand command)
     {
         command.CompanyId = companyId;
@@ -56,7 +62,9 @@ public class WardrobeController: ControllerBase
         await  _mediator.Send(command);
         return Ok();
     }
+
     [HttpPost("department/{departmentId}")]
+    [Authorize(Roles = "Admin,Technik")]
     public async Task<IActionResult> CreateWardrobeForDepartment(Guid departmentId, [FromBody] CreateWardrobeCommand command)
     {
         command.CompanyId = null;
@@ -66,6 +74,7 @@ public class WardrobeController: ControllerBase
     }
 
     [HttpPut("{wardrobeId}")]
+    [Authorize(Roles = "Admin,Technik")]
     public async Task<IActionResult> UpdateWardrobe(Guid wardrobeId, [FromBody] UpdateWardrobeCommand command)
     {
         command.WardrobeId= wardrobeId;

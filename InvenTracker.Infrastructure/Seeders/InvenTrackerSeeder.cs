@@ -2,6 +2,7 @@ using InvenTracker.Domain.Entities;
 
 namespace InvenTracker.Infrastructure.Seeders;
 
+
 public class InvenTrackerSeeder
 {
     private readonly InvenTrackerDbContext _dbContext;
@@ -28,9 +29,63 @@ public class InvenTrackerSeeder
                 _dbContext.Roles.AddRange(roles);
                 _dbContext.SaveChanges();
             }
+
+            if (!_dbContext.Users.Any())
+            {
+                var users = GetUsers();
+                _dbContext.Users.AddRange(users);
+                _dbContext.SaveChanges();
+            }
         }
     }
 
+
+    private IEnumerable<User> GetUsers()
+    {
+        return new List<User>
+        {
+            new User
+            {
+                Id = Guid.Parse("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
+                FirstName = "Admin",
+                LastName = "Testowy",
+                Username = "admin",
+                Email = "admin@test.com",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin123!"),
+                RoleId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+            },
+            new User
+            {
+                Id = Guid.Parse("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"),
+                FirstName = "Technik",
+                LastName = "Testowy",
+                Username = "technik",
+                Email = "technik@test.com",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("Technik123!"),
+                RoleId = Guid.Parse("33333333-3333-3333-3333-333333333333")
+            },
+            new User
+            {
+                Id = Guid.Parse("cccccccc-cccc-cccc-cccc-cccccccccccc"),
+                FirstName = "Dostawca",
+                LastName = "Testowy",
+                Username = "dostawca",
+                Email = "dostawca@test.com",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("Dostawca123!"),
+                RoleId = Guid.Parse("44444444-4444-4444-4444-444444444444")
+            },
+            new User
+            {
+                Id = Guid.Parse("dddddddd-dddd-dddd-dddd-dddddddddddd"),
+                FirstName = "User",
+                LastName = "Testowy",
+                Username = "user",
+                Email = "user@test.com",
+                PasswordHash = BCrypt.Net.BCrypt.HashPassword("User123!"),
+                RoleId = Guid.Parse("22222222-2222-2222-2222-222222222222")
+            }
+        };
+    }
 
     private IEnumerable<Role> GetRoles()
     {
@@ -45,6 +100,16 @@ public class InvenTrackerSeeder
             {
                 Id = Guid.Parse("22222222-2222-2222-2222-222222222222"),
                 Name = "User",
+            },
+            new Role
+            {
+                Id = Guid.Parse("33333333-3333-3333-3333-333333333333"),
+                Name = "Technik",
+            },
+            new Role
+            {
+                Id = Guid.Parse("44444444-4444-4444-4444-444444444444"),
+                Name = "Dostawca",
             }
         };
     }

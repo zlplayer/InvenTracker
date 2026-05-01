@@ -1,4 +1,4 @@
-﻿using InvenTracker.Application.Dtos;
+using InvenTracker.Application.Dtos;
 using InvenTracker.Application.InvenTracker.Commands.CreateCompany;
 using InvenTracker.Application.InvenTracker.Commands.CreateDepartaments;
 using InvenTracker.Application.InvenTracker.Commands.DeleteCompany;
@@ -6,12 +6,14 @@ using InvenTracker.Application.InvenTracker.Commands.UpdateCompany;
 using InvenTracker.Application.InvenTracker.Queries.GetAllCompanies;
 using InvenTracker.Application.InvenTracker.Queries.GetCompany;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenTracker.Server.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class CompanyController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -35,6 +37,7 @@ public class CompanyController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateCompany([FromBody] CreateCompanyCommand  companyCommand)
     {
         await _mediator.Send(companyCommand);
@@ -42,6 +45,7 @@ public class CompanyController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateCompany(Guid id, [FromBody]  UpdateCompanyCommand companyCommand)
     {
         companyCommand.CompanyId = id;
@@ -50,6 +54,7 @@ public class CompanyController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteCompany(Guid id)
     {
         await _mediator.Send(new DeleteCompanyCommand{CompanyId = id});

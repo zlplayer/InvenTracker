@@ -1,4 +1,4 @@
-﻿using InvenTracker.Application.Dtos;
+using InvenTracker.Application.Dtos;
 using InvenTracker.Application.InvenTracker.Commands.CreateDivideDrawer;
 using InvenTracker.Application.InvenTracker.Commands.CreateDrawers;
 using InvenTracker.Application.InvenTracker.Commands.DeleteDrawers;
@@ -6,12 +6,14 @@ using InvenTracker.Application.InvenTracker.Commands.UpdateDrawers;
 using InvenTracker.Application.InvenTracker.Queries.GetAllGetDrawers;
 using InvenTracker.Application.InvenTracker.Queries.GetDrawer;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InvenTracker.Server.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class DrawerController:ControllerBase
 {
     private readonly IMediator _mediator;
@@ -35,6 +37,7 @@ public class DrawerController:ControllerBase
     }
 
     [HttpPost("{wardrobeId}")]
+    [Authorize(Roles = "Admin,Technik")]
     public async Task<IActionResult> CreateDrawer(Guid wardrobeId, [FromBody] CreateDrawerCommand createDrawerCommand)
     {
         createDrawerCommand.WardrobeId = wardrobeId;
@@ -43,6 +46,7 @@ public class DrawerController:ControllerBase
     }
 
     [HttpPut("{drawerId}")]
+    [Authorize(Roles = "Admin,Technik")]
     public async Task<IActionResult> UpdateDrawer(Guid drawerId, [FromBody] UpdateDrawerCommand updateDrawerCommand)
     {
         updateDrawerCommand.DrawerId=drawerId;
@@ -51,6 +55,7 @@ public class DrawerController:ControllerBase
     }
 
     [HttpDelete("{drawerId}")]
+    [Authorize(Roles = "Admin,Technik")]
     public async Task<IActionResult> DeleteDrawer(Guid drawerId)
     {
         await _mediator.Send(new DeleteDrawerCommand { DrawerId = drawerId });
@@ -58,6 +63,7 @@ public class DrawerController:ControllerBase
     }
 
     [HttpPost("{drawerId}/divide")]
+    [Authorize(Roles = "Admin,Technik")]
     public async Task<IActionResult> CreateDivideDrawer(Guid drawerId, [FromBody] CreateDivideDrawerCommand createDivideDrawerCommand)
     {
         createDivideDrawerCommand.DrawerId = drawerId;
