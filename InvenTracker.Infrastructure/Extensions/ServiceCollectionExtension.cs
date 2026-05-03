@@ -30,7 +30,8 @@ public static class ServiceCollectionExtension
         services.AddScoped<IItemPartitionRepositories, ItemPartitionRepositories>();
         services.AddScoped<IItemHistoryRepositories, ItemHistoryRepositories>();
         services.AddScoped<IWardrobeResponsibleRepositories, WardrobeResponsibleRepositories>();
-
+        services.AddScoped<IWorkOrderRepositories, WorkOrderRepositories>();
+        
         services.AddScoped<InvenTrackerSeeder>();
         services.AddScoped<IPdfService, PdfService>();
         

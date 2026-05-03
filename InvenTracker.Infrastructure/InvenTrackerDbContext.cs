@@ -18,6 +18,8 @@ public class InvenTrackerDbContext : DbContext
     public DbSet<ItemPartition>  ItemPartitions { get; set; }
     public DbSet<ItemHistory>  ItemHistories { get; set; }
     public  DbSet<WardrobeResponsible> WardrobesResponsibles { get; set; }
+    public DbSet<WorkOrder>  WorkOrders { get; set; }
+    public DbSet<WorkOrderItem>  WorkOrderItems { get; set; }
 
     public InvenTrackerDbContext(DbContextOptions<InvenTrackerDbContext> options) : base(options)
     {
@@ -80,6 +82,18 @@ public class InvenTrackerDbContext : DbContext
             .HasOne(x => x.User)
             .WithMany()
             .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<WorkOrderItem>()                                                                                                                                                                                                                                                                             
+            .HasOne(x => x.Item)                                                                                                                                                                                                                                                                                         
+            .WithMany()                                                                                                                                                                                                                                                                                                  
+            .HasForeignKey(x => x.ItemId)                                                                                                                                                                                                                                                                                
+            .OnDelete(DeleteBehavior.NoAction);
+        
+        modelBuilder.Entity<WorkOrder>()
+            .HasOne(x => x.Wardrobe)
+            .WithMany()
+            .HasForeignKey(x => x.WardrobeId)
             .OnDelete(DeleteBehavior.NoAction);
     }
 }

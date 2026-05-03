@@ -263,9 +263,10 @@ DELETE {{api}}/api/Item/254ead76-fe8d-4612-fb55-08de79711327
 
 POST {{api}}/api/ItemPartition
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjRjNmRlMTQyLWJlNGEtNDM3ZS1iY2RlLTA4ZGU5N2Y0Nzk1NiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhZG1pbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImFkbWluQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IkFkbWluIiwiZXhwIjoxNzc3ODQzMDM1LCJpc3MiOiJJbnZlblRyYWNrZXIiLCJhdWQiOiJJbnZlblRyYWNrZXJVc2VycyJ9.3aREZiTUFmBG9GXrKnfydKHDhNzFG5fw3gV-MM6VZv8
 
 {
-  "ItemId": "656CF39D-6A97-46A7-9202-36E078E0A8A5",
+  "ItemId": "447ACF09-02E8-4202-8239-23A5CF268745",
   "PartitionId": "3A6D667B-6F30-4702-50E8-08DE797A72A3",
   "QuantityItem": 10
 }
@@ -353,6 +354,37 @@ Content-Type: application/json
 {
   "WardrobeId": "97BA753C-67A0-470B-AF5A-4939B4B3ED58",
   "UserId": "4C6DE142-BE4A-437E-BCDE-08DE97F47956"
+}
+
+### WorkOrder
+POST {{api}}/api/WorkOrder
+Content-Type: application/json
+
+{
+  "wardrobeId": "97BA753C-67A0-470B-AF5A-4939B4B3ED58",
+  "workOrderItems": [
+    {
+      "itemId": "656CF39D-6A97-46A7-9202-36E078E0A8A5",
+      "quantity": 2
+    },
+    {
+      "itemId": "447ACF09-02E8-4202-8239-23A5CF268745",
+      "quantity": 2
+    }
+  ]
+}
+
+### pobieranie zleceń
+GET {{api}}/api/WorkOrder
+Content-Type: application/json
+
+### wykonanie zlecenia
+POST {{api}}/api/WorkOrder/execute
+Content-Type: application/json
+
+{
+  "code": "B1C00351",
+  "userId": "4C6DE142-BE4A-437E-BCDE-08DE97F47956"
 }
 
 ### zwracanie przedmiotu do szafy

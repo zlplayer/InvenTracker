@@ -430,6 +430,54 @@ namespace InvenTracker.Infrastructure.Migrations
                     b.ToTable("WardrobesResponsibles");
                 });
 
+            modelBuilder.Entity("InvenTracker.Domain.Entities.WorkOrder", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("WardrobeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WardrobeId");
+
+                    b.ToTable("WorkOrders");
+                });
+
+            modelBuilder.Entity("InvenTracker.Domain.Entities.WorkOrderItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("WorkOrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("WorkOrderId");
+
+                    b.ToTable("WorkOrderItems");
+                });
+
             modelBuilder.Entity("InvenTracker.Domain.Entities.AddressCompany", b =>
                 {
                     b.HasOne("InvenTracker.Domain.Entities.Company", "Company")
@@ -572,6 +620,36 @@ namespace InvenTracker.Infrastructure.Migrations
                     b.Navigation("Wardrobe");
                 });
 
+            modelBuilder.Entity("InvenTracker.Domain.Entities.WorkOrder", b =>
+                {
+                    b.HasOne("InvenTracker.Domain.Entities.Wardrobe", "Wardrobe")
+                        .WithMany()
+                        .HasForeignKey("WardrobeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Wardrobe");
+                });
+
+            modelBuilder.Entity("InvenTracker.Domain.Entities.WorkOrderItem", b =>
+                {
+                    b.HasOne("InvenTracker.Domain.Entities.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("InvenTracker.Domain.Entities.WorkOrder", "WorkOrder")
+                        .WithMany("Items")
+                        .HasForeignKey("WorkOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("WorkOrder");
+                });
+
             modelBuilder.Entity("InvenTracker.Domain.Entities.Company", b =>
                 {
                     b.Navigation("Address");
@@ -610,6 +688,11 @@ namespace InvenTracker.Infrastructure.Migrations
                     b.Navigation("Drawers");
 
                     b.Navigation("ResponsibleUsers");
+                });
+
+            modelBuilder.Entity("InvenTracker.Domain.Entities.WorkOrder", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
