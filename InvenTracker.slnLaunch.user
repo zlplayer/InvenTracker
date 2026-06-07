@@ -3,10 +3,6 @@
     "Name": "Nowy Profil",
     "Projects": [
       {
-        "Path": "inventracker.client\\inventracker.client.esproj",
-        "Action": "Start"
-      },
-      {
         "Path": "InvenTracker.Server\\InvenTracker.Server.csproj",
         "Action": "Start"
       }

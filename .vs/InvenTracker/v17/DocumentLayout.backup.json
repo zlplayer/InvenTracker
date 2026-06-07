@@ -1,12 +1,101 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{05A08AA3-BB9C-4945-8B30-E276BFC8CCC9}|InvenTracker.Server\\InvenTracker.Server.csproj|c:\\users\\konzo\\source\\repos\\inventracker\\inventracker.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05A08AA3-BB9C-4945-8B30-E276BFC8CCC9}|InvenTracker.Server\\InvenTracker.Server.csproj|solutionrelative:inventracker.server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{05A08AA3-BB9C-4945-8B30-E276BFC8CCC9}|InvenTracker.Server\\InvenTracker.Server.csproj|c:\\users\\konzo\\source\\repos\\inventracker\\inventracker.server\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05A08AA3-BB9C-4945-8B30-E276BFC8CCC9}|InvenTracker.Server\\InvenTracker.Server.csproj|solutionrelative:inventracker.server\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A5FB30E6-2390-49F8-A4F5-C2775C142C56}|InvenTracker.Application\\InvenTracker.Application.csproj|c:\\users\\konzo\\source\\repos\\inventracker\\inventracker.application\\inventracker.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A5FB30E6-2390-49F8-A4F5-C2775C142C56}|InvenTracker.Application\\InvenTracker.Application.csproj|solutionrelative:inventracker.application\\inventracker.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C2BC2A4-1216-4625-8C38-13A69435B945}|InvenTracker.Infrastructure\\InvenTracker.Infrastructure.csproj|c:\\users\\konzo\\source\\repos\\inventracker\\inventracker.infrastructure\\inventracker.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{1C2BC2A4-1216-4625-8C38-13A69435B945}|InvenTracker.Infrastructure\\InvenTracker.Infrastructure.csproj|solutionrelative:inventracker.infrastructure\\inventracker.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{05A08AA3-BB9C-4945-8B30-E276BFC8CCC9}|InvenTracker.Server\\InvenTracker.Server.csproj|c:\\users\\konzo\\source\\repos\\inventracker\\inventracker.server\\inventracker.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{05A08AA3-BB9C-4945-8B30-E276BFC8CCC9}|InvenTracker.Server\\InvenTracker.Server.csproj|solutionrelative:inventracker.server\\inventracker.server.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Server\\Program.cs",
+              "RelativeDocumentMoniker": "InvenTracker.Server\\Program.cs",
+              "ToolTip": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Server\\Program.cs",
+              "RelativeToolTip": "InvenTracker.Server\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-17T21:52:07.964Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WeatherForecast.cs",
+              "DocumentMoniker": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Server\\WeatherForecast.cs",
+              "RelativeDocumentMoniker": "InvenTracker.Server\\WeatherForecast.cs",
+              "ToolTip": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Server\\WeatherForecast.cs",
+              "RelativeToolTip": "InvenTracker.Server\\WeatherForecast.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-17T21:52:06.927Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "InvenTracker.Application.csproj",
+              "DocumentMoniker": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Application\\InvenTracker.Application.csproj",
+              "RelativeDocumentMoniker": "InvenTracker.Application\\InvenTracker.Application.csproj",
+              "ToolTip": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Application\\InvenTracker.Application.csproj",
+              "RelativeToolTip": "InvenTracker.Application\\InvenTracker.Application.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-17T21:51:31.782Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "InvenTracker.Infrastructure.csproj",
+              "DocumentMoniker": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Infrastructure\\InvenTracker.Infrastructure.csproj",
+              "RelativeDocumentMoniker": "InvenTracker.Infrastructure\\InvenTracker.Infrastructure.csproj",
+              "ToolTip": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Infrastructure\\InvenTracker.Infrastructure.csproj",
+              "RelativeToolTip": "InvenTracker.Infrastructure\\InvenTracker.Infrastructure.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-17T21:51:25.272Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "InvenTracker.Server.csproj",
+              "DocumentMoniker": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Server\\InvenTracker.Server.csproj",
+              "RelativeDocumentMoniker": "InvenTracker.Server\\InvenTracker.Server.csproj",
+              "ToolTip": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Server\\InvenTracker.Server.csproj",
+              "RelativeToolTip": "InvenTracker.Server\\InvenTracker.Server.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAABkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-17T21:51:08.604Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
