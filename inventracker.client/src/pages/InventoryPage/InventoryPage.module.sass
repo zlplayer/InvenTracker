@@ -1,0 +1,78 @@
+.container
+    width: 100%
+
+.header
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+
+    .headerIcon
+        display: flex
+        align-items: center
+        gap: 0.5rem
+    
+        svg
+            height: 1.5rem
+            width: 1.5rem
+            color: #0c3fb2
+            background-color: rgba(11, 63, 178, 0.1)
+            padding: 0.5rem
+            border-radius: 0.4rem
+
+    .title
+        display: flex
+        flex-direction: column
+        
+        .titleText
+            display: flex
+            align-items: center
+            gap: 20px
+            font-size: 1.5rem
+            font-weight: 500
+
+        .descriptionTitle
+            font-size: 1rem
+            color: #737373
+    
+    .addInventoryItemButton
+        display: flex
+        align-items: center
+        gap: 0.4rem
+        background-color: #0b3fb2
+        color: white
+        border: none
+        border-radius: 0.5rem
+        padding: 0.6rem 1rem
+        font-size: 0.9rem
+        cursor: pointer
+
+        &:hover
+            opacity: 0.9
+
+.stats
+    display: flex
+    align-items: center
+    gap: 1rem
+    margin-bottom: 2rem
+    margin-top: 1.5rem
+
+.statItem
+    display: flex
+    align-items: center
+    gap: 0.5rem
+    color: #737373
+
+    strong
+        color: #171717
+
+    &:not(:first-child)
+        border-left: 1px solid #E5E5E5
+        padding-left: 1rem
+
+
+.inventory
+    display: grid
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr))
+    gap: 1rem
+    border-top: 1px solid #E5E5E5
+    padding-top: 1.5rem
