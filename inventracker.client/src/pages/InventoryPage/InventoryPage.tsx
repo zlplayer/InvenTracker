@@ -1,7 +1,15 @@
+import { InventoryTable } from '../../components/share/InventoryTable/InventoryTable'
 import styles from './InventoryPage.module.sass'
 import { Plus, Users, Clock, CircleCheckBig, Wrench, Box } from 'lucide-react'
+import type { InventoryItemRow } from "../../components/share/InventoryTable/InventoryTable.type"
 
 export default function InventoryPage() {
+
+  const mockItems: InventoryItemRow[] = [
+    { id: "1", name: "Wiertarka udarowa", description: "...", isPackaged: true, QuantityPerPackage: 5, status: "Dostępny" },
+    // TODO: dodaj kolejne, z różnymi statusami (żeby sprawdzić czy statusColors działa dla każdego)
+]
+
   return (
     <div className="container">
       <div className={styles.header}> 
@@ -36,7 +44,7 @@ export default function InventoryPage() {
       </div>
 
       <div className={styles.inventory}>
-
+        <InventoryTable items={mockItems}/>
       </div>
       
     </div>
