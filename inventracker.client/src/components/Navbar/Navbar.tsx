@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { useAuth } from "../../context/AuthContext/AuthContext"
 import styles from "./Navbar.module.sass"
 import { Package, ChevronLeft, LayoutDashboard, User, Building2, Box, LogOut } from "lucide-react"
+import { initials } from "../share/Utils/InitialsFunction"
 export default function Navbar() {
     const { user, logout } = useAuth()
 
@@ -12,7 +13,7 @@ export default function Navbar() {
         navigate("/login")
     }
 
-    const initials = user?.firstName && user?.lastName ? user.firstName[0].toLocaleUpperCase() + user.lastName[0].toLocaleUpperCase() : null
+    const initialsUser = initials(user?.firstName, user?.lastName)
 
     return (
         <aside className={styles.sidebar}>
@@ -28,7 +29,7 @@ export default function Navbar() {
             </nav>
             <div className={styles.footer}>
                 <div className={styles.userInfo}>
-                    {initials && <span className={styles.userIcon}>{initials}</span> }
+                    {initialsUser && <span className={styles.userIcon}>{initialsUser}</span> }
                     <div className={styles.userInfoContent}>
                         <span>{user?.firstName} {user?.lastName}</span>
                         <span className={styles.email}>{user?.email}</span>
