@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("InvenTracker.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d99fb1c8b088dd29e0d1b61c830de0b1d31a8da3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c6e18af80e84073ef5fa1e90e9f815ca06407a68")]
 [assembly: System.Reflection.AssemblyProductAttribute("InvenTracker.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("InvenTracker.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

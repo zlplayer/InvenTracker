@@ -1,8 +1,18 @@
+import { useEffect, useState } from "react";
 import { CompanyCard } from "../../components/share/CompanyCard/CompanyCard";
 import styles from "./CompanyPage.module.sass"
 import {Building2, Plus, Briefcase, Package } from 'lucide-react'
+import GetCompanyAction from "../../action/companyAction/GetCompanyAction";
+import type { CompanyServiceType } from "../../services/companyServices/ComapnyServiceType.types";
 
 export default function CompaniesPage() {
+
+  const [companies, setCompanies] = useState<CompanyServiceType[]>([]);
+
+  useEffect(() => {
+    GetCompanyAction.getAllCompanyAction().then(setCompanies);
+  }, []);
+
   return (
     <div className="container">
       <div className={styles.header}> 
@@ -34,14 +44,15 @@ export default function CompaniesPage() {
       </div>
 
       <div className={styles.companies}>
-        <CompanyCard title="Firma 1" description="Opis firmy 1" wardrobesCount={10} departmentsCount={5} />
-        <CompanyCard title="Firma 1" description="Opis firmy 1" wardrobesCount={10} departmentsCount={5} />
-        <CompanyCard title="Firma 1" description="Opis firmy 1" wardrobesCount={10} departmentsCount={5} />
-        <CompanyCard title="Firma 1" description="Opis firmy 1" wardrobesCount={10} departmentsCount={5} />
-        <CompanyCard title="Firma 1" description="Opis firmy 1" wardrobesCount={10} departmentsCount={5} />
-        <CompanyCard title="Firma 1" description="Opis firmy 1" wardrobesCount={10} departmentsCount={5} />
-        <CompanyCard title="Firma 1" description="Opis firmy 1" wardrobesCount={10} departmentsCount={5} />
-        <CompanyCard title="Firma 1" description="Opis firmy 1" wardrobesCount={10} departmentsCount={5} />
+        {companies.map((company) => (
+          <CompanyCard
+            key={company.id}
+            title={company.name}
+            description={`${company.addressCompany.street} ${company.addressCompany.buildingNumber}, ${company.addressCompany.postalCode} ${company.addressCompany.city}`}
+            wardrobesCount={company.wardrobeCount}
+            departmentsCount={company.departementCount}
+          />
+        ))}
       </div>
     </div>
   )
