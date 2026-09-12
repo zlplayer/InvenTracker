@@ -4,6 +4,7 @@ using InvenTracker.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvenTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(InvenTrackerDbContext))]
-    partial class InvenTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260910172710_Dodanie opisu do firm")]
+    partial class Dodanieopisudofirm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -385,9 +388,6 @@ namespace InvenTracker.Infrastructure.Migrations
 
                     b.Property<Guid?>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool?>("IsOnline")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Model")
                         .IsRequired()

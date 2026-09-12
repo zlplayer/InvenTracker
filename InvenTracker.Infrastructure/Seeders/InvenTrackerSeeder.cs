@@ -132,6 +132,7 @@ public class InvenTrackerSeeder
         {
             Id = Guid.NewGuid(),
             Name = "TechCorp Rozwiązania IT",
+            Description = "Firma 1: TechCorp",
             Address = techCorpAddress,
             AddressId = techCorpAddress.Id,
             Departments = new List<Department>(),
@@ -187,6 +188,7 @@ public class InvenTrackerSeeder
             Model = "StoragePro 3000",
             SerialNumber = "SP3000-2024-001",
             SoftwareVersion = "v2.1.5",
+            IsOnline = true,
             CompanyId = techCorp.Id,
             DepartmentId = itSupportDept.Id,
             Drawers = new List<Drawer>()
@@ -308,6 +310,7 @@ public class InvenTrackerSeeder
             Model = "DevStorage 5000",
             SerialNumber = "DS5000-2024-002",
             SoftwareVersion = "v3.0.1",
+            IsOnline =  true,
             CompanyId = techCorp.Id,
             DepartmentId = developmentDept.Id,
             Drawers = new List<Drawer>()
@@ -397,6 +400,7 @@ public class InvenTrackerSeeder
         {
             Id = Guid.NewGuid(),
             Name = "Klinika MediZdrowie",
+            Description = "Firma 2: MediHealth",
             Address = mediHealthAddress,
             AddressId = mediHealthAddress.Id,
             Departments = new List<Department>(),
@@ -452,6 +456,7 @@ public class InvenTrackerSeeder
             Model = "MediStore 2000",
             SerialNumber = "MS2000-2024-001",
             SoftwareVersion = "v1.5.0",
+            IsOnline =  true,
             CompanyId = mediHealth.Id,
             DepartmentId = emergencyDept.Id,
             Drawers = new List<Drawer>()
@@ -596,6 +601,7 @@ public class InvenTrackerSeeder
             Model = "LabStore 4000",
             SerialNumber = "LS4000-2024-001",
             SoftwareVersion = "v2.3.0",
+            IsOnline =  true,
             CompanyId = mediHealth.Id,
             DepartmentId = laboratoryDept.Id,
             Drawers = new List<Drawer>()

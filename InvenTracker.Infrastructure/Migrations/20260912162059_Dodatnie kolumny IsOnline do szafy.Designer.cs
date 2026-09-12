@@ -4,6 +4,7 @@ using InvenTracker.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InvenTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(InvenTrackerDbContext))]
-    partial class InvenTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260912162059_Dodatnie kolumny IsOnline do szafy")]
+    partial class DodatniekolumnyIsOnlinedoszafy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

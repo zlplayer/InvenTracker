@@ -13,11 +13,7 @@ public class UserRepositories : IUserRepositories
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<User>> GetUsers()
-    {
-        var users = await _dbContext.Users.ToListAsync();
-        return users;
-    }
+    public async Task<IEnumerable<User>> GetUsers() => await _dbContext.Users.Include(x=>x.Role).ToListAsync();
     
     public async Task<User?> GetUser(Guid id)
     {

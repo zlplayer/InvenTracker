@@ -13,7 +13,15 @@ public class WardrobeRepositories: IWardrobeRepositories
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<Wardrobe>> GetAllWardrobes() =>await _dbContext.Wardrobes.ToListAsync();
+    public async Task<IEnumerable<Wardrobe>> GetAllWardrobes() =>await _dbContext.Wardrobes
+        .Include(x=>x.Company)
+            .ThenInclude(x=>x.Address)
+        .Include(x=>x.Department)
+            .ThenInclude(x=>x.Address)
+        .Include(x=>x.Drawers)
+            .ThenInclude(x=>x.Partitions)
+                .ThenInclude(x=>x.ItemPartitions)
+        .ToListAsync();
     
     public async Task<Wardrobe?> GetWardrobe(Guid wardrobeId) => await _dbContext.Wardrobes
         .Include(x => x.Drawers)
