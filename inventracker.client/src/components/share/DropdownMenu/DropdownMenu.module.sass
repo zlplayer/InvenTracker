@@ -1,0 +1,41 @@
+.overlayStyle
+    position: fixed
+    inset: 0
+    z-index: 1000
+
+.contentStyle
+    margin-top: 0.4rem
+    background-color: white
+    border-radius: 0.5rem
+    border: 1px solid #E5E5E5
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)
+    padding: 0.4rem
+    min-width: 180px
+    display: flex
+    flex-direction: column
+    gap: 0.1rem
+
+.menuItem
+    display: block
+    width: 100%
+    padding: 0.5rem 0.75rem
+    border: none
+    background: none
+    border-radius: 0.4rem
+    font-size: 0.9rem
+    text-align: left
+    cursor: pointer
+
+    &:hover
+        background-color: rgba(11, 63, 178, 0.1)
+
+.menuItemDanger
+    color: #EF4444
+
+    &:hover
+        background-color: rgba(239, 68, 68, 0.1)
+
+.divider
+    height: 1px
+    background-color: #E5E5E5
+    margin: 0.3rem 0

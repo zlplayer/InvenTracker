@@ -1,6 +1,7 @@
 export interface CompanyServiceType {
     id: number;
     name: string;
+    description: string;
     addressCompany: addressCompany;
     wardrobeCount: number;
     departementCount: number;

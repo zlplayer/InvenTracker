@@ -8,11 +8,12 @@ export interface UserRow{
 }
 
 export interface UserTableProps {
-    users: UserRow[]
+    users: UserRow[],
 }
 
 export const statusColors: Record<string, string> = {
-    "Dostępny": "#22C55E",
-    "W użyciu": "#3B82F6",
-    "Konserwacja": "#F59E0B",
+    "User": "#22C55E",
+    "Dostawca": "#4F46E5",
+    "Technik": "#0EA5E9",
+    "Admin": "#EF4444",
 }

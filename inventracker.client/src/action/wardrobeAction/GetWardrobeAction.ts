@@ -10,3 +10,5 @@ class GetWardrobeAction {
         return wardrobe;
     }
 }
+
+export default new GetWardrobeAction();

@@ -42,6 +42,9 @@ public class InvenTrackerMappingProfile: Profile
             .ForMember(dest => dest.AddressDepartment, opt => opt.MapFrom(src => src.Address))
             .ForMember(dest => dest.Wardrobe, opt => opt.MapFrom(src => src.Wardrobes));
 
+        CreateMap<Department, GetAllDepartmentDto>()
+            .ForMember(dest => dest.AddressDepartment, opt => opt.MapFrom(src => src.Address));
+
         CreateMap<CreateDepartmentDto, Department>()
             .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.AddressDepartment));
 
@@ -54,7 +57,14 @@ public class InvenTrackerMappingProfile: Profile
         
         CreateMap<AddressDepartment, GetAddressDepartmentDto>().ReverseMap();
         
-        CreateMap<Wardrobe,  GetWardrobeDto>().ReverseMap();
+        CreateMap<GetWardrobeDto, Wardrobe>();
+
+        CreateMap<Wardrobe, GetWardrobeDto>()
+            .ForMember(dest=>dest.Company,opt=>opt.MapFrom(src=>src.Company))
+            .ForMember(dest=>dest.Department,opt=>opt.MapFrom(src=>src.Department))
+            .ForMember(dest=>dest.ItemsCount,opt=>opt.MapFrom(src=>
+                src.Drawers.SelectMany(d=>d.Partitions).SelectMany(p=>p.ItemPartitions).Sum(ip=>ip.QuantityItem)));
+        
         
         CreateMap<Wardrobe, GetDetailsWardrobeDto>()
             .ForMember(dest=>dest.Drawers, opt => opt.MapFrom(src => src.Drawers))

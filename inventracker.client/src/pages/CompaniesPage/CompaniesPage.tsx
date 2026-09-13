@@ -8,6 +8,7 @@ import type { CompanyServiceType } from "../../services/companyServices/ComapnyS
 export default function CompaniesPage() {
 
   const [companies, setCompanies] = useState<CompanyServiceType[]>([]);
+  const [openMenuId, setOpenMenuId] = useState<number | null>(null);
 
   useEffect(() => {
     GetCompanyAction.getAllCompanyAction().then(setCompanies);
@@ -51,6 +52,8 @@ export default function CompaniesPage() {
             description={`${company.addressCompany.street} ${company.addressCompany.buildingNumber}, ${company.addressCompany.postalCode} ${company.addressCompany.city}`}
             wardrobesCount={company.wardrobeCount}
             departmentsCount={company.departementCount}
+            isMenuOpen={openMenuId === company.id}
+            onToggleMenu={() => setOpenMenuId(openMenuId === company.id ? null : company.id)}
           />
         ))}
       </div>

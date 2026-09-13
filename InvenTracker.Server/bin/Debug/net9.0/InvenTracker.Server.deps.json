@@ -11,7 +11,7 @@
           "InvenTracker.Application": "1.0.0",
           "InvenTracker.Infrastructure": "1.0.0",
           "Microsoft.AspNetCore.OpenApi": "9.0.9",
-          "Microsoft.AspNetCore.SpaProxy": "9.0.19",
+          "Microsoft.AspNetCore.SpaProxy": "9.0.20",
           "Microsoft.EntityFrameworkCore.Design": "9.0.11"
         },
         "runtime": {
@@ -138,11 +138,11 @@
           }
         }
       },
-      "Microsoft.AspNetCore.SpaProxy/9.0.19": {
+      "Microsoft.AspNetCore.SpaProxy/9.0.20": {
         "runtime": {
           "lib/net9.0/Microsoft.AspNetCore.SpaProxy.dll": {
-            "assemblyVersion": "9.0.19.0",
-            "fileVersion": "9.0.1926.37016"
+            "assemblyVersion": "9.0.20.0",
+            "fileVersion": "9.0.2026.41407"
           }
         }
       },
@@ -1243,12 +1243,12 @@
       "path": "microsoft.aspnetcore.openapi/9.0.9",
       "hashPath": "microsoft.aspnetcore.openapi.9.0.9.nupkg.sha512"
     },
-    "Microsoft.AspNetCore.SpaProxy/9.0.19": {
+    "Microsoft.AspNetCore.SpaProxy/9.0.20": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-WW82ianqWVqDnBrzY7MOgoHpcjKXwVZCswHS4ya0kfFy4+MRPBgb26JkEWRoqT0LEiAOL+I65ohbwwq7Ia+QZw==",
-      "path": "microsoft.aspnetcore.spaproxy/9.0.19",
-      "hashPath": "microsoft.aspnetcore.spaproxy.9.0.19.nupkg.sha512"
+      "sha512": "sha512-t/n9o7tjb3Gs28cBoOiCPfZTn62FQZjjXdNAFENhRphb3AIFdicvWtjlECKrVjeNickm+DVduM2G9SS/TleOiQ==",
+      "path": "microsoft.aspnetcore.spaproxy/9.0.20",
+      "hashPath": "microsoft.aspnetcore.spaproxy.9.0.20.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/7.0.0": {
       "type": "package",

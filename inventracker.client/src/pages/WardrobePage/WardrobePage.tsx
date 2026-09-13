@@ -1,19 +1,18 @@
+import { useEffect, useState } from "react"
 import styles from "./WardrobePage.module.sass"
 import { Plus, Package } from 'lucide-react'
 import { WardrobeCard } from "../../components/share/WardrobeCard/WardrobeCard";
+import GetWardrobeAction from "../../action/wardrobeAction/GetWardrobeAction";
+import type { WardrobeServiceType } from "../../services/wardrobeServices/WardrobeServiceType.type";
 
 export default function WardrobePage() {
 
-  const wardrobes = [
-  { id: 1, title: "Szafa A1", companyName: "Tech-Mont Sp. z o.o.", localization: "Warszawa, Hala 1", itemsCount: 247, lastSync: "5", isOnline: true },
-  { id: 2, title: "Szafa A2", companyName: "Tech-Mont Sp. z o.o.", localization: "Warszawa, Hala 1", itemsCount: 183, lastSync: "12", isOnline: true },
-  { id: 3, title: "Szafa B1", companyName: "BudMaster S.A.", localization: "Kraków, Magazyn Główny", itemsCount: 421, lastSync: "2", isOnline: false },
-  { id: 4, title: "Szafa C1", companyName: "AutoSerwis Lider", localization: "Gdańsk, Warsztat 2", itemsCount: 89, lastSync: "1", isOnline: true },
-  { id: 5, title: "Szafa D3", companyName: "MetalWorks", localization: "Poznań, Hala produkcyjna", itemsCount: 312, lastSync: "8", isOnline: true },
-  { id: 6, title: "Szafa E1", companyName: "ElektroSystem", localization: "Wrocław, Serwis", itemsCount: 156, lastSync: "3", isOnline: false },
-  { id: 7, title: "Szafa F2", companyName: "BudMaster S.A.", localization: "Katowice, Plac budowy", itemsCount: 198, lastSync: "20", isOnline: true },
-  { id: 8, title: "Szafa G1", companyName: "PrecyzjaTech", localization: "Łódź, Hala montażu", itemsCount: 274, lastSync: "45", isOnline: false },
-]
+  const [wardrobes, setWardrobes] = useState<WardrobeServiceType[]>([]);
+  const [openMenuId, setOpenMenuId] = useState<number | null>(null);
+
+  useEffect(() => {
+    GetWardrobeAction.getAllWardrobeAction().then(setWardrobes);
+  }, []);
 
   return (
     <div className="container">
@@ -45,9 +44,22 @@ export default function WardrobePage() {
       </div>
 
       <div className={styles.companies}>
-        {wardrobes.map((wardrobe) => (
-          <WardrobeCard key={wardrobe.id} {...wardrobe} />
-        ))}
+        {wardrobes.map((wardrobe) => {
+          const address = wardrobe.department?.addressDepartment ?? wardrobe.company.addressCompany;
+
+          return (
+            <WardrobeCard
+              key={wardrobe.id}
+              title={wardrobe.name}
+              companyName={wardrobe.company.name}
+              localization={`${address.street} ${address.buildingNumber}, ${address.postalCode} ${address.city}`}
+              isOnline={wardrobe.isOnline}
+              itemsCount={wardrobe.itemsCount}
+              isMenuOpen={openMenuId === wardrobe.id}
+              onToggleMenu={() => setOpenMenuId(openMenuId === wardrobe.id ? null : wardrobe.id)}
+            />
+          );
+        })}
       </div>
     </div>
   )

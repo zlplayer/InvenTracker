@@ -1,13 +1,17 @@
 import styles from './UserPage.module.sass'
 import { Plus, Users, UserX, UserCheck, Shield } from 'lucide-react'
-import type { UserRow } from "../../components/share/UserTable/UserTable.type"
 import { UserTable } from '../../components/share/UserTable/UserTable'
+import { useState, useEffect } from 'react'
+import GetUserAction from '../../action/userAction/GetUserAction'
+import type { UserServiceType } from '../../services/userService/UserServiceType.type'
 
 export default function UsersPage() {
-  const mockUsers: UserRow[] = [
-    { id: "1", email: "test@test.com", username: "Test", firstName: "Test", lastName: "Test", roleName: "Dostępny" },
-    // TODO: dodaj kolejne, z różnymi statusami (żeby sprawdzić czy statusColors działa dla każdego)
-]
+
+  const [users, setUsers] = useState<UserServiceType[]>([]);
+
+  useEffect(() => {
+    GetUserAction.getAllUsersAction().then(setUsers);
+  }, []);
 
    return (
     <div className="container">
@@ -43,8 +47,7 @@ export default function UsersPage() {
       </div>
 
       <div className={styles.users}>
-        <UserTable users={mockUsers}/>
-
+        <UserTable users={users}/>
       </div>
       
     </div>

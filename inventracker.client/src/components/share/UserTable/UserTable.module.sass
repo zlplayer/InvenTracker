@@ -46,11 +46,12 @@
 .statusBadge
     display: inline-flex
     align-items: center
+    line-height: 1
     color: white
     font-size: 0.8rem
     font-weight: 500
     border-radius: 0.4rem
-    padding: 0.2rem 0.6rem
+    padding: 0.4rem 0.6rem
 
 .burgerDot
     background: none
@@ -66,4 +67,16 @@
         opacity: 1
         background: rgba(11, 63, 178, 0.1)
         border-radius: 0.4rem
+
+.menuItemButton
+    background: none
+    border: none
+    display: flex
+    padding: 0.5rem
+    width: 100%
     
+    &:hover
+        background: rgba(11, 63, 178, 0.1)
+
+.menuItemButtonDanger
+    color: #EF4444

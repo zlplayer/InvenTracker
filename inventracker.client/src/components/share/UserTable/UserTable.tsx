@@ -1,11 +1,23 @@
 import styles from "./UserTable.module.sass"
-import { Package, EllipsisVertical } from 'lucide-react'
+import {EllipsisVertical } from 'lucide-react'
 import type { UserTableProps } from "./UserTable.type"
 import { statusColors } from "./UserTable.type"
 import { initials } from "../Utils/InitialsFunction"
+import DropdownMenu from "../DropdownMenu/DropdownMenu"
+import { useState } from "react"
 
 
 export const UserTable = (props: UserTableProps)=>{
+
+    const [openUserId, setOpenUserId] = useState<string | null>(null);
+    const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
+
+    const handleToggleMenu = (e: React.MouseEvent<HTMLButtonElement>, userId: string) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setMenuPosition({ top: rect.bottom, right: window.innerWidth - rect.right });
+        setOpenUserId(openUserId === userId ? null : userId);
+    }
+
     return(
         <table className={styles.table}>
             <thead>
@@ -38,7 +50,15 @@ export const UserTable = (props: UserTableProps)=>{
                             </span>
                         </td>
                         <td>
-                            <button className={styles.burgerDot}><EllipsisVertical/></button>
+                            <button className={styles.burgerDot} onClick={(e) => handleToggleMenu(e, user.id)}><EllipsisVertical/></button>
+
+                            <DropdownMenu isOpen={openUserId === user.id} onClose={() => setOpenUserId(null)} menuPosition={menuPosition}>
+                    <div className={styles.menuItem}>
+                        <button className={styles.menuItemButton}>Wyświetl szczegóły</button>
+                        <button className={styles.menuItemButton}>Edytuj</button>
+                        <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`}>Usuń</button>
+                    </div>
+                </DropdownMenu>
                         </td>
                     </tr>
                 ))}

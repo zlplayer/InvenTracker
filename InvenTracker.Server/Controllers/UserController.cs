@@ -3,6 +3,7 @@ using InvenTracker.Application.InvenTracker.Commands.DeleteUser;
 using InvenTracker.Application.InvenTracker.Commands.UpdatePassword;
 using InvenTracker.Application.InvenTracker.Commands.UpdateUser;
 using InvenTracker.Application.InvenTracker.Commands.UpdateUserRole;
+using InvenTracker.Application.InvenTracker.Queries.GetAllUsers;
 using InvenTracker.Application.InvenTracker.Queries.GetUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +20,14 @@ public class UserController: ControllerBase
     public UserController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+    
+    [HttpGet]
+    [Authorize(Roles = "Admin, Technik")]
+    public async Task<IActionResult> GetAllUser()
+    {
+        var userDto = await _mediator.Send(new GetAllUsersQuery());
+        return Ok(userDto);
     }
 
     [HttpGet("{id}")]

@@ -18,6 +18,7 @@ public class GetAllWardrobesQueryHandler: IRequestHandler<GetAllWardrobesQuery, 
     public async Task<IEnumerable<GetWardrobeDto>> Handle(GetAllWardrobesQuery request, CancellationToken cancellationToken)
     {
         var wardrobe = await _wardrobeRepositories.GetAllWardrobes();
+        
         return _mapper.Map<IEnumerable<GetWardrobeDto>>(wardrobe);
     }
 }

@@ -3,5 +3,6 @@ export interface CompanyCardProps {
     description?: string
     wardrobesCount?: number
     departmentsCount?: number
-    
+    isMenuOpen: boolean
+    onToggleMenu: () => void
 }

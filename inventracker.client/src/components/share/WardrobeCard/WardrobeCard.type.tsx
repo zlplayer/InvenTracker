@@ -5,4 +5,6 @@ export interface WardrobeCardProps {
     itemsCount?: number
     lastSync?: string
     isOnline?: boolean
+    isMenuOpen: boolean
+    onToggleMenu: () => void
 }

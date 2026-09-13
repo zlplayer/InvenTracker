@@ -1,7 +1,7 @@
 import type { WardrobeServiceType } from "./WardrobeServiceType.type";
 
 class GetWardrobeServices {
-    public async getAllWardrobe(token: string): Promise<WardrobeServiceType> {
+    public async getAllWardrobe(token: string): Promise<WardrobeServiceType[]> {
         const res = await fetch("/api/Wardrobe", {
             method: "GET",
             headers: {
