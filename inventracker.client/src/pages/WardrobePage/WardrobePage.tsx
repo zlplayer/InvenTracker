@@ -4,11 +4,21 @@ import { Plus, Package } from 'lucide-react'
 import { WardrobeCard } from "../../components/share/WardrobeCard/WardrobeCard";
 import GetWardrobeAction from "../../action/wardrobeAction/GetWardrobeAction";
 import type { WardrobeServiceType } from "../../services/wardrobeServices/WardrobeServiceType.type";
+import NewWardrobe from "./New/NewWardrobe";
 
 export default function WardrobePage() {
 
   const [wardrobes, setWardrobes] = useState<WardrobeServiceType[]>([]);
   const [openMenuId, setOpenMenuId] = useState<number | null>(null);
+  const [isOpenModal, setIsOpen] = useState<boolean>(false)
+
+  const handleIsOpen= () =>{
+    setIsOpen(true)
+  }
+
+  const handleIsClose= () =>{
+    setIsOpen(false)
+  }
 
   useEffect(() => {
     GetWardrobeAction.getAllWardrobeAction().then(setWardrobes);
@@ -24,10 +34,12 @@ export default function WardrobePage() {
             <span className={styles.descriptionTitle}>Zarzadzaj wszystkimi szafami przemyslowymi w systemie</span>
           </div>
         </div>
-        <button className={styles.addCWardrobeButton}>
+        <button className={styles.addCWardrobeButton} onClick={handleIsOpen}>
           <Plus size={16} />
           Dodaj szafę
         </button>
+        <NewWardrobe isOpenModal={isOpenModal} handleIsClose={handleIsClose} />
+            
       </div>
       <div className={styles.stats}>
         <span className={styles.statItem}>

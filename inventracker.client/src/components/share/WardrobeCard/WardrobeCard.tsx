@@ -1,13 +1,15 @@
 import styles from "./WardrobeCard.module.sass"
 
 import { EllipsisVertical,  Package,  MapPin, Building2 } from 'lucide-react'
-import type { WardrobeCardProps } from './WardrobeCard.type.tsx'
+import type { WardrobeCardProps, DeleteModalProps } from './WardrobeCard.type.tsx'
 import DropdownMenu from "../DropdownMenu/DropdownMenu"
 import { useState, useRef } from "react"
+import Modal from "../Modal/Modal"
 
 export const WardrobeCard = (props: WardrobeCardProps) => {
 
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const [isOpenDeleteModal, setIsOpenDeleteModal] = useState<boolean>(false)
 
     const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
 
@@ -17,6 +19,18 @@ export const WardrobeCard = (props: WardrobeCardProps) => {
             setMenuPosition({ top: rect.bottom, right: window.innerWidth - rect.right });
         }
         props.onToggleMenu();
+    }
+
+    const handleDeleteModal = () => {
+        setIsOpenDeleteModal(true)
+    }
+
+    const handleCloseDeleteModal = () => {
+        setIsOpenDeleteModal(false)
+    }
+
+    const handleDelete = () => {
+        setIsOpenDeleteModal(false)
     }
 
     return (
@@ -46,9 +60,10 @@ export const WardrobeCard = (props: WardrobeCardProps) => {
                     <div className={styles.menuItem}>
                         <button className={styles.menuItemButton}>Wyświetl szczegóły</button>
                         <button className={styles.menuItemButton}>Edytuj</button>
-                        <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`}>Usuń</button>
+                        <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={handleDeleteModal}>Usuń</button>
                     </div>
                 </DropdownMenu>
+                <DeleteModal isOpen={isOpenDeleteModal} onClose={handleCloseDeleteModal} onDelete={handleDelete} />
 
             </div>
 
@@ -78,4 +93,17 @@ export const WardrobeCard = (props: WardrobeCardProps) => {
             </div>
         </div>
     )
-}     
+}
+
+const DeleteModal = ({ isOpen, onClose, onDelete } : DeleteModalProps) => {
+    return (
+        <Modal isOpen={isOpen} onClose={onClose}>
+            <h2>Usuwanie szafy</h2>
+            <p>Czy na pewno chcesz usunąć szafę?</p>
+            <div className={styles.modalButtons}>
+                <button className={styles.modalButton} onClick={onClose}>Anuluj</button>
+                <button className={styles.modalButtonDanger} onClick={onDelete} >Usuń</button>
+            </div>
+        </Modal>
+    )
+}
