@@ -4,10 +4,12 @@ import { EllipsisVertical,  Package,  MapPin, Building2 } from 'lucide-react'
 import type { WardrobeCardProps, DeleteModalProps } from './WardrobeCard.type.tsx'
 import DropdownMenu from "../DropdownMenu/DropdownMenu"
 import { useState, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 import Modal from "../Modal/Modal"
 
 export const WardrobeCard = (props: WardrobeCardProps) => {
-
+    
+    const navigate = useNavigate()
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [isOpenDeleteModal, setIsOpenDeleteModal] = useState<boolean>(false)
 
@@ -33,13 +35,17 @@ export const WardrobeCard = (props: WardrobeCardProps) => {
         setIsOpenDeleteModal(false)
     }
 
+    const handleGoToDetail = ()=>{
+        navigate(`/wardrobe/${props.id}`)
+    }
+
     return (
        <div className={styles.wrapper}>
             <div className={styles.header}>
                 <div className={styles.image}>
                     <Package />
                     <div>
-                        <span className={styles.title}>{props.title}</span>
+                        <span className={styles.title} onClick={handleGoToDetail}>{props.title}</span>
                         {props.isOnline ?
                             <div className={styles.statusWrapperOnline}>
                                 <span className={styles.dot}></span>
@@ -58,7 +64,7 @@ export const WardrobeCard = (props: WardrobeCardProps) => {
 
                 <DropdownMenu isOpen={props.isMenuOpen} onClose={props.onToggleMenu} menuPosition={menuPosition}>
                     <div className={styles.menuItem}>
-                        <button className={styles.menuItemButton}>Wyświetl szczegóły</button>
+                        <button className={styles.menuItemButton} onClick={handleGoToDetail}>Wyświetl szczegóły</button>
                         <button className={styles.menuItemButton}>Edytuj</button>
                         <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={handleDeleteModal}>Usuń</button>
                     </div>

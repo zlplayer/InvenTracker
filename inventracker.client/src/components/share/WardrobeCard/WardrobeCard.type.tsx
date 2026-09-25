@@ -1,4 +1,5 @@
 export interface WardrobeCardProps {
+    id: number,
     title: string
     companyName?: string
     localization?: string

@@ -62,6 +62,7 @@ export default function WardrobePage() {
           return (
             <WardrobeCard
               key={wardrobe.id}
+              id={wardrobe.id}
               title={wardrobe.name}
               companyName={wardrobe.company.name}
               localization={`${address.street} ${address.buildingNumber}, ${address.postalCode} ${address.city}`}

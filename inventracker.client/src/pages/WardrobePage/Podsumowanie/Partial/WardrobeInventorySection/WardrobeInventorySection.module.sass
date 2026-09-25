@@ -1,0 +1,166 @@
+.headerSection
+    display: block
+    font-size: 1.1rem
+    font-weight: 600
+
+.timeInfo
+    font-size: 0.9rem
+    color: #737373
+
+.addItemButton
+    display: flex
+    align-items: center
+    gap: 0.4rem
+    height: 35px
+    background-color: #0b3fb2
+    color: white
+    border: none
+    border-radius: 0.5rem
+    padding: 0.6rem 1rem
+    font-size: 0.9rem
+    cursor: pointer
+
+    &:hover
+        opacity: 0.9
+
+.addDrawerButton
+    display: flex
+    background-color: white
+    border: 1px solid #d6d3d3
+    padding: 0.5rem 1rem
+    border-radius: 0.4rem
+    font-weight: 500
+    cursor: pointer
+    gap: 0.4rem
+    height: 35px
+    align-items: center
+
+        
+    &:hover
+        background-color: #f1f1f1
+
+.headerSectionWrapper
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    gap: 1rem
+
+.buttonsConfig
+    display: flex
+    gap: 0.5rem
+    flex-direction: row
+
+.bodyWrapper
+    display: flex
+    flex-direction: column
+    margin-top: 2rem
+    border-radius: 0.5rem
+    border: 1px solid #E5E5E5
+    padding-top: 1.5rem
+    padding-bottom: 1.5rem
+    padding-left: 1rem
+    padding-right: 1rem
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)
+
+    .headerSectionWrapper
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+
+        .countPartitions
+            border: 1px solid #E5E5E5
+            border-radius: 0.4rem
+            padding: 0.2rem 0.4rem
+            font-size: 0.9rem
+            font-weight: 500
+        
+    .partitionWrapper
+        display: grid
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr))
+        gap: 1rem
+        margin-top: 1rem
+        width: 100%
+
+        .partition
+            display: flex
+            flex-direction: column
+            border: 1px solid #E5E5E5
+            border-radius: 0.4rem
+            padding: 1rem
+
+            .headerPartition
+                display: flex
+                flex-direction: row
+                justify-content: space-between
+                align-items: center
+                font-size: 0.9rem
+                font-weight: 500
+                color: #737373
+
+            .statusOk
+                border: 1px solid #22C55E
+                border-radius: 0.4rem
+                padding: 0.2rem 0.5rem
+                color: white
+                background-color: #22C55E
+            
+            .itemWrapper
+                display: flex
+                flex-direction: column
+                margin-top: 0.5rem
+                .itemName
+                    font-size: 1rem
+                    font-weight: 600
+                .itemCode
+                    font-size: 0.9rem
+                    color: #737373
+                
+            .itemWrapper2
+                display: flex
+                flex-direction: row
+                justify-content: space-between
+                align-items: center
+                margin-top: 0.5rem
+
+                .ItemCategory
+                    font-size: 0.9rem
+                    border: 1px solid #E5E5E5
+                    border-radius: 0.4rem
+                    padding: 0.2rem 0.4rem
+                    font-weight: 500
+                
+                .ItemCount
+                    font-size: 0.9rem
+                    font-weight: 500
+
+            .itemWrapper3
+                display: flex
+                align-items: center
+                align-self: center
+                gap: 0.5rem
+                margin-top: 0.5rem
+
+                button
+                    display: flex
+                    padding: 0.5rem 1rem
+                    font-weight: 500
+                    cursor: pointer
+                    border: none
+                    background-color: transparent
+                    align-items: center
+                    justify-content: center
+                    gap: 0.4rem
+
+                .editButton
+                    width: 140px
+                    &:hover
+                        color: white
+                        background-color: #0EA5E9
+                        border-radius: 0.4rem
+
+                .deleteButton
+                    &:hover
+                        color: white
+                        background-color: #EF4444
+                        border-radius: 0.4rem
+
