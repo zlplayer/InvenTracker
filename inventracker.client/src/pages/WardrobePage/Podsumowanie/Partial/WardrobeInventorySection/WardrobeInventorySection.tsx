@@ -1,8 +1,31 @@
 import styles from "./WardrobeInventorySection.module.sass"
 import { Plus, Settings2, SquarePen,Trash } from "lucide-react"
+import AddItem from "./Partial/AddItem/AddItem"
+import { useState } from "react"
+import ConfigureWardrobe from "./Partial/ConfigureWardrobe/ConfigureWardrobe"
 
 const WardrobeInventorySection=()=>
 {
+    const [isOpenModal, setIsOpen] = useState<boolean>(false)
+    const [isOpenConfigure, setIsOpenConfigure] = useState<boolean>(false)
+    
+    const handleIsOpen= () =>{
+        setIsOpen(true)
+    }
+    
+    const handleIsClose= () =>{
+        setIsOpen(false)
+    }
+    
+    const handleIsOpenConfigure= () =>{
+        setIsOpenConfigure(true)
+    }
+    
+    const handleIsCloseConfigure= () =>{
+        setIsOpenConfigure(false)
+    }
+
+
     return(
         <div>
             <div className={styles.headerSectionWrapper}>
@@ -11,14 +34,18 @@ const WardrobeInventorySection=()=>
                     <span className={styles.timeInfo}>Zarządzaj przedmiotami w skonfigurowanych przegrodach.</span>
                 </div>
                 <div className={styles.buttonsConfig}>
-                    <button className={styles.addDrawerButton}>
+                    <button className={styles.addDrawerButton} onClick={handleIsOpenConfigure}>
                         <Settings2 size={20}/>
                         Konfiguruj szuflady
                     </button>
-                    <button className={styles.addItemButton}>
+                    <button className={styles.addItemButton} onClick={handleIsOpen}>
                         <Plus size={16} />
                         Dodaj przedmiot
                     </button>
+
+                    <ConfigureWardrobe isOpenModal={isOpenConfigure} handleIsClose={handleIsCloseConfigure} />
+                    <AddItem isOpenModal={isOpenModal} handleIsClose={handleIsClose} />
+
                 </div>
             </div>
 
@@ -53,7 +80,6 @@ const WardrobeInventorySection=()=>
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }

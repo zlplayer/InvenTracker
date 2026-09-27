@@ -1,0 +1,133 @@
+.header
+    display: flex
+    flex-direction: column
+    gap: 0.1rem
+    margin-bottom: 1rem
+
+    .titleText
+        font-size: 1.3rem
+        font-weight: 500
+
+    .descriptionTitle
+        display: block
+        font-size: 0.9rem
+        color: #737373
+
+.form
+    display: flex
+    flex-direction: column
+
+    .descriptionTitle
+        display: block
+        font-size: 0.9rem
+        color: #737373
+        margin-bottom: 1rem
+        margin-top: 0.5rem
+    
+    .secondaryTitle
+        font-size: 1rem
+        font-weight: 500
+        margin-bottom: 0.8rem
+
+    .formItems
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: center
+        border: 1px solid #d6d3d3
+        padding: 0.5rem
+        border-radius: 0.4rem
+        margin-bottom: 1rem
+
+        .formItem
+            display: flex
+            flex-direction: column
+            gap: 0.3rem
+            margin-bottom: 0.7rem
+
+            label
+                font-size: 1rem
+                font-weight: 500
+
+            input
+                width: 100%
+                box-sizing: border-box
+                padding: 0.5rem
+                border: 1px solid #d6d3d3
+                border-radius: 0.4rem
+                font-size: 0.9rem
+                shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)
+                
+            select
+                width: 100%
+                box-sizing: border-box
+                padding: 0.5rem
+                border: 1px solid #d6d3d3
+                border-radius: 0.4rem
+                font-size: 0.9rem
+                shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)
+
+    .deleteButton
+        display: flex
+        padding: 0.5rem 1rem
+        font-weight: 500
+        cursor: pointer
+        border: none
+        background-color: transparent
+        align-items: center
+        justify-content: center
+        gap: 0.4rem
+        margin-top: 1rem
+        &:hover
+            color: white
+            background-color: #EF4444
+            border-radius: 0.4rem
+
+    
+.modalButtons
+    display: flex
+    gap: 1rem
+    justify-content: flex-end
+    margin-top: 1rem
+
+    .cancelButton
+        background-color: white
+        border: 1px solid #d6d3d3
+        padding: 0.5rem 1rem
+        border-radius: 0.4rem
+        font-weight: 500
+        cursor: pointer
+        
+        &:hover
+            background-color: #f1f1f1
+
+    .addButton
+        background-color: #0b3fb2
+        color: white
+        padding: 0.5rem 1rem
+        border-radius: 0.4rem
+        border: none
+        font-weight: 500
+        cursor: pointer
+        
+        &:hover
+            background-color: #0a2f8b
+
+.addDrawerButton
+    display: flex
+    background-color: white
+    border: 1px solid #d6d3d3
+    padding: 0.5rem 1rem
+    border-radius: 0.4rem
+    font-weight: 500
+    cursor: pointer
+    gap: 0.4rem
+    height: 35px
+    align-items: center
+    justify-content: center
+    font-size: 0.9rem
+
+        
+    &:hover
+        background-color: #0EA5E9
+        color: white
