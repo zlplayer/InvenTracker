@@ -51,7 +51,6 @@ const ConfigureWardrobe=({isOpenModal, handleIsClose} : ConfigureWardrobeProps)=
                     </div>
                 ))}
 
-
                 <button type="button" className={styles.addDrawerButton} onClick={handleAddDrawer}>
                     <Plus size={16} />
                     Dodaj szufladę

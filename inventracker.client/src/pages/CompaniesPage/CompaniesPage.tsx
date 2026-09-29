@@ -48,6 +48,7 @@ export default function CompaniesPage() {
         {companies.map((company) => (
           <CompanyCard
             key={company.id}
+            id={company.id}
             title={company.name}
             description={`${company.addressCompany.street} ${company.addressCompany.buildingNumber}, ${company.addressCompany.postalCode} ${company.addressCompany.city}`}
             wardrobesCount={company.wardrobeCount}

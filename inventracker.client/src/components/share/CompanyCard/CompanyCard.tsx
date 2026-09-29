@@ -3,27 +3,33 @@ import { EllipsisVertical, Building2, Package, Briefcase, MapPin } from 'lucide-
 import type { CompanyCardProps } from './CompanyCard.type.tsx'
 import DropdownMenu from "../DropdownMenu/DropdownMenu"
 import { useState, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 
 export const CompanyCard = ( props: CompanyCardProps ) => {
 
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const navigate = useNavigate()
     
-        const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
+    const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
     
-        const handleToggleMenu = () => {
-            const rect = buttonRef.current?.getBoundingClientRect();
-            if (rect) {
-                setMenuPosition({ top: rect.bottom, right: window.innerWidth - rect.right });
-            }
-            props.onToggleMenu();
+    const handleToggleMenu = () => {
+        const rect = buttonRef.current?.getBoundingClientRect();
+        if (rect) {
+            setMenuPosition({ top: rect.bottom, right: window.innerWidth - rect.right });
         }
+        props.onToggleMenu();
+    }
+
+    const handleGoToDetail = ()=>{
+        navigate(`/companies/${props.id}`)
+    }
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.header}>
                 <div className={styles.image}>
                     <Building2 />
-                    <span className={styles.title}>{props.title}</span>
+                    <span className={styles.title} onClick={handleGoToDetail}>{props.title}</span>
                 </div>
                 <button ref={buttonRef} className={styles.acctionButton} onClick={handleToggleMenu}><EllipsisVertical /></button>
 
