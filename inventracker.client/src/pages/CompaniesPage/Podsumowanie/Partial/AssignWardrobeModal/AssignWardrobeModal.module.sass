@@ -1,0 +1,104 @@
+.titleText
+    font-size: 1.3rem
+    font-weight: 500
+
+.form
+    margin-top: 1rem
+
+.formItem
+    display: flex
+    flex-direction: column
+    gap: 0.3rem
+    margin-bottom: 0.7rem
+    margin-top: 0.7rem
+
+    label
+        font-size: 1rem
+        font-weight: 500
+
+    input
+        width: 100%
+        box-sizing: border-box
+        padding: 0.5rem
+        border: 1px solid #d6d3d3
+        border-radius: 0.4rem
+        font-size: 0.9rem
+        shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)
+                
+    select
+        width: 100%
+        box-sizing: border-box
+        padding: 0.5rem
+        border: 1px solid #d6d3d3
+        border-radius: 0.4rem
+        font-size: 0.9rem
+        shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)
+
+.secondaryTitle
+    font-size: 1rem
+    font-weight: 500
+    margin-bottom: 0.8rem
+
+.descriptionTitle
+    display: block
+    font-size: 0.9rem
+    color: #737373
+    margin-bottom: 1rem
+    margin-top: 0.1rem
+
+.chooseOption
+    display: flex
+    flex-direction: row
+    gap: 1rem
+
+    .option
+        display: flex
+        flex-direction: column
+        gap: 0.3rem
+        padding: 1rem 0.7rem
+        border-radius: 0.4rem
+        cursor: pointer
+        border: 1px solid #d6d3d3
+        flex: 1
+
+        .optionTitle
+            font-size: 1rem
+            font-weight: 500
+
+        .optionDescription
+            font-size: 0.9rem
+            color: #737373
+            font-weight: 500
+    
+    .isSelected
+        background-color: rgb(11, 63, 178, 0.1)
+        border: 1px solid rgb(11, 63, 178)
+
+.modalButtons
+    display: flex
+    gap: 1rem
+    justify-content: flex-end
+    margin-top: 1rem
+
+    .cancelButton
+        background-color: white
+        border: 1px solid #d6d3d3
+        padding: 0.5rem 1rem
+        border-radius: 0.4rem
+        font-weight: 500
+        cursor: pointer
+        
+        &:hover
+            background-color: #f1f1f1
+
+    .addButton
+        background-color: #0b3fb2
+        color: white
+        padding: 0.5rem 1rem
+        border-radius: 0.4rem
+        border: none
+        font-weight: 500
+        cursor: pointer
+        
+        &:hover
+            background-color: #0a2f8b

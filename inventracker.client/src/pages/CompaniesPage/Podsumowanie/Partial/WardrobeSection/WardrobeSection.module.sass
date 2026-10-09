@@ -1,0 +1,121 @@
+.headerSectionWrapper
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    gap: 1rem
+
+.headerSection
+    display: block
+    font-size: 1.1rem
+    font-weight: 600
+
+.addItemButton
+    display: flex
+    align-items: center
+    gap: 0.4rem
+    height: 35px
+    background-color: #0b3fb2
+    color: white
+    border: none
+    border-radius: 0.5rem
+    padding: 0.6rem 1rem
+    font-size: 0.9rem
+    cursor: pointer
+
+    &:hover
+        opacity: 0.9
+
+.bodyWrapper
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    border-radius: 0.5rem
+    border: 1px solid #E5E5E5
+    padding-top: 1.5rem
+    padding-bottom: 1.5rem
+    padding-left: 1rem
+    padding-right: 1rem
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)
+    margin-top: 2rem
+
+.titleSection
+    display: flex
+    align-items: center
+    gap: 1rem
+    
+    .onlineIcon
+        height: 1.5rem
+        width: 1.5rem
+        color: rgb(34, 197, 94)
+        background-color: rgba(34, 197, 94, 0.1)
+        padding: 0.9rem
+        border-radius: 0.4rem
+    
+    .offlineIcon
+        height: 1.5rem
+        width: 1.5rem
+        color: rgb(239, 68, 68)
+        background-color: rgba(239, 68, 68, 0.1)
+        padding: 0.9rem
+        border-radius: 0.4rem
+
+    .infoSection
+        display: flex
+        flex-direction: column
+
+        .title
+            font-size: 1.1rem
+            font-weight: 600
+
+        .model, .department
+            font-size: 0.9rem
+            color: #737373
+
+.infoTileWrapperAction
+    display: flex
+    flex-direction: row
+    gap: 2rem
+    align-items: center
+
+    .wardrobeCount
+        display: flex
+        flex-direction: column
+        text-align: right
+
+        .wardrobeCountTitle
+            font-size: 0.9rem
+            color: #737373
+            font-weight: 500
+
+        .wardrobeCountDetail
+            font-size: 1.3rem
+            font-weight: 700
+.acctionButton
+    background: none
+    border: none
+    opacity: 0.6
+    padding: 0.4rem
+    display: flex
+    align-items: center
+    justify-content: center
+    height: 2.1rem
+    width: 2.1rem
+        
+    &:hover
+        opacity: 1
+        background: rgba(11, 63, 178, 0.1)
+        border-radius: 0.4rem
+        padding: 0.4rem
+
+.menuItemButton
+    background: none
+    border: none
+    display: flex
+    padding: 0.5rem
+    width: 100%
+        
+    &:hover
+        background: rgba(11, 63, 178, 0.1)
+
+.menuItemButtonDanger
+    color: #EF4444

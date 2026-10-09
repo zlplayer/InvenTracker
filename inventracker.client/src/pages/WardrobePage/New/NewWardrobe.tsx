@@ -1,5 +1,6 @@
 import Modal from "../../../components/share/Modal/Modal"
 import styles from "./NewWardrobe.module.sass"
+import { useState } from "react"
 
 
 interface NewWardrobeProps {
@@ -9,6 +10,17 @@ interface NewWardrobeProps {
 
 
 const NewWardrobe = ({ isOpenModal, handleIsClose } : NewWardrobeProps) => {
+
+    const [isChooseCompany, setIsChooseCompany] = useState(false)
+
+    const handleChooseCompany = () => {
+        setIsChooseCompany(false)
+    }
+
+    const handleChooseDepartment = () => {
+        setIsChooseCompany(true)
+    }
+
     return (
         <Modal isOpen={isOpenModal} onClose={handleIsClose}>
             <div className={styles.header}>
@@ -42,10 +54,24 @@ const NewWardrobe = ({ isOpenModal, handleIsClose } : NewWardrobeProps) => {
                 <input type="checkbox" id="isOnline" name="isOnline" className={styles.checkbox}/>
             </div>
 
+            
+
+            <div className={styles.chooseOption}>
+                <div className={`${styles.option} ${!isChooseCompany ? styles.isSelected : ""}`} onClick={handleChooseCompany}>
+                    <span className={styles.optionTitle}>Bezpośrednio do firmy</span>
+                    <span className={styles.optionDescription}>Przypisz szafę do firmy</span>
+                </div>
+                <div className={`${styles.option} ${isChooseCompany ? styles.isSelected : ""}`} onClick={handleChooseDepartment}>
+                    <span className={styles.optionTitle}>Do oddziału</span>
+                    <span className={styles.optionDescription}>Przypisz szafę do oddziału</span>
+                </div>
+            </div>
+
             <div className={`${styles.formItems} ${styles.formItemsCompact}`}>
                 <div className={styles.formItem}>
                     <label htmlFor="companyId">Firma:</label>
-                    <select name="companyId" id="companyId">
+                    <select name="companyId" id="companyId" defaultValue="">
+                        <option value="" disabled>Wybierz firmę</option>
                         <option value="1">Firma 1</option>
                         <option value="2">Firma 2</option>
                         <option value="3">Firma 3</option>
@@ -53,18 +79,22 @@ const NewWardrobe = ({ isOpenModal, handleIsClose } : NewWardrobeProps) => {
                         <option value="5">Firma 5</option>
                     </select>
                 </div>
-                <div className={styles.formItem}>
-                    <label htmlFor="departmentId">Oddział:</label>
-                    <select name="departmentId" id="departmentId">
-                        <option value="1">Oddział 1</option>
-                        <option value="2">Oddział 2</option>
-                        <option value="3">Oddział 3</option>
-                        <option value="4">Oddział 4</option>
-                        <option value="5">Oddział 5</option>
-                    </select>
-                </div>
+
+                {isChooseCompany &&
+                    <div className={styles.formItem}>
+                        <label htmlFor="departmentId">Oddział:</label>
+                        <select name="departmentId" id="departmentId" defaultValue="">
+                            <option value="" disabled>Wybierz oddział</option>
+                            <option value="1">Oddział 1</option>
+                            <option value="2">Oddział 2</option>
+                            <option value="3">Oddział 3</option>
+                            <option value="4">Oddział 4</option>
+                            <option value="5">Oddział 5</option>
+                        </select>
+                    </div>
+                }
             </div>
-            
+
             <span className={styles.descriptionTitle}>
                 <strong>Uwaga!</strong> Jeśli nie wybierzesz firmy lub oddziału, to szafę będzie miała domyślne wartości dla firmy i oddziału.
             </span>

@@ -4,11 +4,21 @@ import styles from "./CompanyPage.module.sass"
 import {Building2, Plus, Briefcase, Package } from 'lucide-react'
 import GetCompanyAction from "../../action/companyAction/GetCompanyAction";
 import type { CompanyServiceType } from "../../services/companyServices/ComapnyServiceType.types";
+import NewCompany from "./New/NewCompany";
 
 export default function CompaniesPage() {
 
   const [companies, setCompanies] = useState<CompanyServiceType[]>([]);
   const [openMenuId, setOpenMenuId] = useState<number | null>(null);
+  const [isOpenModal, setIsOpen] = useState<boolean>(false)
+
+  const handleIsOpen = () => {
+    setIsOpen(true)
+  }
+
+  const handleIsClose = () => {
+    setIsOpen(false)
+  }
 
   useEffect(() => {
     GetCompanyAction.getAllCompanyAction().then(setCompanies);
@@ -24,10 +34,11 @@ export default function CompaniesPage() {
             <span className={styles.descriptionTitle}>Zarzadzaj firmami, dzialami i struktura organizacyjna</span>
           </div>
         </div>
-        <button className={styles.addCompanyButton}>
+        <button className={styles.addCompanyButton} onClick={handleIsOpen}>
           <Plus size={16} />
           Dodaj firmę
         </button>
+        <NewCompany isOpenModal={isOpenModal} handleIsClose={handleIsClose} />
       </div>
       <div className={styles.stats}>
         <span className={styles.statItem}>

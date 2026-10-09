@@ -4,16 +4,27 @@ import { SquarePen, ChevronLeft, Briefcase, Package, MapPin, Phone, Mail, Globe}
 import {useState} from "react"
 import DepartmentSection from "./Partial/DepartmentSection/DepartmentSection"
 import WardrobeSection from "./Partial/WardrobeSection/WardrobeSection"
+import EditCompany from "./Partial/EditCompany/EditCompany"
 
 const DetailsCompaniesPage = () => {
 
     type Tab = "department" | "wardrobe";
     const [isDepartmentMenuOpen, setIsDepartmentMenuOpen] = useState(false);
+    const [isWardrobeMenuOpen, setIsWardrobeMenuOpen] = useState(false);
+    const [isEditCompanyModalOpen, setIsEditCompanyModalOpen] = useState(false);
 
     const [activeTab, setActiveTab] = useState<Tab>("department");
+    
 
     const handleTabButtonClick = (tab: Tab) => {
         setActiveTab(tab);
+    }
+
+    const handleEditCompanyModalOpen = () => {
+        setIsEditCompanyModalOpen(true);
+    }
+    const handleEditCompanyModalClose = () => {
+        setIsEditCompanyModalOpen(false);
     }
 
     return (
@@ -31,10 +42,12 @@ const DetailsCompaniesPage = () => {
                     
                 </div>
                 <div className={styles.buttonSection}>
-                    <button className={styles.editCompanyButton}>
+                    <button className={styles.editCompanyButton} onClick={handleEditCompanyModalOpen}>
                         <SquarePen size={20}/>
                         Edytuj firme
                     </button>
+
+                    <EditCompany isOpen={isEditCompanyModalOpen} onClose={handleEditCompanyModalClose} />
                 </div>
             </div>
             <div className={styles.companyInfo}>
@@ -104,7 +117,7 @@ const DetailsCompaniesPage = () => {
                         onToggleMenu={() => setIsDepartmentMenuOpen(!isDepartmentMenuOpen)}
                     />
                 )}
-                {activeTab === "wardrobe" && <WardrobeSection />}
+                {activeTab === "wardrobe" && <WardrobeSection  isMenuOpen={isWardrobeMenuOpen} onToggleMenu={() => setIsWardrobeMenuOpen(!isWardrobeMenuOpen)} />}
             </div>
         </>
     )

@@ -1,0 +1,95 @@
+.header
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+
+    .headerIcon
+        display: flex
+        align-items: center
+        gap: 0.5rem
+    
+        svg
+            height: 1.5rem
+            width: 1.5rem
+            color: #0c3fb2
+            background-color: rgba(11, 63, 178, 0.1)
+            padding: 0.5rem
+            border-radius: 0.4rem
+
+    .title
+        display: flex
+        flex-direction: column
+        
+        .titleText
+            display: flex
+            align-items: center
+            gap: 20px
+            font-size: 1.5rem
+            font-weight: 500
+
+        .descriptionTitle
+            font-size: 1rem
+            color: #737373
+    
+    .addOrderButton
+        display: flex
+        align-items: center
+        gap: 0.4rem
+        height: 35px
+        background-color: #0b3fb2
+        color: white
+        border: none
+        border-radius: 0.5rem
+        padding: 0.6rem 1rem
+        font-size: 0.9rem
+        cursor: pointer
+
+        &:hover
+            opacity: 0.9
+
+.bodyWrapper
+    border-radius: 0.5rem
+    border: 1px solid #E5E5E5
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)
+    margin-top: 2rem
+
+    .searchInput
+        width: 25%
+        box-sizing: border-box
+        padding: 0.5rem
+        border: 1px solid #d6d3d3
+        border-radius: 0.4rem
+        font-size: 0.9rem
+        shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)
+        margin-top: 2.5rem
+        margin-bottom: 1.5rem
+        margin-left: 1rem
+
+.workOrder
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: space-between
+    gap: 1rem
+    padding: 1rem
+    padding-top: 1.5rem
+    padding-bottom: 1.5rem
+    border-top: 1px solid #E5E5E5
+    &:hover
+        background-color: #f1f1f1
+
+    .workOrderHeader
+        display: flex
+        flex-direction: column
+
+        .workOrderTitle
+            font-size: 1.1rem
+            font-weight: 500
+
+        .workOrderDescription
+            font-size: 0.9rem
+            color: #737373
+            padding-top: 0.1rem
+        
+        .workOrderDescriptionItem
+            padding-top: 0.2rem

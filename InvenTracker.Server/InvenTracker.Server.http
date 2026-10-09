@@ -73,7 +73,6 @@ Content-Type: application/json
 
 {
   "Name":"Firma do testowania aktualizowana",
-  "Description": "Test opisu aktualizowany",
   "AddressDepartment":
   {
     "Street":"Testowa ulica",

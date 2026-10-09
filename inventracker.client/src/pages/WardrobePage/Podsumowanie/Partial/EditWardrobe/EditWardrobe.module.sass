@@ -65,13 +65,42 @@
 
     .formItemsCompact
         justify-content: flex-start
-        gap: 7.6rem
+        gap: 5.5rem
 
         .formItem
             flex: none
 
             select
                 width: auto
+
+    .chooseOption
+        display: flex
+        flex-direction: row
+        gap: 1rem
+        margin-bottom: 0.7rem
+
+        .option
+            display: flex
+            flex-direction: column
+            gap: 0.3rem
+            padding: 1rem 0.7rem
+            border-radius: 0.4rem
+            cursor: pointer
+            border: 1px solid #d6d3d3
+            flex: 1
+
+            .optionTitle
+                font-size: 1rem
+                font-weight: 500
+
+            .optionDescription
+                font-size: 0.9rem
+                color: #737373
+                font-weight: 500
+
+        .isSelected
+            background-color: rgb(11, 63, 178, 0.1)
+            border: 1px solid rgb(11, 63, 178)
 
     .formCheckbox
         display: flex

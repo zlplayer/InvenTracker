@@ -1,14 +1,17 @@
 import styles from "./CompanyCard.module.sass"
 import { EllipsisVertical, Building2, Package, Briefcase, MapPin } from 'lucide-react'
-import type { CompanyCardProps } from './CompanyCard.type.tsx'
+import type { CompanyCardProps, DeleteModalProps } from './CompanyCard.type.tsx'
 import DropdownMenu from "../DropdownMenu/DropdownMenu"
 import { useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
+import Modal from "../Modal/Modal"
 
 export const CompanyCard = ( props: CompanyCardProps ) => {
 
     const buttonRef = useRef<HTMLButtonElement>(null);
     const navigate = useNavigate()
+    const [isOpenDeleteModal, setIsOpenDeleteModal] = useState<boolean>(false)
+
     
     const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
     
@@ -19,7 +22,17 @@ export const CompanyCard = ( props: CompanyCardProps ) => {
         }
         props.onToggleMenu();
     }
+  const handleDeleteModal = () => {
+        setIsOpenDeleteModal(true)
+    }
 
+    const handleCloseDeleteModal = () => {
+        setIsOpenDeleteModal(false)
+    }
+
+    const handleDelete = () => {
+        setIsOpenDeleteModal(false)
+    }
     const handleGoToDetail = ()=>{
         navigate(`/companies/${props.id}`)
     }
@@ -35,12 +48,12 @@ export const CompanyCard = ( props: CompanyCardProps ) => {
 
                 <DropdownMenu isOpen={props.isMenuOpen} onClose={props.onToggleMenu} menuPosition={menuPosition}>
                     <div className={styles.menuItem}>
-                        <button className={styles.menuItemButton}>Wyświetl szczegóły</button>
+                        <button className={styles.menuItemButton} onClick={handleGoToDetail}>Wyświetl szczegóły</button>
                         <button className={styles.menuItemButton}>Edytuj</button>
-                        <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`}>Usuń</button>
+                        <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={handleDeleteModal}>Usuń</button>
                     </div>
                 </DropdownMenu>
-
+                <DeleteModal isOpen={isOpenDeleteModal} onClose={handleCloseDeleteModal} onDelete={handleDelete} />
             </div>
 
             {props.description && 
@@ -66,3 +79,16 @@ export const CompanyCard = ( props: CompanyCardProps ) => {
             </div>
         </div>
     )}
+
+    const DeleteModal = ({ isOpen, onClose, onDelete } : DeleteModalProps) => {
+    return (
+        <Modal isOpen={isOpen} onClose={onClose}>
+            <h2>Usuwanie firmy</h2>
+            <p>Czy na pewno chcesz usunąć firmę?</p>
+            <div className={styles.modalButtons}>
+                <button className={styles.modalButton} onClick={onClose}>Anuluj</button>
+                <button className={styles.modalButtonDanger} onClick={onDelete} >Usuń</button>
+            </div>
+        </Modal>
+    )
+}

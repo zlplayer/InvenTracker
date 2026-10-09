@@ -39,7 +39,6 @@ export default function WardrobePage() {
           Dodaj szafę
         </button>
         <NewWardrobe isOpenModal={isOpenModal} handleIsClose={handleIsClose} />
-            
       </div>
       <div className={styles.stats}>
         <span className={styles.statItem}>
