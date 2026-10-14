@@ -142,7 +142,12 @@ public class InvenTrackerMappingProfile: Profile
             .ForMember(dest => dest.WardrobeName, opt => opt.MapFrom(src => src.Wardrobe.Name));
         
         CreateMap<WorkOrder, GetDetailsWorkOrderDto>()
-            .ForMember(dest => dest.WardrobeName, opt => opt.MapFrom(src => src.Wardrobe.Name));
+            .ForMember(dest => dest.WardrobeName, opt => opt.MapFrom(src => src.Wardrobe.Name))
+            .ForMember(dest => dest.WorkOrderItems, opt => opt.MapFrom(src => src.Items));
+        
+        CreateMap<WorkOrder, GetWorkOrderDto>()
+            .ForMember(dest => dest.WardrobeName, opt => opt.MapFrom(src => src.Wardrobe.Name))
+            .ForMember(dest => dest.WorkOrderItems, opt => opt.MapFrom(src => src.Items));
         
         CreateMap<WorkOrderItem, GetWorkOrderItemDto>()
             .ForMember(dest=>dest.ItemName, opt => opt.MapFrom(src => src.Item.Name))

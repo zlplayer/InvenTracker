@@ -1,26 +1,52 @@
-import { Package } from "lucide-react"
+import { Package, Download } from "lucide-react"
 import styles from "./ActivitiHistorySection.module.sass"
+import type { ItemHistoryServiceType } from "../../../../../services/itemHistoryService/ItemHistoryService.type";
+import { formatDate } from "../../../../../components/share/Utils/FormatDate";
+import GeneratePdfItemHistoryAction from "../../../../../action/itemHistoryAction/GeneratePdfItemHistoryAction";
 
-const ActivitiHistorySection =() =>{
+interface ActivitiHistorySectionProps {
+    data: ItemHistoryServiceType[];
+    wardrobeId: string;
+}
 
-    const tablicaAktywnosci = [
-        {id: "1", imie:"Jan", nazwisko: "kowalski", itemName: "Śrubokręt krzyżakowy PH2", ilość: 2},
-        {id: "2", imie:"Jan", nazwisko: "Kowal", itemName: "Śrubokręt krzyżakowy PH2", ilość: 4},
-        {id: "3", imie:"Jan", nazwisko: "Nowak", itemName: "Śrubokręt krzyżakowy PH2", ilość: 3}
-    ]
+const ActivitiHistorySection =( {data, wardrobeId}:ActivitiHistorySectionProps) =>
+{
+    const handleGeneratePdf = async () =>{
+        const blob = await GeneratePdfItemHistoryAction.generateWardrobePickupReport(wardrobeId);
 
-    return (
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "raport_szafa.pdf";
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+
+    if(data == null || data.length == 0) return (
         <div> 
             <span className={styles.headerSection}> Historia aktywności </span>
 
-            {tablicaAktywnosci.map((aktywnosc)=>{
+            <div className={styles.bodyWrapper}>
+                <span className={styles.noData}>Brak aktywności</span>
+            </div>
+        </div>
+    )
+
+    return (
+        <div> 
+            <div className={styles.headerSectionWrapper}>
+                <span className={styles.headerSection}> Historia aktywności </span>
+                <button className={styles.downloadButton} onClick={handleGeneratePdf}><Download size={16}/> Eksportuj historię</button>
+            </div>
+
+            {data.map((aktywnosc)=>{
                 
                 return(
                     <div className={styles.bodyWrapper}>
                     <Package />
                     <div className={styles.infoSection}>
-                        <span><strong>{aktywnosc.imie} {aktywnosc.nazwisko}</strong> pobrał <strong>{aktywnosc.itemName}</strong> x{aktywnosc.ilość}</span>
-                        <span className={styles.timeInfo}>2 mint temu</span>
+                        <span><strong>{aktywnosc.userName}</strong> {aktywnosc.actionType== "Pobranie" ? "pobrał" : "zwrócił"} <strong>{aktywnosc.itemName}</strong> x{aktywnosc.quantity}</span>
+                        <span className={styles.timeInfo}>{formatDate(aktywnosc.actionAt)}</span>
                     </div>
                     </div>
                 )

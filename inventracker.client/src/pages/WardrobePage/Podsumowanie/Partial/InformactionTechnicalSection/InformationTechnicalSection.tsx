@@ -1,8 +1,13 @@
 import styles from "./InformationTechnicalSection.module.sass"
+import type { WardrobeDetailsServicesType } from "../../../../../services/wardrobeDetailsServices/WardrobeDetailsServices.type";
 
-const InformationTechnicalSection =() =>
+interface InformationTechnicalSectionProps {
+    data: WardrobeDetailsServicesType;
+}
+
+const InformationTechnicalSection = ({ data }: InformationTechnicalSectionProps) =>
 {
-    const isOnline= true
+    const isOnline= data.isOnline
     return(
         <div>
             <span className={styles.headerSection}>Informacje techniczne</span>
@@ -21,7 +26,7 @@ const InformationTechnicalSection =() =>
                 </div>
                 <div className={styles.infoBoxBottom}>
                     <span className={styles.infoTittle}>Status połączenia</span>
-                    <span className={styles.infoData}><span className={isOnline ? styles.dotGreen : styles.dotRed }></span> Online</span>
+                    <span className={styles.infoData}><span className={isOnline ? styles.dotGreen : styles.dotRed }></span> {isOnline ? "Online" : "Offline"}</span>
                 </div>
             </div>
         </div>

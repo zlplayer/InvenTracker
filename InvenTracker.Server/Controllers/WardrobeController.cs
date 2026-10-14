@@ -34,7 +34,7 @@ public class WardrobeController: ControllerBase
         var wardrobe = await _mediator.Send(new GetWardrobeQuery { WardrobeId = wardrobeId });
         return Ok(wardrobe);
     }
-
+    
     [HttpDelete("{wardrobeId}")]
     [Authorize(Roles = "Admin,Technik")]
     public async Task<IActionResult> DeleteWardrobe(Guid wardrobeId)

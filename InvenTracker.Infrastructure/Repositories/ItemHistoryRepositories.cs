@@ -45,12 +45,21 @@ public class ItemHistoryRepositories:IItemHistoryRepositories
         return await query.OrderByDescending(x => x.ActionAt).ToListAsync();
     }
 
-    public async Task<IEnumerable<ItemHistory>> GetItemHistoryForWardrobeReport(Guid wardrobeId, DateTime from, DateTime to) =>
-        await _dbContext.ItemHistories
+    public async Task<IEnumerable<ItemHistory>> GetItemHistoryForWardrobeReport(Guid wardrobeId, DateTime? from, DateTime? to)
+    {
+        var query = _dbContext.ItemHistories
             .Include(x => x.User)
-            .Where(x => x.WardrobeId == wardrobeId && x.ActionAt >= from && x.ActionAt < to.Date.AddDays(1))
-            .OrderByDescending(x => x.ActionAt)
-            .ToListAsync();
+            .Where(x => x.WardrobeId == wardrobeId)
+            .AsQueryable();
+
+        if (from.HasValue)
+            query = query.Where(x => x.ActionAt >= from.Value);
+
+        if (to.HasValue)
+            query = query.Where(x => x.ActionAt < to.Value.Date.AddDays(1));
+
+        return await query.OrderByDescending(x => x.ActionAt).ToListAsync();
+    }
 
     public async Task CreateItemHistory(ItemHistory item)
     {

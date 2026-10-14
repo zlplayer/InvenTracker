@@ -24,6 +24,7 @@ public class CreateWorkOrderCommandHandler: IRequestHandler<CreateWorkOrderComma
             {                                                                                                                                                                                                                                                                                                                
                 WardrobeId = request.WardrobeId,
                 Code = Guid.NewGuid().ToString()[..8].ToUpper(),
+                Name = request.Name,
                 Status = "New",
                 Items = request.WorkOrderItems.Select(x => new WorkOrderItem
                 {

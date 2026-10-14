@@ -24,8 +24,8 @@ public class WardrobeRepositories: IWardrobeRepositories
         .ToListAsync();
     
     public async Task<Wardrobe?> GetWardrobe(Guid wardrobeId) => await _dbContext.Wardrobes
-        .Include(x => x.Drawers)
-            .ThenInclude(x => x.Partitions)
+        .Include(x => x.Drawers.OrderBy(p=>p.Y).ThenBy(p=>p.X))
+            .ThenInclude(x => x.Partitions.OrderBy(p=>p.Z))
                 .ThenInclude(x => x.ItemPartitions)
                     .ThenInclude(x => x.Item)
         .Include(x=>x.ResponsibleUsers)

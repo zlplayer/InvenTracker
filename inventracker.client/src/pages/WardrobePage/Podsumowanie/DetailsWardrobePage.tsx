@@ -1,14 +1,31 @@
 import styles from "./DetailsWardrobePage.module.sass"
 import {Settings, SquarePen, MapPin, Building2, ChevronLeft} from "lucide-react"
-import {useState} from "react"
+import {useState, useEffect} from "react"
+import {useParams} from "react-router-dom"
 import ActivitiHistorySection from "./Partial/ActivitiHistorySection/ActivitiHistorySection"
 import InformationTechnicalSection from "./Partial/InformactionTechnicalSection/InformationTechnicalSection"
 import EditWardrobe from "./Partial/EditWardrobe/EditWardrobe"
 import WardrobeInventorySection from "./Partial/WardrobeInventorySection/WardrobeInventorySection"
+import type { WardrobeDetailsServicesType } from "../../../services/wardrobeDetailsServices/WardrobeDetailsServices.type";
+import type { ItemHistoryServiceType } from "../../../services/itemHistoryService/ItemHistoryService.type";
+import GetWardrobeDetailsAction from "../../../action/wardrobeDetailsAction/GetWardrobeDetailsAction";
+import GetItemHistoryAction from "../../../action/itemHistoryAction/GetItemHistoryAction";
 
  const DetailsWardrobePage =()=>{
 
-    const isOnline = true
+    const [wardrobeDetails, setWardrobeDetails] = useState<WardrobeDetailsServicesType>()
+    const [itemHistory, setItemHistory] = useState<ItemHistoryServiceType[]>()
+
+    const {id: wardrobeId} = useParams()
+
+    useEffect(() => {
+        if (!wardrobeId) return;
+        GetWardrobeDetailsAction.getWardrobeDetailsAction(wardrobeId).then(setWardrobeDetails)
+        GetItemHistoryAction.getItemHistoryAction(wardrobeId).then(setItemHistory)
+    }, [wardrobeId])
+
+
+    const isOnline = wardrobeDetails?.isOnline
     
     type Tab = "content" | "history" | "info";
 
@@ -34,7 +51,7 @@ import WardrobeInventorySection from "./Partial/WardrobeInventorySection/Wardrob
         <div className={styles.header}> 
             <div className={styles.title}>
                 <div className={styles.titleSection}>
-                    <span className={styles.titleText}>Szafa A1</span>
+                    <span className={styles.titleText}>{wardrobeDetails?.name}</span>
                     {isOnline ?
                                 <div className={styles.statusWrapperOnline}>
                                     <span className={styles.dot}></span>
@@ -74,15 +91,15 @@ import WardrobeInventorySection from "./Partial/WardrobeInventorySection/Wardrob
             </div>
             <div className={styles.infoTile}>
                 <span className={styles.wardrobeInfoTileTitle}>Model</span>
-                <span className={styles.wardrobeInfoTileDetail}>IC-3000 Pro</span>
+                <span className={styles.wardrobeInfoTileDetail}>{wardrobeDetails?.model}</span>
             </div>
             <div className={styles.infoTile}>
                 <span className={styles.wardrobeInfoTileTitle}>Nr seryjny</span>
-                <span className={styles.wardrobeInfoTileDetail}>SN-2024-001234</span>
+                <span className={styles.wardrobeInfoTileDetail}>{wardrobeDetails?.serialNumber}</span>
             </div>
             <div className={styles.infoTile}>
                 <span className={styles.wardrobeInfoTileTitle}>Wersja oprogramowania</span>
-                <span className={styles.wardrobeInfoTileDetail}>v2.5.1</span>
+                <span className={styles.wardrobeInfoTileDetail}>{wardrobeDetails?.softwareVersion}</span>
             </div>
         </div>
 
@@ -93,9 +110,9 @@ import WardrobeInventorySection from "./Partial/WardrobeInventorySection/Wardrob
         </div>
         
         <div className={styles.bodyWrapper}>
-            {activeTab === "content" && <WardrobeInventorySection/>}
-            {activeTab === "history" && <ActivitiHistorySection />}
-            {activeTab === "info" && <InformationTechnicalSection />}
+            {activeTab === "content" && wardrobeDetails && <WardrobeInventorySection data={wardrobeDetails.drawers}/>}
+            {activeTab === "history" && itemHistory && <ActivitiHistorySection data={itemHistory} wardrobeId={wardrobeDetails?.id}/>}
+            {activeTab === "info" && wardrobeDetails && <InformationTechnicalSection data={wardrobeDetails}/>}
         </div>
 
 

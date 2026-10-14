@@ -1,4 +1,5 @@
+import type { WardrobeType } from "../../../../../services/companyDetailsServices/CompanyDetailsServices.type";
+
 export interface WardrobeSectionProps {
-    isMenuOpen: boolean
-    onToggleMenu: () => void
+    data: WardrobeType[]
 }

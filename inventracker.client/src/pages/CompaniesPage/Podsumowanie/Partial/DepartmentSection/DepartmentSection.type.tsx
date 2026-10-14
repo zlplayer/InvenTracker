@@ -1,6 +1,7 @@
+import type { CompanyDepartmentType } from "../../../../../services/companyDetailsServices/CompanyDetailsServices.type";
+
 export interface DepartmentSectionProps {
-    isMenuOpen: boolean
-    onToggleMenu: () => void
+    data: CompanyDepartmentType[]
 }
 
 export interface DeleteModalProps {

@@ -14,10 +14,14 @@ public class WorkOrderRepositories:IWorkOrderRepositories
     }
 
     public async Task<WorkOrder?> GetWorkOrder(Guid workOrderId) =>
-        await _dbContext.WorkOrders.Include(x=>x.Items).FirstOrDefaultAsync(x => x.Id == workOrderId);
+        await _dbContext.WorkOrders
+            .Include(x => x.Items).ThenInclude(x => x.Item)
+            .Include(x => x.Wardrobe)
+            .FirstOrDefaultAsync(x => x.Id == workOrderId);
     
     public async Task<IEnumerable<WorkOrder>> GetWorkOrders() =>
-        await _dbContext.WorkOrders.Include(x => x.Items).Include(x=>x.Wardrobe).ToListAsync();
+        await _dbContext.WorkOrders.Include(x => x.Items).ThenInclude(x => x.Item)
+            .Include(x=>x.Wardrobe).ToListAsync();
 
     public async Task<WorkOrder?> GetWorkOrderByCode(string code) =>                                                                                                                                                                                                                                                 
         await _dbContext.WorkOrders                                                                                                                                                                                                                                                                                  

@@ -8,7 +8,7 @@ namespace InvenTracker.Infrastructure.Services;
 
 public class PdfService : IPdfService
 {
-    public byte[] GeneratePickupReport(IEnumerable<GetItemHistoryDto> history, string? userName, DateTime from, DateTime to)
+    public byte[] GeneratePickupReport(IEnumerable<GetItemHistoryDto> history, string? userName, DateTime? from, DateTime? to)
     {
         var items = history.ToList();
 
@@ -36,7 +36,7 @@ public class PdfService : IPdfService
         return document.GeneratePdf();
     }
 
-    public byte[] GenerateWardrobePickupReport(IEnumerable<GetItemHistoryDto> history, string? wardrobeName, DateTime from, DateTime to)
+    public byte[] GenerateWardrobePickupReport(IEnumerable<GetItemHistoryDto> history, string? wardrobeName, DateTime? from, DateTime? to)
     {
         var items = history.ToList();
 
@@ -77,13 +77,20 @@ public class PdfService : IPdfService
         });
     }
 
-    private void ComposeWardrobeContent(IContainer container, List<GetItemHistoryDto> items, DateTime from, DateTime to)
+    private void ComposeWardrobeContent(IContainer container, List<GetItemHistoryDto> items, DateTime? from, DateTime? to)
     {
         container.Column(col =>
         {
             col.Spacing(8);
 
-            col.Item().Text($"Zakres dat: {from:dd.MM.yyyy} – {to:dd.MM.yyyy}")
+            var dateRange = (from, to) switch
+            {
+                ({ } f, { } t) => $"{f:dd.MM.yyyy} – {t:dd.MM.yyyy}",
+                ({ } f, null) => $"od {f:dd.MM.yyyy}",
+                (null, { } t) => $"do {t:dd.MM.yyyy}",
+                _ => "cały okres"
+            };
+            col.Item().Text($"Zakres dat: {dateRange}")
                 .FontSize(9).Italic().FontColor(Colors.Grey.Darken2);
 
             col.Item().Text($"Liczba rekordów: {items.Count}").FontSize(9);
@@ -143,13 +150,20 @@ public class PdfService : IPdfService
         });
     }
 
-    private void ComposeContent(IContainer container, List<GetItemHistoryDto> items, DateTime from, DateTime to)
+    private void ComposeContent(IContainer container, List<GetItemHistoryDto> items, DateTime? from, DateTime? to)
     {
         container.Column(col =>
         {
             col.Spacing(8);
 
-            col.Item().Text($"Zakres dat: {from:dd.MM.yyyy} – {to:dd.MM.yyyy}")
+            var dateRange = (from, to) switch
+            {
+                ({ } f, { } t) => $"{f:dd.MM.yyyy} – {t:dd.MM.yyyy}",
+                ({ } f, null) => $"od {f:dd.MM.yyyy}",
+                (null, { } t) => $"do {t:dd.MM.yyyy}",
+                _ => "cały okres"
+            };
+            col.Item().Text($"Zakres dat: {dateRange}")
                 .FontSize(9).Italic().FontColor(Colors.Grey.Darken2);
 
             col.Item().Text($"Liczba rekordów: {items.Count}").FontSize(9);

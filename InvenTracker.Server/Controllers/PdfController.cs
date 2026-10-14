@@ -19,14 +19,14 @@ public class PdfController : ControllerBase
     }
 
     [HttpGet("pickup-report")]
-    public async Task<IActionResult> GetPickupReport([FromQuery] Guid userId, [FromQuery] DateTime from, [FromQuery] DateTime to)
+    public async Task<IActionResult> GetPickupReport([FromQuery] Guid userId, [FromQuery] DateTime? from = null, [FromQuery] DateTime? to = null)
     {
         var pdf = await _mediator.Send(new GeneratePickupReportPdfQuery { UserId = userId, From = from, To = to });
         return File(pdf, "application/pdf", $"raport_pobran_{DateTime.Now:yyyyMMdd_HHmm}.pdf");
     }
 
     [HttpGet("wardrobe-report")]
-    public async Task<IActionResult> GetWardrobePickupReport([FromQuery] Guid wardrobeId, [FromQuery] DateTime from, [FromQuery] DateTime to)
+    public async Task<IActionResult> GetWardrobePickupReport([FromQuery] Guid wardrobeId, [FromQuery] DateTime? from = null, [FromQuery] DateTime? to = null)
     {
         var pdf = await _mediator.Send(new GenerateWardrobePickupReportPdfQuery { WardrobeId = wardrobeId, From = from, To = to });
         return File(pdf, "application/pdf", $"raport_szafa_{DateTime.Now:yyyyMMdd_HHmm}.pdf");

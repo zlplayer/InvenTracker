@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 3,
   "targets": {
     "net9.0": {
       "AutoMapper/15.1.0": {
@@ -191,7 +191,7 @@
           "Microsoft.AspNetCore.App"
         ]
       },
-      "Microsoft.AspNetCore.SpaProxy/9.0.20": {
+      "Microsoft.AspNetCore.SpaProxy/9.0.21": {
         "type": "package",
         "compile": {
           "lib/net9.0/Microsoft.AspNetCore.SpaProxy.dll": {}
@@ -2056,10 +2056,10 @@
         "microsoft.aspnetcore.openapi.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.SpaProxy/9.0.20": {
-      "sha512": "t/n9o7tjb3Gs28cBoOiCPfZTn62FQZjjXdNAFENhRphb3AIFdicvWtjlECKrVjeNickm+DVduM2G9SS/TleOiQ==",
+    "Microsoft.AspNetCore.SpaProxy/9.0.21": {
+      "sha512": "VxihbFiKKLIDYGH+TYkIitscHg6sJdhJEOH940JsKjonAYYVw18YKUpTK9TNSsnMm7sb2EBtGF6Z+ao1DMyygQ==",
       "type": "package",
-      "path": "microsoft.aspnetcore.spaproxy/9.0.20",
+      "path": "microsoft.aspnetcore.spaproxy/9.0.21",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2067,7 +2067,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "build/Microsoft.AspNetCore.SpaProxy.targets",
         "lib/net9.0/Microsoft.AspNetCore.SpaProxy.dll",
-        "microsoft.aspnetcore.spaproxy.9.0.20.nupkg.sha512",
+        "microsoft.aspnetcore.spaproxy.9.0.21.nupkg.sha512",
         "microsoft.aspnetcore.spaproxy.nuspec"
       ]
     },
@@ -4994,7 +4994,6 @@
       },
       "frameworks": {
         "net9.0": {
-          "framework": "net9.0",
           "targetAlias": "net9.0",
           "projectReferences": {
             "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Application\\InvenTracker.Application.csproj": {
@@ -5020,7 +5019,6 @@
     },
     "frameworks": {
       "net9.0": {
-        "framework": "net9.0",
         "targetAlias": "net9.0",
         "dependencies": {
           "Microsoft.AspNetCore.OpenApi": {

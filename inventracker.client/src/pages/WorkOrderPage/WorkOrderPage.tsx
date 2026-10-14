@@ -1,12 +1,20 @@
 import NewWorkOrderPage from "./New/NewWorkOrderPage"
 import styles from "./WorkOrderPage.module.sass"
 import { Plus, ClipboardList, ChevronRight } from 'lucide-react'
-import { useState } from "react"
+import React, { useState, useEffect } from "react"
 import DetailsWorkOrderPage from "./Podsumowanie/DetailsWorkOrderPage"
+import type { WorkOrderServicesType } from "../../services/workOrderServices/WorkOrderServices.type"
+import GetWorkOrderAction from "../../action/workOrderAction/GetWorkOrderAction"
 
 const WorkOrderPage = () => {
     const [isOpenNewWorkOrderModal, setIsOpenNewWorkOrderModal] = useState<boolean>(false)
-    const [isOpenDetailsWorkOrderModal, setIsOpenDetailsWorkOrderModal] = useState<boolean>(false)
+    const [openWorkOrderId, setOpenWorkOrderId] = useState<string | null>(null)
+    const [workOrders, setWorkOrders] = useState<WorkOrderServicesType[]>([])
+    const [searchTerm, setSearchTerm] = useState("")
+
+    useEffect(() => {
+        GetWorkOrderAction.getWorkOrderAction().then(setWorkOrders)
+    }, [])
 
     const handleIsOpenNewWorkOrderModal = () => {
         setIsOpenNewWorkOrderModal(true)
@@ -16,15 +24,16 @@ const WorkOrderPage = () => {
         setIsOpenNewWorkOrderModal(false)
     }
 
-    const handleIsOpenDetailsWorkOrderModal = () => {
-        setIsOpenDetailsWorkOrderModal(true)
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(e.target.value);
     }
 
-    const handleIsCloseDetailsWorkOrderModal = () => {
-        setIsOpenDetailsWorkOrderModal(false)
-    }
-
-
+    const filteredWorkOrders = searchTerm.length < 3
+        ? workOrders
+        : workOrders.filter((workOrder) =>
+            workOrder.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            workOrder.wardrobeName.toLowerCase().includes(searchTerm.toLowerCase())
+        )
 
     return (
         <div  className={styles.workOrderPage}>
@@ -44,21 +53,36 @@ const WorkOrderPage = () => {
                 <NewWorkOrderPage isOpenModal={isOpenNewWorkOrderModal} handleIsClose={handleIsCloseNewWorkOrderModal} />
             </div>
 
-            <div className={styles.bodyWrapper}>
+            
+                <div className={styles.bodyWrapper}>
+                    <input type="text" placeholder="Szukaj po numerze lub szafie..." className={styles.searchInput}  onChange={handleSearchChange} />
 
-                <input type="text" placeholder="Szukaj po numerze lub szafie..." className={styles.searchInput} />
-                
-                <div className={styles.workOrder} onClick={handleIsOpenDetailsWorkOrderModal}>
-                    <div className={styles.workOrderHeader}>
-                        <span className={styles.workOrderTitle}>WO-2026-001</span>
-                        <span className={styles.workOrderDescription}>Szafa A1 utworzono 28 września 2022, 23:59</span>
-                        <span className={styles.workOrderDescriptionItem}>wiertarka bosh x 1, klusz dynamometryczny x 1</span>
-                    </div>
-                    <ChevronRight />
+                    {filteredWorkOrders.map((workOrder) => {
+                    return (
+                        <React.Fragment key={workOrder.id}>
+                        <div className={styles.workOrder} onClick={() => setOpenWorkOrderId(workOrder.id)}>
+                            <div className={styles.workOrderHeader}>
+                                <div className={styles.workOrderHeaderInfo}>
+                                    <span className={styles.workOrderTitle}>{workOrder.name}</span>
+                                    <span className ={styles.status}>{workOrder.status =="New" ? "Nowa" : workOrder.status}</span>
+                                </div>
+                                <span className={styles.workOrderDescription}>{workOrder.wardrobeName}</span>
+                                <span className={styles.workOrderDescriptionItem}>
+                                    {workOrder.workOrderItems.map((workOrderItem, index) => {
+                                        const isLast = index === workOrder.workOrderItems.length - 1;
+                                        return (
+                                            <span key={workOrderItem.id}>{workOrderItem.itemName} x{workOrderItem.quantity}{!isLast && ", "}</span>
+                                        )
+                                    })}
+                                    </span>
+                            </div>
+                            <ChevronRight />
+                        </div>
+                        <DetailsWorkOrderPage isOpenModal={openWorkOrderId === workOrder.id} handleIsClose={() => setOpenWorkOrderId(null)} wardrobeId={workOrder.id} />
+                        </React.Fragment>
+                    )})}
+
                 </div>
-                <DetailsWorkOrderPage isOpenModal={isOpenDetailsWorkOrderModal} handleIsClose={handleIsCloseDetailsWorkOrderModal} />
-            </div>
-
         </div>
     )
 }

@@ -1,26 +1,25 @@
 import styles from "./DepartmentSection.module.sass"
 import { Briefcase, Plus, MapPin, EllipsisVertical } from "lucide-react"
-import { useState, useRef } from "react"
+import { useState } from "react"
 import type { DepartmentSectionProps, DeleteModalProps } from "./DepartmentSection.type"
 import DropdownMenu from "../../../../../components/share/DropdownMenu/DropdownMenu"
 import AddDepartmentModal from "../AddDepartmentModal/AddDepartmentModal"
 import Modal from "../../../../../components/share/Modal/Modal"
 
-const DepartmentSection = (props: DepartmentSectionProps) => {
+const DepartmentSection = (props : DepartmentSectionProps) => {
 
-    const buttonRef = useRef<HTMLButtonElement>(null);
     const [isAddDepartmentModalOpen, setIsAddDepartmentModalOpen] = useState(false);
     const [isEditDepartmentModalOpen, setIsEditDepartmentModalOpen] = useState(false);
     const [isDeleteDepartmentModalOpen, setIsDeleteDepartmentModalOpen] = useState(false);
-    
+    const [openDepartmentId, setOpenDepartmentId] = useState<string | null>(null);
+
     const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
-    
-    const handleToggleMenu = () => {
-        const rect = buttonRef.current?.getBoundingClientRect();
-        if (rect) {
-            setMenuPosition({ top: rect.bottom-30, right: window.innerWidth - rect.right + 30});
-        }
-        props.onToggleMenu();
+
+    const handleToggleMenu = (e: React.MouseEvent<HTMLButtonElement>, departmentId: string) => {
+        e.stopPropagation();
+        const rect = e.currentTarget.getBoundingClientRect();
+        setMenuPosition({ top: rect.bottom-30, right: window.innerWidth - rect.right + 30});
+        setOpenDepartmentId(openDepartmentId === departmentId ? null : departmentId);
     }
 
     const handleAddDepartmentModalOpen = () => {
@@ -64,39 +63,42 @@ const DepartmentSection = (props: DepartmentSectionProps) => {
                 </div>
             </div>
 
-            <div className={styles.bodyWrapper}>
-                <div className={styles.infoTileWrapper}>
-                    <div className={styles.infoImage}>
-                        <Briefcase size={25} />
-                    </div>
-                    <div className={styles.infoTile}>
-                        <span className={styles.departmentInfoTileTitle}>Oddzial Warszawa - Centrum</span>
-                        <span className={styles.addressInfoDepartment}><MapPin />ul. Przemyslowa 15, 00-001 Warszawa</span>
-                    </div>
-                </div>
-
-                <div className={styles.infoTileWrapperAction}>
-                    <div className={styles.wardrobeCount}>
-                        <span className={styles.wardrobeCountDetail}>4</span>
-                        <span className={styles.wardrobeCountTitle}>Szafy</span>
-                    </div>
-                    
-                    <button ref={buttonRef} className={styles.acctionButton} onClick={handleToggleMenu}><EllipsisVertical /></button>
-
-                     <DropdownMenu isOpen={props.isMenuOpen} onClose={props.onToggleMenu} menuPosition={menuPosition}>
-                        <div className={styles.menuItem}>
-                            <button className={styles.menuItemButton} onClick={handleEditDepartmentModalOpen}>Edytuj oddział</button>
-
-                            <AddDepartmentModal isOpen={isEditDepartmentModalOpen} onClose={handleEditDepartmentModalClose} />
-
-                            <button className={styles.menuItemButton}>Przypisz szafę</button>
-                            <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={handleDeleteDepartmentModalOpen}>Usuń oddział</button>
-                            <DeleteModal isOpen={isDeleteDepartmentModalOpen} onClose={handleDeleteDepartmentModalClose} onDelete={handleDelete} />
+            {props.data.map((department) => {
+                return (
+                <div className={styles.bodyWrapper} key={department.id}>
+                    <div className={styles.infoTileWrapper}>
+                        <div className={styles.infoImage}>
+                            <Briefcase size={25} />
                         </div>
-                    </DropdownMenu>
-                </div>
-            </div>
+                        <div className={styles.infoTile}>
+                            <span className={styles.departmentInfoTileTitle}>{department.name}</span>
+                            <span className={styles.addressInfoDepartment}><MapPin />ul. {department.addressDepartment.street} {department.addressDepartment.buildingNumber}, {department.addressDepartment.postalCode} {department.addressDepartment.city}</span>
+                        </div>
+                    </div>
 
+                    <div className={styles.infoTileWrapperAction}>
+                        <div className={styles.wardrobeCount}>
+                            <span className={styles.wardrobeCountDetail}>{department.wardrobe.length}</span>
+                            <span className={styles.wardrobeCountTitle}>Szafy</span>
+                        </div>
+                        
+                        <button className={styles.acctionButton} onClick={(e) => handleToggleMenu(e, department.id)}><EllipsisVertical /></button>
+
+                        <DropdownMenu isOpen={openDepartmentId === department.id} onClose={() => setOpenDepartmentId(null)} menuPosition={menuPosition}>
+                            <div className={styles.menuItem}>
+                                <button className={styles.menuItemButton} onClick={handleEditDepartmentModalOpen}>Edytuj oddział</button>
+
+                                <AddDepartmentModal isOpen={isEditDepartmentModalOpen} onClose={handleEditDepartmentModalClose} />
+
+                                <button className={styles.menuItemButton}>Przypisz szafę</button>
+                                <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={handleDeleteDepartmentModalOpen}>Usuń oddział</button>
+                                <DeleteModal isOpen={isDeleteDepartmentModalOpen} onClose={handleDeleteDepartmentModalClose} onDelete={handleDelete} />
+                            </div>
+                        </DropdownMenu>
+                    </div>
+                </div>
+                )}
+            )}
         </div>
     )
 }

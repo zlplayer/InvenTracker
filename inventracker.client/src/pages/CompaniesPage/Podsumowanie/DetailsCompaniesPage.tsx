@@ -1,20 +1,29 @@
 
 import styles from "./DetailsCompaniesPage.module.sass"
-import { SquarePen, ChevronLeft, Briefcase, Package, MapPin, Phone, Mail, Globe} from "lucide-react"
-import {useState} from "react"
+import { SquarePen, ChevronLeft, MapPin, Phone, Mail, Package} from "lucide-react"
+import {useState, useEffect} from "react"
 import DepartmentSection from "./Partial/DepartmentSection/DepartmentSection"
 import WardrobeSection from "./Partial/WardrobeSection/WardrobeSection"
 import EditCompany from "./Partial/EditCompany/EditCompany"
+import {useParams} from "react-router-dom"
+import type { CompanyDetailsServicesType } from "../../../services/companyDetailsServices/CompanyDetailsServices.type";
+import CompanyDetailsAction from "../../../action/companyDetailsAction/CompanyDetailsAction";
 
 const DetailsCompaniesPage = () => {
-
     type Tab = "department" | "wardrobe";
-    const [isDepartmentMenuOpen, setIsDepartmentMenuOpen] = useState(false);
-    const [isWardrobeMenuOpen, setIsWardrobeMenuOpen] = useState(false);
+
+    const {id: companyId} = useParams()
     const [isEditCompanyModalOpen, setIsEditCompanyModalOpen] = useState(false);
 
     const [activeTab, setActiveTab] = useState<Tab>("department");
-    
+    const [companyDetails, setCompanyDetails] = useState<CompanyDetailsServicesType>()
+
+    useEffect(() => {
+        if (!companyId) return;
+        CompanyDetailsAction.getCompanyDetailsAction(companyId).then(setCompanyDetails)
+    }, [companyId])
+
+    console.log(companyDetails)
 
     const handleTabButtonClick = (tab: Tab) => {
         setActiveTab(tab);
@@ -33,7 +42,7 @@ const DetailsCompaniesPage = () => {
             <div className={styles.header}> 
                 <div className={styles.title}>
                     <div className={styles.titleSection}>
-                        <span className={styles.titleText}>Klinika MediZdrowie</span>
+                        <span className={styles.titleText}>{companyDetails?.name}</span>
                     </div>
 
                     <div className={styles.descriptionTitleSection}>
@@ -50,7 +59,7 @@ const DetailsCompaniesPage = () => {
                     <EditCompany isOpen={isEditCompanyModalOpen} onClose={handleEditCompanyModalClose} />
                 </div>
             </div>
-            <div className={styles.companyInfo}>
+            {/* <div className={styles.companyInfo}>
                 <div className={styles.companyInfoBox}>
                     <div className={styles.infoTile}>
                         <span className={styles.companyInfoTileTitle}>Oddziały</span>
@@ -69,7 +78,7 @@ const DetailsCompaniesPage = () => {
                         <Package size={25} />
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <div className={styles.infoAddressBox}>
                 <span className={styles.infoAddressBoxTitle}>Informacje o firmie</span>
@@ -78,7 +87,7 @@ const DetailsCompaniesPage = () => {
                         <MapPin />
                         <div className={styles.moreInfoWrapper}>
                             <span className={styles.companyInfoTileTitle}>Adres</span>
-                            <span className={styles.wardrobeInfoTileDetail}>ul. Przemyslowa 15, 00-001 Warszawa</span>
+                            <span className={styles.wardrobeInfoTileDetail}>ul. {companyDetails?.addressCompany?.street} {companyDetails?.addressCompany?.buildingNumber}, {companyDetails?.addressCompany?.postalCode} {companyDetails?.addressCompany?.city}</span>
                         </div>
                     </div>
                     <div className={styles.infoTile}>
@@ -96,10 +105,10 @@ const DetailsCompaniesPage = () => {
                         </div>
                     </div>
                     <div className={styles.infoTile}>
-                        <Globe />
+                        <Package />
                         <div className={styles.moreInfoWrapper}>
-                            <span className={styles.companyInfoTileTitle}>Strona WWW</span>
-                            <span className={styles.wardrobeInfoTileDetail}>www.techsolutions.pl</span>
+                            <span className={styles.companyInfoTileTitle}>Ilośc szaf</span>
+                            <span className={styles.wardrobeInfoTileDetail}>{companyDetails?.wardrobe?.length}</span>
                         </div>
                     </div>
                 </div>
@@ -111,13 +120,10 @@ const DetailsCompaniesPage = () => {
             </div>
 
             <div className={styles.bodyWrapper}>
-                {activeTab === "department" && (
-                    <DepartmentSection
-                        isMenuOpen={isDepartmentMenuOpen}
-                        onToggleMenu={() => setIsDepartmentMenuOpen(!isDepartmentMenuOpen)}
-                    />
+                {activeTab === "department" && companyDetails?.departments && (
+                    <DepartmentSection data={companyDetails?.departments} />
                 )}
-                {activeTab === "wardrobe" && <WardrobeSection  isMenuOpen={isWardrobeMenuOpen} onToggleMenu={() => setIsWardrobeMenuOpen(!isWardrobeMenuOpen)} />}
+                {activeTab === "wardrobe" && companyDetails?.wardrobe && <WardrobeSection data={companyDetails?.wardrobe} />}
             </div>
         </>
     )

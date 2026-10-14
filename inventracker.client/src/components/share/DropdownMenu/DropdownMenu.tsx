@@ -31,7 +31,7 @@ const DropdownMenu = ({ isOpen, onClose, children, menuPosition } : DropdownMenu
     return createPortal(
     <div
       className={styles.overlayStyle}
-      onClick={onClose} // klik gdziekolwiek poza menu zamyka
+      onClick={(e) => { e.stopPropagation(); onClose(); }} // klik gdziekolwiek poza menu zamyka
     >
       <div
         className={styles.contentStyle}
