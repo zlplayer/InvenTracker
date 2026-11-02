@@ -28,12 +28,11 @@ public class InvenTrackerDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // Wyłącz CASCADE dla wszystkich relacji - żaden konflikt
         modelBuilder.Entity<Department>()
             .HasOne(x => x.Company)
             .WithMany(x => x.Departments)
             .HasForeignKey(x => x.CompanyId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
         
         modelBuilder.Entity<Department>()
             .HasOne(x=>x.Address)
@@ -57,7 +56,7 @@ public class InvenTrackerDbContext : DbContext
             .HasOne(x => x.Department)
             .WithMany(x => x.Wardrobes)
             .HasForeignKey(x => x.DepartmentId)
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
 
 
         modelBuilder.Entity<User>(entity =>

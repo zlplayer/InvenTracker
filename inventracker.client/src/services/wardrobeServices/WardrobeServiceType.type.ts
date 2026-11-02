@@ -1,5 +1,5 @@
 export interface WardrobeServiceType {
-    id: number;
+    id: string;
     name: string;
     model: string;
     isOnline: boolean;
@@ -23,4 +23,23 @@ interface Adddress{
     buildingNumber: string;
     postalCode: string;
     city: string;
+}
+
+
+export interface CreateWardrobeType {
+    name: string
+    model: string
+    serialNumber: string
+    softwareVersion: string
+    isOnline: boolean
+}
+
+export interface UpdateWardrobeType {
+    name: string
+    model: string
+    serialNumber: string
+    softwareVersion: string
+    isOnline: boolean
+    companyId: string | null
+    departmentId: string | null
 }

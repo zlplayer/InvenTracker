@@ -9,4 +9,5 @@ public interface IDepartmentRepositories
     Task CreateDepartment(Department department);
     Task UpdateDepartment(Department department);
     Task DeleteDepartment(Department department);
+    Task<IEnumerable<Department>> GetDepartmentsByCompanyId(Guid companyId);
 }

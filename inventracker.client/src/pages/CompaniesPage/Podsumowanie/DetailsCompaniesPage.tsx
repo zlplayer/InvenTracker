@@ -18,12 +18,15 @@ const DetailsCompaniesPage = () => {
     const [activeTab, setActiveTab] = useState<Tab>("department");
     const [companyDetails, setCompanyDetails] = useState<CompanyDetailsServicesType>()
 
-    useEffect(() => {
+    const fetchData = () => {
         if (!companyId) return;
         CompanyDetailsAction.getCompanyDetailsAction(companyId).then(setCompanyDetails)
+    }
+
+    useEffect(() => {
+        fetchData();
     }, [companyId])
 
-    console.log(companyDetails)
 
     const handleTabButtonClick = (tab: Tab) => {
         setActiveTab(tab);
@@ -56,7 +59,7 @@ const DetailsCompaniesPage = () => {
                         Edytuj firme
                     </button>
 
-                    <EditCompany isOpen={isEditCompanyModalOpen} onClose={handleEditCompanyModalClose} />
+                    {companyDetails && <EditCompany isOpen={isEditCompanyModalOpen} onClose={handleEditCompanyModalClose} onCreated={fetchData} data={companyDetails} />}
                 </div>
             </div>
             {/* <div className={styles.companyInfo}>
@@ -120,8 +123,8 @@ const DetailsCompaniesPage = () => {
             </div>
 
             <div className={styles.bodyWrapper}>
-                {activeTab === "department" && companyDetails?.departments && (
-                    <DepartmentSection data={companyDetails?.departments} />
+                {activeTab === "department" && companyDetails?.departments && companyId && (
+                    <DepartmentSection data={companyDetails?.departments} companyId={companyId} onCreated={fetchData}/>
                 )}
                 {activeTab === "wardrobe" && companyDetails?.wardrobe && <WardrobeSection data={companyDetails?.wardrobe} />}
             </div>

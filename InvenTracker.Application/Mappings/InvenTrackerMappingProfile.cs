@@ -67,6 +67,8 @@ public class InvenTrackerMappingProfile: Profile
         
         
         CreateMap<Wardrobe, GetDetailsWardrobeDto>()
+            .ForMember(dest=>dest.Company, opt => opt.MapFrom(src => src.Company))
+            .ForMember(dest=>dest.Department, opt => opt.MapFrom(src => src.Department))
             .ForMember(dest=>dest.Drawers, opt => opt.MapFrom(src => src.Drawers))
             .ForMember(dest=>dest.Users, opt=>opt.MapFrom(src=>src.ResponsibleUsers.Select(r => r.User)));
 
@@ -100,6 +102,7 @@ public class InvenTrackerMappingProfile: Profile
         CreateMap<UpdateItemDto, Item>().ReverseMap();
 
         CreateMap<Item, GetDetailsItemDto>();
+        CreateMap<Item, GetItemByWardrobeIdDto>();
         
         CreateMap<UpdatePasswordDto, User>().ReverseMap();
         CreateMap<UpdateUserDto, User>().ReverseMap();
@@ -152,5 +155,8 @@ public class InvenTrackerMappingProfile: Profile
         CreateMap<WorkOrderItem, GetWorkOrderItemDto>()
             .ForMember(dest=>dest.ItemName, opt => opt.MapFrom(src => src.Item.Name))
             .ForMember(dest => dest.ItemName, opt => opt.MapFrom(src => src.Item.Name));
+
+        CreateMap<Department, GetDepartmentLookupDto>()
+            .ForMember(dest => dest.AddressDepartment, opt => opt.MapFrom(src => src.Address));
     }
 }

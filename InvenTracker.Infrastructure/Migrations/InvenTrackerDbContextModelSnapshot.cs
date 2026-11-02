@@ -514,7 +514,7 @@ namespace InvenTracker.Infrastructure.Migrations
                     b.HasOne("InvenTracker.Domain.Entities.Company", "Company")
                         .WithMany("Departments")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
@@ -603,7 +603,7 @@ namespace InvenTracker.Infrastructure.Migrations
                     b.HasOne("InvenTracker.Domain.Entities.Department", "Department")
                         .WithMany("Wardrobes")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Company");
 

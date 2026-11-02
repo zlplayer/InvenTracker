@@ -7,9 +7,11 @@ import type { DrawerType } from "../../../../../services/wardrobeDetailsServices
 
 interface WardrobeInventorySectionProps {
     data: DrawerType[];
+    wardrobeId: string;
+    onCreated: () => void;
 }
 
-const WardrobeInventorySection = ({ data }: WardrobeInventorySectionProps) =>
+const WardrobeInventorySection = ({ data, wardrobeId, onCreated }: WardrobeInventorySectionProps) =>
 {
     const [isOpenModal, setIsOpen] = useState<boolean>(false)
     const [isOpenConfigure, setIsOpenConfigure] = useState<boolean>(false)
@@ -48,15 +50,15 @@ const WardrobeInventorySection = ({ data }: WardrobeInventorySectionProps) =>
                         Dodaj przedmiot
                     </button>
 
-                    <ConfigureWardrobe isOpenModal={isOpenConfigure} handleIsClose={handleIsCloseConfigure} />
-                    <AddItem isOpenModal={isOpenModal} handleIsClose={handleIsClose} />
+                    <ConfigureWardrobe isOpenModal={isOpenConfigure} handleIsClose={handleIsCloseConfigure} wardrobeId={wardrobeId} onCreated={onCreated} />
+                    <AddItem isOpenModal={isOpenModal} handleIsClose={handleIsClose} drawers={data} onCreated={onCreated} />
 
                 </div>
             </div>
 
             {data.map((drawer) => {
                 return (
-                <div className={styles.bodyWrapper}>
+                <div className={styles.bodyWrapper} key={drawer.id}>
                     <div className={styles.headerSectionWrapper}>
                         <span className={styles.headerSection}>{drawer.name}</span>
                         <span className={styles.countPartitions}>{drawer.partitions.length} przegrody</span>
@@ -64,33 +66,41 @@ const WardrobeInventorySection = ({ data }: WardrobeInventorySectionProps) =>
                     <div className={styles.partitionWrapper}>
                         {drawer.partitions.map((partition) => {
                             return (
-                            <div className={styles.partition}>
+                            <div className={styles.partition} key={partition.id}>
                                 <div className={styles.headerPartition}>
                                     <span>Przegroda {partition.z}</span>
-                                    <span className={styles.statusOk}>{partition.item.status}</span>
+                                    {partition.item && <span className={styles.statusOk}>{partition.item.status}</span>}
                                 </div>
-                                <div className={styles.itemWrapper}>
-                                    <span className={styles.itemName}>{partition.item.name}</span>
-                                    <span className={styles.itemCode}>{partition.item.description}</span>
-                                </div>
-                                <div className={styles.itemWrapper2}>
-                                    <span className={styles.ItemCategory}>Narzędzia</span>
-                                    <span className={styles.ItemCount}>{partition.item.quantity}/{partition.item.minimumQuantityItem}</span>
-                                </div>    
-                                <div className={styles.itemWrapper3}>
-                                    <button className={styles.editButton}>
-                                        <SquarePen size={16}/>
-                                        Edytuj
-                                    </button>
-                                    <button className={styles.deleteButton}>
-                                        <Trash size={16}/>
-                                    </button>
-                                </div>
+                                {partition.item ? (
+                                    <>
+                                        <div className={styles.itemWrapper}>
+                                            <span className={styles.itemName}>{partition.item.name}</span>
+                                            <span className={styles.itemCode}>{partition.item.description}</span>
+                                        </div>
+                                        <div className={styles.itemWrapper2}>
+                                            <span className={styles.ItemCategory}>Narzędzia</span>
+                                            <span className={styles.ItemCount}>{partition.item.quantity}/{partition.item.minimumQuantityItem}</span>
+                                        </div>
+                                        <div className={styles.itemWrapper3}>
+                                            <button className={styles.editButton}>
+                                                <SquarePen size={16}/>
+                                                Edytuj
+                                            </button>
+                                            <button className={styles.deleteButton}>
+                                                <Trash size={16}/>
+                                            </button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <div className={styles.itemWrapper}>
+                                        <span className={styles.itemCode}>Pusta przegroda</span>
+                                    </div>
+                                )}
                             </div>
                         )})}
                     </div>
                 </div>
-            )})}    
+            )})}
         </div>
     )
 }

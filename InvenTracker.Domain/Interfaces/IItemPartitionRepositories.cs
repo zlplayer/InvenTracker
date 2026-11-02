@@ -12,4 +12,5 @@ public interface IItemPartitionRepositories
     Task DeleteItemPartition(ItemPartition itemPartition);
     Task<ItemPartition?> GetItemPartitionByWardrobeAndItemFifo(Guid wardrobeId, Guid itemId);
     Task<List<ItemPartition>> GetAllItemPartitionsByWardrobeAndItemFifo(Guid wardrobeId, Guid itemId);
+    Task<IEnumerable<Item>> GetAllItemsByWardrobe(Guid wardrobeId);
 }

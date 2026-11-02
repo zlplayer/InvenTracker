@@ -22,7 +22,7 @@ const InformationTechnicalSection = ({ data }: InformationTechnicalSectionProps)
                 </div>
                 <div className={styles.infoBoxBottom}>
                     <span className={styles.infoTittle}>Oddział</span>
-                    <span className={styles.infoData}>Produkcja</span>
+                    <span className={styles.infoData}>{data.department?.name ?? "—"}</span>
                 </div>
                 <div className={styles.infoBoxBottom}>
                     <span className={styles.infoTittle}>Status połączenia</span>

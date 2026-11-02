@@ -2,6 +2,8 @@ import type { CompanyDepartmentType } from "../../../../../services/companyDetai
 
 export interface DepartmentSectionProps {
     data: CompanyDepartmentType[]
+    companyId: string
+    onCreated: () => void
 }
 
 export interface DeleteModalProps {

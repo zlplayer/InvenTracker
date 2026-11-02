@@ -1,26 +1,25 @@
 
 import styles from "./WardrobeSection.module.sass"
-import { Plus, Wifi, EllipsisVertical, WifiOff } from 'lucide-react'
+import { Wifi, EllipsisVertical, WifiOff } from 'lucide-react'
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import type { WardrobeSectionProps } from "./WardrobeSectionProps.type"
 import DropdownMenu from "../../../../../components/share/DropdownMenu/DropdownMenu"
-import AssignWardrobeModal from "../AssignWardrobeModal/AssignWardrobeModal"
 const WardrobeSection = ( props: WardrobeSectionProps ) => {
 
     const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
-    const [isOpenAssignWardrobeModal, setOpenAssignWardrobeModal] = useState(false)
+    // const [isOpenAssignWardrobeModal, setOpenAssignWardrobeModal] = useState(false)
     const [openWardrobeId, setOpenWardrobeId] = useState<string | null>(null)
     const navigate = useNavigate()
 
-    const handleOpenAssignWardrobeModal =()=>{
-        setOpenAssignWardrobeModal(true)
-    }
+    // const handleOpenAssignWardrobeModal =()=>{
+    //     setOpenAssignWardrobeModal(true)
+    // }
 
-    const handleAddDepartmentModalClose = ()=>{
-        setOpenAssignWardrobeModal(false)
+    // const handleAddDepartmentModalClose = ()=>{
+    //     setOpenAssignWardrobeModal(false)
 
-    }
+    // }
 
     const handleToggleMenu = (e: React.MouseEvent<HTMLButtonElement>, wardrobeId: string) => {
         e.stopPropagation();
@@ -40,12 +39,12 @@ const WardrobeSection = ( props: WardrobeSectionProps ) => {
                     <span className={styles.headerSection}>Przypisane szafy</span>
                 </div>
                 <div className={styles.buttonsConfig}>
-                    <button className={styles.addItemButton} onClick={handleOpenAssignWardrobeModal}>
+                    {/* <button className={styles.addItemButton} onClick={handleOpenAssignWardrobeModal}>
                         <Plus size={16} />
                         Przypisz szafę
                     </button>
 
-                    <AssignWardrobeModal isOpen={isOpenAssignWardrobeModal} onClose={handleAddDepartmentModalClose} />
+                    <AssignWardrobeModal isOpen={isOpenAssignWardrobeModal} onClose={handleAddDepartmentModalClose} /> */}
 
                 </div>
             </div>

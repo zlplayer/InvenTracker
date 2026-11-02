@@ -9,7 +9,7 @@ import NewCompany from "./New/NewCompany";
 export default function CompaniesPage() {
 
   const [companies, setCompanies] = useState<CompanyServiceType[]>([]);
-  const [openMenuId, setOpenMenuId] = useState<number | null>(null);
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const [isOpenModal, setIsOpen] = useState<boolean>(false)
 
   const handleIsOpen = () => {
@@ -20,8 +20,12 @@ export default function CompaniesPage() {
     setIsOpen(false)
   }
 
-  useEffect(() => {
+  const fetchCompanies = () => {
     GetCompanyAction.getAllCompanyAction().then(setCompanies);
+  }
+
+  useEffect(() => {
+    fetchCompanies();
   }, []);
 
   return (
@@ -38,7 +42,7 @@ export default function CompaniesPage() {
           <Plus size={16} />
           Dodaj firmę
         </button>
-        <NewCompany isOpenModal={isOpenModal} handleIsClose={handleIsClose} />
+        <NewCompany isOpenModal={isOpenModal} handleIsClose={handleIsClose} onCreated={fetchCompanies} />
       </div>
       <div className={styles.stats}>
         <span className={styles.statItem}>
@@ -66,6 +70,8 @@ export default function CompaniesPage() {
             departmentsCount={company.departementCount}
             isMenuOpen={openMenuId === company.id}
             onToggleMenu={() => setOpenMenuId(openMenuId === company.id ? null : company.id)}
+            onDeleted={fetchCompanies}
+            onEdited={fetchCompanies}
           />
         ))}
       </div>

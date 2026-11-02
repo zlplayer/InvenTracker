@@ -4,13 +4,27 @@ import { UserTable } from '../../components/share/UserTable/UserTable'
 import { useState, useEffect } from 'react'
 import GetUserAction from '../../action/userAction/GetUserAction'
 import type { UserServiceType } from '../../services/userService/UserServiceType.type'
+import { NewUserPage } from './New/NewUserPage'
 
 export default function UsersPage() {
 
   const [users, setUsers] = useState<UserServiceType[]>([]);
+  const [isOpenNewUserModal, setIsOpenNewWorkOrderModal] = useState<boolean>(false)
+
+  const handleIsCloseNewWorkOrderModal=()=> {
+    setIsOpenNewWorkOrderModal(false)
+  }
+
+  const handleIsOpenNewWorkOrderModal = () =>{
+    setIsOpenNewWorkOrderModal(true)
+  }
+
+  const fetchUsers = () => {
+    GetUserAction.getAllUsersAction().then(setUsers);
+  }
 
   useEffect(() => {
-    GetUserAction.getAllUsersAction().then(setUsers);
+    fetchUsers();
   }, []);
 
    return (
@@ -23,10 +37,13 @@ export default function UsersPage() {
             <span className={styles.descriptionTitle}>Zarzadzaj uzytkownikami i uprawnieniami w systemie</span>
           </div>
         </div>
-        <button className={styles.addUserButton}>
+        <button className={styles.addUserButton} onClick={handleIsOpenNewWorkOrderModal}>
           <Plus size={16} />
           Dodaj uzytkownika
         </button>
+
+        <NewUserPage  handleIsClose={handleIsCloseNewWorkOrderModal} isOpenModal={isOpenNewUserModal} onCreated={fetchUsers}/>
+
       </div>
       <div className={styles.stats}>
         <span className={styles.statItem}>
@@ -47,7 +64,7 @@ export default function UsersPage() {
       </div>
 
       <div className={styles.users}>
-        <UserTable users={users}/>
+        <UserTable users={users} onDeleted={fetchUsers} onEdited={fetchUsers}/>
       </div>
       
     </div>

@@ -5,12 +5,14 @@ import type { DepartmentSectionProps, DeleteModalProps } from "./DepartmentSecti
 import DropdownMenu from "../../../../../components/share/DropdownMenu/DropdownMenu"
 import AddDepartmentModal from "../AddDepartmentModal/AddDepartmentModal"
 import Modal from "../../../../../components/share/Modal/Modal"
+import EditDepartmentModal from "../EditDepartmentModal/EditDepartmentModal"
+import DeleteDepartmentAction from "../../../../../action/departmentAction/DeleteDepartmentAction"
 
 const DepartmentSection = (props : DepartmentSectionProps) => {
 
     const [isAddDepartmentModalOpen, setIsAddDepartmentModalOpen] = useState(false);
-    const [isEditDepartmentModalOpen, setIsEditDepartmentModalOpen] = useState(false);
-    const [isDeleteDepartmentModalOpen, setIsDeleteDepartmentModalOpen] = useState(false);
+    const [editDepartmentId, setEditDepartmentId] = useState<string | null>(null);
+    const [deleteDepartmentId, setDeleteDepartmentId] = useState<string | null>(null);
     const [openDepartmentId, setOpenDepartmentId] = useState<string | null>(null);
 
     const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
@@ -29,28 +31,18 @@ const DepartmentSection = (props : DepartmentSectionProps) => {
         setIsAddDepartmentModalOpen(false);
     }
 
-    const handleEditDepartmentModalOpen = () => {
-        setIsEditDepartmentModalOpen(true);
-    }
-    const handleEditDepartmentModalClose = () => {
-        setIsEditDepartmentModalOpen(false);
-    }
-    const handleDeleteDepartmentModalOpen = () => {
-        setIsDeleteDepartmentModalOpen(true);
-    }
-    const handleDeleteDepartmentModalClose = () => {
-        setIsDeleteDepartmentModalOpen(false);
-    }
-    
-    const handleDelete = () => {
-        setIsDeleteDepartmentModalOpen(false)
+    const handleDelete = async () => {
+        if (!deleteDepartmentId) return;
+        await DeleteDepartmentAction.deleteDepartment(deleteDepartmentId);
+        setDeleteDepartmentId(null);
+        props.onCreated();
     }
 
     return (
         <div>
             <div className={styles.headerSectionWrapper}>
                 <div>
-                    <span className={styles.headerSection}>Zawartość szafy</span>
+                    <span className={styles.headerSection}>Oddzialy firmy</span>
                 </div>
                 <div className={styles.buttonsConfig}>
                     <button className={styles.addItemButton} onClick={handleAddDepartmentModalOpen}>
@@ -58,8 +50,8 @@ const DepartmentSection = (props : DepartmentSectionProps) => {
                         Dodaj oddział
                     </button>
 
-                    <AddDepartmentModal isOpen={isAddDepartmentModalOpen} onClose={handleAddDepartmentModalClose} />
-                
+                    <AddDepartmentModal isOpen={isAddDepartmentModalOpen} onClose={handleAddDepartmentModalClose} companyId={props.companyId} onCreated={props.onCreated} />
+
                 </div>
             </div>
 
@@ -81,24 +73,27 @@ const DepartmentSection = (props : DepartmentSectionProps) => {
                             <span className={styles.wardrobeCountDetail}>{department.wardrobe.length}</span>
                             <span className={styles.wardrobeCountTitle}>Szafy</span>
                         </div>
-                        
+
                         <button className={styles.acctionButton} onClick={(e) => handleToggleMenu(e, department.id)}><EllipsisVertical /></button>
 
                         <DropdownMenu isOpen={openDepartmentId === department.id} onClose={() => setOpenDepartmentId(null)} menuPosition={menuPosition}>
                             <div className={styles.menuItem}>
-                                <button className={styles.menuItemButton} onClick={handleEditDepartmentModalOpen}>Edytuj oddział</button>
+                                <button className={styles.menuItemButton} onClick={() => setEditDepartmentId(department.id)}>Edytuj oddział</button>
 
-                                <AddDepartmentModal isOpen={isEditDepartmentModalOpen} onClose={handleEditDepartmentModalClose} />
-
-                                <button className={styles.menuItemButton}>Przypisz szafę</button>
-                                <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={handleDeleteDepartmentModalOpen}>Usuń oddział</button>
-                                <DeleteModal isOpen={isDeleteDepartmentModalOpen} onClose={handleDeleteDepartmentModalClose} onDelete={handleDelete} />
+                                {/* <button className={styles.menuItemButton}>Przypisz szafę</button> */}
+                                <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={() => setDeleteDepartmentId(department.id)}>Usuń oddział</button>
                             </div>
                         </DropdownMenu>
+
+                        {editDepartmentId === department.id &&
+                            <EditDepartmentModal isOpen={editDepartmentId === department.id} onClose={() => setEditDepartmentId(null)} onEdited={props.onCreated} department={department} />
+                        }
                     </div>
                 </div>
                 )}
             )}
+
+            <DeleteModal isOpen={deleteDepartmentId !== null} onClose={() => setDeleteDepartmentId(null)} onDelete={handleDelete} />
         </div>
     )
 }

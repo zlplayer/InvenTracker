@@ -5,7 +5,28 @@ export interface WardrobeDetailsServicesType {
     serialNumber: string;
     softwareVersion: string;
     isOnline: boolean;
+    company: CompanyLookupType | null;
+    department: DepartmentLookupType | null;
     drawers: DrawerType[];
+}
+
+export interface CompanyLookupType {
+    id: string;
+    name: string;
+    addressCompany: AddressType;
+}
+
+export interface DepartmentLookupType {
+    id: string;
+    name: string;
+    addressDepartment: AddressType;
+}
+
+interface AddressType {
+    street: string;
+    buildingNumber: string;
+    postalCode: string;
+    city: string;
 }
 
 export interface DrawerType {
@@ -26,7 +47,7 @@ interface PartitionType {
     heightPartition: number;
     widthPartition: number;
     lengthPartition: number;
-    item: ItemType;
+    item: ItemType | null;
 }
 
 interface ItemType {

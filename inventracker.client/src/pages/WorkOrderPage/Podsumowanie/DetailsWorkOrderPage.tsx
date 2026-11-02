@@ -26,7 +26,7 @@ const DetailsWorkOrderPage =({isOpenModal, handleIsClose, wardrobeId}:DetailsWor
                 <ClipboardList />
                 <div className={styles.title}>
                     <span className={styles.titleText}>{workOrderDetails?.name}</span>
-                    <span className={styles.descriptionTitle}>{workOrderDetails?.wardrobeName}</span>
+                    <span className={styles.descriptionTitle}>{workOrderDetails?.wardrobeName} · Kod: {workOrderDetails?.code}</span>
                 </div>
             </div>
             <div className={styles.workOrderInfo}>

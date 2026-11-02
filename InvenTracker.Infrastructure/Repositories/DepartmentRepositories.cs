@@ -29,6 +29,17 @@ public class DepartmentRepositories : IDepartmentRepositories
         
         return departmetDetails;
     }
+
+    public async Task<IEnumerable<Department>> GetDepartmentsByCompanyId(Guid companyId)
+    {
+        var department = await  _dbContext.Departments
+            .Include(x => x.Address)
+            .Where(x => x.CompanyId == companyId)
+            .ToListAsync();
+        if(department is null) throw new KeyNotFoundException($"Department with id {companyId} not found");
+        
+        return department;
+    }
     
     public async Task CreateDepartment(Department department)
     {

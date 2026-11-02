@@ -5,15 +5,23 @@ import React, { useState, useEffect } from "react"
 import DetailsWorkOrderPage from "./Podsumowanie/DetailsWorkOrderPage"
 import type { WorkOrderServicesType } from "../../services/workOrderServices/WorkOrderServices.type"
 import GetWorkOrderAction from "../../action/workOrderAction/GetWorkOrderAction"
+import GetWardrobeAction from "../../action/wardrobeAction/GetWardrobeAction"
+import type { WardrobeServiceType } from "../../services/wardrobeServices/WardrobeServiceType.type"
 
 const WorkOrderPage = () => {
     const [isOpenNewWorkOrderModal, setIsOpenNewWorkOrderModal] = useState<boolean>(false)
     const [openWorkOrderId, setOpenWorkOrderId] = useState<string | null>(null)
     const [workOrders, setWorkOrders] = useState<WorkOrderServicesType[]>([])
+    const [wardrobes, setWardrobes] = useState<WardrobeServiceType[]>([])
     const [searchTerm, setSearchTerm] = useState("")
 
-    useEffect(() => {
+    const fetchWorkOrders = () => {
         GetWorkOrderAction.getWorkOrderAction().then(setWorkOrders)
+    }
+
+    useEffect(() => {
+        fetchWorkOrders()
+        GetWardrobeAction.getAllWardrobeAction().then(setWardrobes)
     }, [])
 
     const handleIsOpenNewWorkOrderModal = () => {
@@ -50,7 +58,7 @@ const WorkOrderPage = () => {
                     Nowe zlecenie
                 </button>
 
-                <NewWorkOrderPage isOpenModal={isOpenNewWorkOrderModal} handleIsClose={handleIsCloseNewWorkOrderModal} />
+                <NewWorkOrderPage isOpenModal={isOpenNewWorkOrderModal} handleIsClose={handleIsCloseNewWorkOrderModal} wardrobes={wardrobes} onCreated={fetchWorkOrders} />
             </div>
 
             

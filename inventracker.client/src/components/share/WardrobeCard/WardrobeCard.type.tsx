@@ -1,5 +1,5 @@
 export interface WardrobeCardProps {
-    id: number,
+    id: string,
     title: string
     companyName?: string
     localization?: string
@@ -8,6 +8,8 @@ export interface WardrobeCardProps {
     isOnline?: boolean
     isMenuOpen: boolean
     onToggleMenu: () => void
+    onDeleted: () => void
+    onEdited: () => void
 }
 
 export interface DeleteModalProps {

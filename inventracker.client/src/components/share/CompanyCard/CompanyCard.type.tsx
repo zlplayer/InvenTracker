@@ -1,11 +1,13 @@
 export interface CompanyCardProps {
-    id: number
+    id: string
     title: string
     description?: string
     wardrobesCount?: number
     departmentsCount?: number
     isMenuOpen: boolean
     onToggleMenu: () => void
+    onDeleted: () => void
+    onEdited: () => void
 }
 
 export interface DeleteModalProps {

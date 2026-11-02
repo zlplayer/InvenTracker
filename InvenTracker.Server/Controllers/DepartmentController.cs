@@ -3,6 +3,7 @@ using InvenTracker.Application.InvenTracker.Commands.DeleteDepartaments;
 using InvenTracker.Application.InvenTracker.Commands.UpdateDepartaments;
 using InvenTracker.Application.InvenTracker.Queries.GetAllDepartaments;
 using InvenTracker.Application.InvenTracker.Queries.GetDepartment;
+using InvenTracker.Application.InvenTracker.Queries.GetDepartmentsByCompanyId;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,13 @@ public class DepartmentController :  ControllerBase
         return Ok(department);
     }
 
+    [HttpGet("{comapnyId}/departments")]
+    public async Task<IActionResult> GetDepartmentsByComapnyId(Guid comapnyId)
+    {
+        var departments = await _mediator.Send(new GetDepartmentsByCompanyIdQuery{CompanyId =  comapnyId});
+        return Ok(departments);
+    }
+    
     [HttpPost("{companyId}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateDepartment(Guid companyId, [FromBody] CreateDepartmentCommand createDepartmentCommand)

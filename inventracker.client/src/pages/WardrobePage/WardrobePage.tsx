@@ -9,7 +9,7 @@ import NewWardrobe from "./New/NewWardrobe";
 export default function WardrobePage() {
 
   const [wardrobes, setWardrobes] = useState<WardrobeServiceType[]>([]);
-  const [openMenuId, setOpenMenuId] = useState<number | null>(null);
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const [isOpenModal, setIsOpen] = useState<boolean>(false)
 
   const handleIsOpen= () =>{
@@ -20,8 +20,12 @@ export default function WardrobePage() {
     setIsOpen(false)
   }
 
-  useEffect(() => {
+  const fetchWardrobes = () => {
     GetWardrobeAction.getAllWardrobeAction().then(setWardrobes);
+  }
+
+  useEffect(() => {
+    fetchWardrobes();
   }, []);
 
   return (
@@ -38,7 +42,7 @@ export default function WardrobePage() {
           <Plus size={16} />
           Dodaj szafę
         </button>
-        <NewWardrobe isOpenModal={isOpenModal} handleIsClose={handleIsClose} />
+        <NewWardrobe isOpenModal={isOpenModal} handleIsClose={handleIsClose} onCreated={fetchWardrobes} />
       </div>
       <div className={styles.stats}>
         <span className={styles.statItem}>
@@ -63,12 +67,14 @@ export default function WardrobePage() {
               key={wardrobe.id}
               id={wardrobe.id}
               title={wardrobe.name}
-              companyName={wardrobe.company.name}
+              companyName={wardrobe.company?.name}
               localization={`${address.street} ${address.buildingNumber}, ${address.postalCode} ${address.city}`}
               isOnline={wardrobe.isOnline}
               itemsCount={wardrobe.itemsCount}
               isMenuOpen={openMenuId === wardrobe.id}
               onToggleMenu={() => setOpenMenuId(openMenuId === wardrobe.id ? null : wardrobe.id)}
+              onDeleted={fetchWardrobes}
+              onEdited={fetchWardrobes}
             />
           );
         })}

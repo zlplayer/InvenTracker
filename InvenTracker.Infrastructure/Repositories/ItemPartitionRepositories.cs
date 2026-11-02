@@ -59,6 +59,16 @@ public class ItemPartitionRepositories:IItemPartitionRepositories
             .OrderBy(ip => ip.AddDate)
             .ToListAsync();
 
+    public async Task<IEnumerable<Item>> GetAllItemsByWardrobe(Guid wardrobeId) =>
+        await _dbContext.ItemPartitions
+            .Include(ip => ip.Item)
+            .Include(ip => ip.Partition)
+            .ThenInclude(p => p.Drawer)
+            .ThenInclude(d => d.Wardrobe)
+            .Where(ip => ip.Partition.Drawer.WardrobeId == wardrobeId)
+            .Select(ip => ip.Item)
+            .ToListAsync();
+    
     public async Task CreateItemPartition(ItemPartition itemPartition)
     {
         await _dbContext.ItemPartitions.AddAsync(itemPartition);

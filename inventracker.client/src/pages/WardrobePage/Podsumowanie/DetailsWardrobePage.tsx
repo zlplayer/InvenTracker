@@ -24,8 +24,8 @@ import GetItemHistoryAction from "../../../action/itemHistoryAction/GetItemHisto
         GetItemHistoryAction.getItemHistoryAction(wardrobeId).then(setItemHistory)
     }, [wardrobeId])
 
-
     const isOnline = wardrobeDetails?.isOnline
+    const location = wardrobeDetails?.department?.addressDepartment ?? wardrobeDetails?.company?.addressCompany
     
     type Tab = "content" | "history" | "info";
 
@@ -43,6 +43,11 @@ import GetItemHistoryAction from "../../../action/itemHistoryAction/GetItemHisto
 
     const handleIsClose= () =>{
         setIsOpen(false)
+    }
+    
+    const handleEdited = () => {
+        if (!wardrobeId) return;
+        GetWardrobeDetailsAction.getWardrobeDetailsAction(wardrobeId).then(setWardrobeDetails)
     }
 
     return (
@@ -66,7 +71,7 @@ import GetItemHistoryAction from "../../../action/itemHistoryAction/GetItemHisto
                 </div>
 
                 <div className={styles.descriptionTitleSection}>
-                    <span className={styles.descriptionTitle}><MapPin size={16}/> Warszawa - Oddział Produkcyjny</span> <span className={styles.descriptionTitle}><Building2 size={16} /> Tech Solutions Sp. z o.o.</span>
+                    <span className={styles.descriptionTitle}><MapPin size={16}/> {location ? `${location.street} ${location.buildingNumber}, ${location.postalCode} ${location.city}` : "—"}</span> <span className={styles.descriptionTitle}><Building2 size={16} /> {wardrobeDetails?.company?.name ?? "—"}</span>
                 </div>
                 
             </div>
@@ -76,7 +81,7 @@ import GetItemHistoryAction from "../../../action/itemHistoryAction/GetItemHisto
                     Edytuj
                 </button>
                 
-                <EditWardrobe handleIsClose={handleIsClose} isOpenModal={isOpenModal}/>
+                {wardrobeDetails && <EditWardrobe handleIsClose={handleIsClose} isOpenModal={isOpenModal} data={wardrobeDetails} onEdited={handleEdited}/>}
 
                 <button className={styles.addCWardrobeButton}>
                     <Settings size={20}/>
@@ -110,8 +115,8 @@ import GetItemHistoryAction from "../../../action/itemHistoryAction/GetItemHisto
         </div>
         
         <div className={styles.bodyWrapper}>
-            {activeTab === "content" && wardrobeDetails && <WardrobeInventorySection data={wardrobeDetails.drawers}/>}
-            {activeTab === "history" && itemHistory && <ActivitiHistorySection data={itemHistory} wardrobeId={wardrobeDetails?.id}/>}
+            {activeTab === "content" && wardrobeDetails && <WardrobeInventorySection data={wardrobeDetails.drawers} wardrobeId={wardrobeDetails.id} onCreated={handleEdited}/>}
+            {activeTab === "history" && itemHistory && wardrobeDetails && <ActivitiHistorySection data={itemHistory} wardrobeId={wardrobeDetails.id}/>}
             {activeTab === "info" && wardrobeDetails && <InformationTechnicalSection data={wardrobeDetails}/>}
         </div>
 

@@ -3,6 +3,7 @@ using InvenTracker.Application.InvenTracker.Commands.DeleteItems;
 using InvenTracker.Application.InvenTracker.Commands.UpdateItem;
 using InvenTracker.Application.InvenTracker.Queries.GetAllItems;
 using InvenTracker.Application.InvenTracker.Queries.GetItem;
+using InvenTracker.Application.InvenTracker.Queries.GetItemByWardrobeId;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,13 @@ public class ItemController:ControllerBase
     {
         var item = await _mediator.Send(new GetItemQuery{ ItemId = itemId });
         return Ok(item);
+    }
+
+    [HttpGet("wardrobe/{wardrobeId}")]
+    public async Task<IActionResult> GetItemByWardrobeId(Guid wardrobeId)
+    {
+        var items= await _mediator.Send(new GetItemByWardrobeIdQuery{ WardrobeId = wardrobeId });
+        return Ok(items);
     }
 
     [HttpPost]

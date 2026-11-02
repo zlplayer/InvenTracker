@@ -1,10 +1,15 @@
 export interface CompanyServiceType {
-    id: number;
+    id: string;
     name: string;
     description: string;
     addressCompany: addressCompany;
     wardrobeCount: number;
     departementCount: number;
+}
+
+export interface CompanyType {
+    name: string;
+    addressCompany: addressCompany;
 }
 
 export interface addressCompany{
