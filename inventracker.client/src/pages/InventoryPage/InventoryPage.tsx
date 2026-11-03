@@ -1,14 +1,32 @@
 import { InventoryTable } from '../../components/share/InventoryTable/InventoryTable'
 import styles from './InventoryPage.module.sass'
-import { Plus, Users, Clock, CircleCheckBig, Wrench, Box } from 'lucide-react'
-import type { InventoryItemRow } from "../../components/share/InventoryTable/InventoryTable.type"
+import { Plus, Clock, CircleCheckBig, Wrench, Box } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import GetItemAction from '../../action/itemAction/GetItemAction'
+import type { ItemLookupType } from '../../services/itemServices/ItemServiceType.type'
+import { NewItemPage } from './New/NewItemPage'
 
 export default function InventoryPage() {
 
-  const mockItems: InventoryItemRow[] = [
-    { id: "1", name: "Wiertarka udarowa", description: "...", isPackaged: true, QuantityPerPackage: 5, status: "Dostępny" },
-    // TODO: dodaj kolejne, z różnymi statusami (żeby sprawdzić czy statusColors działa dla każdego)
-]
+  const [items, setItems] = useState<ItemLookupType[]>([]);
+  const [isOpemModal, setOpenModal] = useState<boolean>(false)
+
+
+  const handleOpenModal = () =>{
+    setOpenModal(true)
+  }
+
+  const handleCloseModal = ()=>{
+    setOpenModal(false)
+  }
+
+  const refreshItems = () => {
+    GetItemAction.getAllItems().then(setItems);
+  }
+
+  useEffect(() => {
+    refreshItems();
+  }, []);
 
   return (
     <div className="container">
@@ -20,10 +38,11 @@ export default function InventoryPage() {
             <span className={styles.descriptionTitle}>Pelna lista przedmiotow w systemie</span>
           </div>
         </div>
-        <button className={styles.addInventoryItemButton}>
+        <button className={styles.addInventoryItemButton} onClick={handleOpenModal}>
           <Plus size={16} />
           Dodaj przedmiot
         </button>
+        <NewItemPage isOpenModal={isOpemModal} OnCloseModal={handleCloseModal} onCreated={refreshItems} />
       </div>
       <div className={styles.stats}>
         <span className={styles.statItem}>
@@ -44,7 +63,7 @@ export default function InventoryPage() {
       </div>
 
       <div className={styles.inventory}>
-        <InventoryTable items={mockItems}/>
+        <InventoryTable items={items} onEdited={refreshItems} onDeleted={refreshItems}/>
       </div>
       
     </div>

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace InvenTracker.Application.InvenTracker.Queries.GetAllItems;
 
-public class GetAllItemsQueryHandler : IRequestHandler<GetAllItemsQuery, IEnumerable<GetItemDto>>
+public class GetAllItemsQueryHandler : IRequestHandler<GetAllItemsQuery, IEnumerable<GetAllItemDto>>
 {
     private readonly IMapper _mapper;
     private readonly IItemRepositories _itemRepositories;
@@ -15,9 +15,9 @@ public class GetAllItemsQueryHandler : IRequestHandler<GetAllItemsQuery, IEnumer
         _mapper = mapper;
         _itemRepositories = itemRepositories;
     }
-    public async Task<IEnumerable<GetItemDto>> Handle(GetAllItemsQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<GetAllItemDto>> Handle(GetAllItemsQuery request, CancellationToken cancellationToken)
     {
         var items = await _itemRepositories.GetItems();
-        return _mapper.Map<IEnumerable<GetItemDto>>(items);
+        return _mapper.Map<IEnumerable<GetAllItemDto>>(items);
     }
 }

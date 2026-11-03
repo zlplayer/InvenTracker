@@ -96,7 +96,9 @@ public class InvenTrackerMappingProfile: Profile
             .ForMember(dest => dest.LengthDrawer, opt => opt.MapFrom(src => src.Z));
         
         CreateMap<Item, GetItemDto>().ReverseMap();
-
+        
+        CreateMap<Item, GetAllItemDto>().ReverseMap();
+        
         CreateMap<CreateItemCommand, Item>();
         
         CreateMap<UpdateItemDto, Item>().ReverseMap();
@@ -124,7 +126,7 @@ public class InvenTrackerMappingProfile: Profile
             .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.QuantityItem))
             .ForMember(dest => dest.IsPackaged, opt => opt.MapFrom(src => src.Item.IsPackaged))
             .ForMember(dest => dest.QuantityPerPackage, opt => opt.MapFrom(src => src.Item.QuantityPerPackage));
-
+        
         CreateMap<Partition, GetDetailsPartitionsDto>()
             .ForMember(dest => dest.Item, opt => opt.MapFrom(src => src.ItemPartitions.FirstOrDefault()))
             .ReverseMap().ForMember(dest => dest.ItemPartitions, opt => opt.MapFrom(src => src.Item));
