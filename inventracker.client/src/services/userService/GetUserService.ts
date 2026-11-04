@@ -1,12 +1,12 @@
+import { autoFetch } from "../httpClient";
 import type { UserServiceType } from "./UserServiceType.type";
 
 class GetUserService {
-    public async getAllUsers(token: string): Promise<UserServiceType[]> {
-        const res = await fetch("/api/user", {
+    public async getAllUsers(): Promise<UserServiceType[]> {
+        const res = await autoFetch("/api/user", {
             method: "GET",
             headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
             },
         });
         if (!res.ok) {

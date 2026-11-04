@@ -1,10 +1,11 @@
+import { autoFetch } from "../httpClient";
+
 class GeneratePdfItemHistoryService{
-    public async generateWardrobePickupReport(wardrobeId: string, token: string): Promise<Blob>{
-        const response = await fetch(`/api/pdf/wardrobe-report?wardrobeId=${wardrobeId}`,{
+    public async generateWardrobePickupReport(wardrobeId: string): Promise<Blob>{
+        const response = await autoFetch(`/api/pdf/wardrobe-report?wardrobeId=${wardrobeId}`,{
             method: "GET",
             headers: {
                 accept: "application/pdf",
-                authorization: `Bearer ${token}`,
             },
         })
         if(!response.ok){

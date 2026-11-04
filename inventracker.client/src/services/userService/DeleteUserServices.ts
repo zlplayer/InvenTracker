@@ -1,10 +1,10 @@
+import { autoFetch } from "../httpClient";
+
 class DeleteUserServices {
-    public async deleteUser(userId: string, token: string): Promise<void> {
-        const response = await fetch(`/api/user/${userId}`, {
+    public async deleteUser(userId: string): Promise<void> {
+        const response = await autoFetch(`/api/user/${userId}`, {
             method: "DELETE",
-            headers: {
-                authorization: `Bearer ${token}`,
-            },
+            headers: {},
         });
 
         if (!response.ok) {

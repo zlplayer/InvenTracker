@@ -160,5 +160,8 @@ public class InvenTrackerMappingProfile: Profile
 
         CreateMap<Department, GetDepartmentLookupDto>()
             .ForMember(dest => dest.AddressDepartment, opt => opt.MapFrom(src => src.Address));
+        
+        CreateMap<RefreshToken, CreateRefreshTokenDto>().ReverseMap();
+        
     }
 }

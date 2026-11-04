@@ -1,12 +1,12 @@
+import { autoFetch } from "../httpClient";
 import type { ItemByWardrobeType, ItemLookupType } from "./ItemServiceType.type";
 
 class GetItemServices {
-    public async getAllItems(token: string): Promise<ItemLookupType[]> {
-        const response = await fetch("/api/item", {
+    public async getAllItems(): Promise<ItemLookupType[]> {
+        const response = await autoFetch("/api/item", {
             method: "GET",
             headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
             },
         });
 
@@ -16,12 +16,11 @@ class GetItemServices {
         return response.json();
     }
 
-    public async getItemsByWardrobeId(wardrobeId: string, token: string): Promise<ItemByWardrobeType[]> {
-        const response = await fetch(`/api/item/wardrobe/${wardrobeId}`, {
+    public async getItemsByWardrobeId(wardrobeId: string): Promise<ItemByWardrobeType[]> {
+        const response = await autoFetch(`/api/item/wardrobe/${wardrobeId}`, {
             method: "GET",
             headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
             },
         });
 

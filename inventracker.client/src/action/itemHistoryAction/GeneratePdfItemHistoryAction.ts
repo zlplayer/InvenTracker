@@ -2,11 +2,7 @@ import GeneratePdfItemHistoryService from "../../services/itemHistoryService/Gen
 
 class GeneratePdfItemHistoryAction {
     generateWardrobePickupReport = async (wardrobeId: string) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        const blob = await GeneratePdfItemHistoryService.generateWardrobePickupReport(wardrobeId, token);
+        const blob = await GeneratePdfItemHistoryService.generateWardrobePickupReport(wardrobeId);
         return blob;
     }
 }

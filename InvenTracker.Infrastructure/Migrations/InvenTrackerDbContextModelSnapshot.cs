@@ -320,6 +320,32 @@ namespace InvenTracker.Infrastructure.Migrations
                     b.ToTable("Partitions");
                 });
 
+            modelBuilder.Entity("InvenTracker.Domain.Entities.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRevoked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("InvenTracker.Domain.Entities.Role", b =>
                 {
                     b.Property<Guid>("Id")
@@ -580,6 +606,17 @@ namespace InvenTracker.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Drawer");
+                });
+
+            modelBuilder.Entity("InvenTracker.Domain.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("InvenTracker.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("InvenTracker.Domain.Entities.User", b =>

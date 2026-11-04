@@ -2,11 +2,7 @@ import DeleteCompanyServices from "../../services/companyServices/DeleteCompanyS
 
 class DeleteCompanyAction {
     deleteCompany = async (companyId: string) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token provided");
-        }
-        await DeleteCompanyServices.deleteCompany(companyId, token);
+        await DeleteCompanyServices.deleteCompany(companyId);
     }
 }
 

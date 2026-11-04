@@ -1,12 +1,12 @@
+import { autoFetch } from "../httpClient";
 import type { DepartmentLookupType } from "./DepartmentServiceType.types";
 
 class GetDepartmentServices {
-    public async getDepartmentsByComapnyId(companyId: string, token: string): Promise<DepartmentLookupType[]> {
-        const reason = await fetch(`/api/department/${companyId}/departments`, {
+    public async getDepartmentsByComapnyId(companyId: string): Promise<DepartmentLookupType[]> {
+        const reason = await autoFetch(`/api/department/${companyId}/departments`, {
             method: "GET",
             headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
             },
         });
         if (!reason.ok) {

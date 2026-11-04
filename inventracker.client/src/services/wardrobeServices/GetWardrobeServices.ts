@@ -1,12 +1,12 @@
+import { autoFetch } from "../httpClient";
 import type { WardrobeServiceType } from "./WardrobeServiceType.type";
 
 class GetWardrobeServices {
-    public async getAllWardrobe(token: string): Promise<WardrobeServiceType[]> {
-        const res = await fetch("/api/Wardrobe", {
+    public async getAllWardrobe(): Promise<WardrobeServiceType[]> {
+        const res = await autoFetch("/api/Wardrobe", {
             method: "GET",
             headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
             },
         });
         if (!res.ok) {

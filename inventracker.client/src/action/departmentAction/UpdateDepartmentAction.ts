@@ -3,11 +3,7 @@ import type { UpdateDepartmentType } from "../../services/departmentServices/Dep
 
 class UpdateDepartmentAction {
     updateDepartment = async (department: UpdateDepartmentType, departmentId: string) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        await UpdateDepartmentServices.updateDepartment(department, departmentId, token);
+        await UpdateDepartmentServices.updateDepartment(department, departmentId);
     }
 }
 export default new UpdateDepartmentAction();

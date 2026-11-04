@@ -2,11 +2,7 @@ import DeleteWardrobeServices from "../../services/wardrobeServices/DeleteWardro
 
 class DeleteWardrobeAction {
     deleteWardrobe = async (id: string) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        await DeleteWardrobeServices.deleteWardrobe(id, token);
+        await DeleteWardrobeServices.deleteWardrobe(id);
         return true;
     }
 }

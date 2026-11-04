@@ -1,12 +1,12 @@
+import { autoFetch } from "../httpClient";
 import type { WorkOrderServicesType } from "./WorkOrderServices.type";
 
 class WorkOrderServices {
-    public async getWorkOrders(token: string): Promise<WorkOrderServicesType[]> {
-        const response = await fetch("/api/WorkOrder", {
+    public async getWorkOrders(): Promise<WorkOrderServicesType[]> {
+        const response = await autoFetch("/api/WorkOrder", {
             method: "GET",
             headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
             },
         });
 

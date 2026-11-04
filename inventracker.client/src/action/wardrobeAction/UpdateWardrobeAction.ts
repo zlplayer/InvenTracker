@@ -3,11 +3,7 @@ import type { UpdateWardrobeType } from "../../services/wardrobeServices/Wardrob
 
 class UpdateWardrobeAction {
     updateWardrobe= async (wardrobe: UpdateWardrobeType, id: string)=>{
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        await UpdateWardrobeServices.updateWardrobe(wardrobe, id, token);
+        await UpdateWardrobeServices.updateWardrobe(wardrobe, id);
         return true;
     }
 }

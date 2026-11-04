@@ -20,6 +20,7 @@ public class InvenTrackerDbContext : DbContext
     public  DbSet<WardrobeResponsible> WardrobesResponsibles { get; set; }
     public DbSet<WorkOrder>  WorkOrders { get; set; }
     public DbSet<WorkOrderItem>  WorkOrderItems { get; set; }
+    public DbSet<RefreshToken>  RefreshTokens { get; set; }
 
     public InvenTrackerDbContext(DbContextOptions<InvenTrackerDbContext> options) : base(options)
     {
@@ -70,6 +71,11 @@ public class InvenTrackerDbContext : DbContext
             .WithMany()                                                                                                                                                                                                                                                                                                  
             .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        modelBuilder.Entity<RefreshToken>()
+            .HasOne(x => x.User)
+            .WithMany()
+            .HasForeignKey(x => x.UserId);
 
         modelBuilder.Entity<WardrobeResponsible>()
             .HasOne(x => x.Wardrobe)

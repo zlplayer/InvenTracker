@@ -1,12 +1,12 @@
+import { autoFetch } from "../httpClient";
 import type { CreateWardrobeType } from "./WardrobeServiceType.type";
 
 class CreateWardrobeServices {
-    public async createWardrobeForBoth(wardrobe: CreateWardrobeType, token: string, companyId: string, departmentId: string): Promise<void> {
-        const response = await fetch(`/api/wardrobe/company/${companyId}/department/${departmentId}`, {
+    public async createWardrobeForBoth(wardrobe: CreateWardrobeType, companyId: string, departmentId: string): Promise<void> {
+        const response = await autoFetch(`/api/wardrobe/company/${companyId}/department/${departmentId}`, {
             method: "POST",
             headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(wardrobe),
@@ -17,12 +17,11 @@ class CreateWardrobeServices {
         }
     }
 
-    public async createWardrobeForCompany(wardrobe: CreateWardrobeType, token: string, companyId: string): Promise<void> {
-        const response = await fetch(`/api/wardrobe/company/${companyId}`, {
+    public async createWardrobeForCompany(wardrobe: CreateWardrobeType, companyId: string): Promise<void> {
+        const response = await autoFetch(`/api/wardrobe/company/${companyId}`, {
             method: "POST",
             headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(wardrobe),
@@ -33,12 +32,11 @@ class CreateWardrobeServices {
         }
     }
 
-    public async createWardrobeForDepartment(wardrobe: CreateWardrobeType, token: string, departmentId: string): Promise<void> {
-        const response = await fetch(`/api/wardrobe/department/${departmentId}`, {
+    public async createWardrobeForDepartment(wardrobe: CreateWardrobeType, departmentId: string): Promise<void> {
+        const response = await autoFetch(`/api/wardrobe/department/${departmentId}`, {
             method: "POST",
             headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(wardrobe),

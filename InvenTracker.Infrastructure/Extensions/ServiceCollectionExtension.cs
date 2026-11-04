@@ -31,6 +31,7 @@ public static class ServiceCollectionExtension
         services.AddScoped<IItemHistoryRepositories, ItemHistoryRepositories>();
         services.AddScoped<IWardrobeResponsibleRepositories, WardrobeResponsibleRepositories>();
         services.AddScoped<IWorkOrderRepositories, WorkOrderRepositories>();
+        services.AddScoped<IRefreshTokenRepositories, RefreshTokenRepositories>();
         
         services.AddScoped<InvenTrackerSeeder>();
         services.AddScoped<IPdfService, PdfService>();

@@ -2,11 +2,7 @@ import WorkOrderServices from "../../services/workOrderServices/WorkOrderService
 
 class GetWorkOrderAction {
     getWorkOrderAction = async () => {
-       const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        const workOrders = await WorkOrderServices.getWorkOrders(token);
+        const workOrders = await WorkOrderServices.getWorkOrders();
         return workOrders;
     }
 }

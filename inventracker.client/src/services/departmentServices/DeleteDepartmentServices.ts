@@ -1,10 +1,10 @@
+import { autoFetch } from "../httpClient";
+
 class DeleteDepartmentServices {
-    public async deleteDepartment(departmentId: string, token: string): Promise<void> {
-        const response = await fetch(`/api/department/${departmentId}`, {
+    public async deleteDepartment(departmentId: string): Promise<void> {
+        const response = await autoFetch(`/api/department/${departmentId}`, {
             method: "DELETE",
-            headers: {
-                authorization: `Bearer ${token}`,
-            },
+            headers: {},
         });
 
         if (!response.ok) {

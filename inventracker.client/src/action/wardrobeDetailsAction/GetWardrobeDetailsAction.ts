@@ -2,11 +2,7 @@ import GetWardrobeDetailsServices from "../../services/wardrobeDetailsServices/W
 
 class GetWardrobeDetailsAction {
     getWardrobeDetailsAction = async (wardrobeId: string) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        const wardrobeDetails = await GetWardrobeDetailsServices.getWardrobeDetailsServices(wardrobeId, token);
+        const wardrobeDetails = await GetWardrobeDetailsServices.getWardrobeDetailsServices(wardrobeId);
         return wardrobeDetails;
     }
 }

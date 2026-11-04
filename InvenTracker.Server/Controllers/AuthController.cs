@@ -1,4 +1,6 @@
 ﻿using InvenTracker.Application.InvenTracker.Commands.LoginCommand;
+using InvenTracker.Application.InvenTracker.Commands.LogoutCommand;
+using InvenTracker.Application.InvenTracker.Commands.RefreshToken;
 using InvenTracker.Application.InvenTracker.Commands.RegisterCommand;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -30,5 +32,19 @@ public class AuthController: ControllerBase
     {
         var response = await _mediator.Send(command);
         return Ok(response);
+    }
+
+    [HttpPost("refresh")]
+    public async Task<IActionResult> Refresh([FromBody] RefreshTokenCommand command)
+    {
+        var  response = await _mediator.Send(command);
+        return Ok(response);
+    }
+
+    [HttpPost("logout")]
+    public async Task<IActionResult> Logout([FromBody] LogoutCommand command)
+    {
+        await _mediator.Send(command);
+        return Ok();
     }
 }

@@ -4,5 +4,5 @@ namespace InvenTracker.Application.Iterfaces;
 
 public interface IJwtAuth
 {
-    string GenerateToken(UserDto user);
+    string GenerateToken(UserDto user, int hour);
 }

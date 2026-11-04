@@ -3,11 +3,7 @@ import type { RegisterUserType } from "../../services/userService/UserServiceTyp
 
 class RegisterUserAction {
     registerUser = async (user: RegisterUserType) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        await RegisterUserServices.registerUser(user, token);
+        await RegisterUserServices.registerUser(user);
     }
 }
 export default new RegisterUserAction();

@@ -1,12 +1,12 @@
+import { autoFetch } from "../httpClient";
 import type { CompanyServiceType } from "./ComapnyServiceType.types";
 
 class GetCompanyServices {
-    public async getAllCompany(token: string): Promise<CompanyServiceType[]> {
-        const res = await fetch("/api/company", {
+    public async getAllCompany(): Promise<CompanyServiceType[]> {
+        const res = await autoFetch("/api/company", {
             method: "GET",
             headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
             },
         });
         if (!res.ok) {

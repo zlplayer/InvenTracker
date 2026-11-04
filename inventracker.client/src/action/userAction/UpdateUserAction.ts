@@ -3,11 +3,7 @@ import type { UpdateUserType } from "../../services/userService/UserServiceType.
 
 class UpdateUserAction {
     updateUser = async (user: UpdateUserType, userId: string) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        await UpdateUserServices.updateUser(user, userId, token);
+        await UpdateUserServices.updateUser(user, userId);
     }
 }
 export default new UpdateUserAction();

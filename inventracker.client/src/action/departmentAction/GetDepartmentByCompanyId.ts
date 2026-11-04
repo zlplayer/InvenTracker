@@ -3,11 +3,7 @@ import GetDepartmentServices from "../../services/departmentServices/GetDepartme
 
 class GetDepartmentByCompanyId {
     getDepartmentsByCompanyId = async (companyId: string) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        const departments = await GetDepartmentServices.getDepartmentsByComapnyId(companyId, token);
+        const departments = await GetDepartmentServices.getDepartmentsByComapnyId(companyId);
         return departments;
     }
 }

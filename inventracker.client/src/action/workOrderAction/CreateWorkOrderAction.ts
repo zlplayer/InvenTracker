@@ -3,11 +3,7 @@ import type { WorkOrderType } from "../../services/workOrderServices/WorkOrderSe
 
 class CreateWorkOrderAction {
     createWorkOrder = async (workOrder: WorkOrderType) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token provided");
-        }
-        await CreateWorkOrderServices.createWorkOrder(workOrder, token);
+        await CreateWorkOrderServices.createWorkOrder(workOrder);
     }
 }
 export default new CreateWorkOrderAction();

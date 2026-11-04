@@ -18,7 +18,7 @@ public class JwtAuth: IJwtAuth
         _configuration = configuration;
     }
 
-    public string GenerateToken(UserDto user)
+    public string GenerateToken(UserDto user, int hour)
     {
         var claims = new List<Claim>
         {
@@ -35,7 +35,7 @@ public class JwtAuth: IJwtAuth
             issuer: _configuration["Jwt:Issuer"],
             audience: _configuration["Jwt:Audience"],
             claims: claims,
-            expires: DateTime.Now.AddHours(2),
+            expires: DateTime.Now.AddHours(hour),
             signingCredentials: credentials
         );
 

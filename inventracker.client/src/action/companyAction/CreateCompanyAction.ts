@@ -3,11 +3,7 @@ import type { CompanyType } from "../../services/companyServices/ComapnyServiceT
 
 class CreateCompanyAction {
     createCompany= async (company: CompanyType)=>{
-        const token = localStorage.getItem("token");
-        if(!token){
-            throw new Error("No token provided");
-        }
-        await CreateCompanyServices.CreateCompany(company, token);
+        await CreateCompanyServices.CreateCompany(company);
     }
 }
 export default new CreateCompanyAction();

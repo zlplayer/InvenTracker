@@ -2,11 +2,7 @@ import GetCompanyServices from "../../services/companyServices/GetCompanyService
 
 class GetCompanyAction {
     getAllCompanyAction = async () => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        const company = await GetCompanyServices.getAllCompany(token);
+        const company = await GetCompanyServices.getAllCompany();
         return company;
     }
 }

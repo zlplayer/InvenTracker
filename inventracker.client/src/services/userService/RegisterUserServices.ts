@@ -1,12 +1,12 @@
+import { autoFetch } from "../httpClient";
 import type { RegisterUserType } from "./UserServiceType.type";
 
 class RegisterUserServices {
-    public async registerUser(user: RegisterUserType, token: string): Promise<void> {
-        const response = await fetch("/api/auth/register", {
+    public async registerUser(user: RegisterUserType): Promise<void> {
+        const response = await autoFetch("/api/auth/register", {
             method: "POST",
             headers: {
                 accept: "application/json",
-                authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(user),

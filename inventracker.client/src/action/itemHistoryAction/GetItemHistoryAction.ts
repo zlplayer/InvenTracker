@@ -2,11 +2,7 @@ import GetItemHistoryService from "../../services/itemHistoryService/ItemHistory
 
 class GetItemHistoryAction {
     getItemHistoryAction = async (wardrobeId: string) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        const itemHistory = await GetItemHistoryService.getItemHistory(wardrobeId, token);
+        const itemHistory = await GetItemHistoryService.getItemHistory(wardrobeId);
         return itemHistory;
     }
 }

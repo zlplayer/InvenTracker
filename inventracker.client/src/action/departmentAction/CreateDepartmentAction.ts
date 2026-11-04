@@ -3,11 +3,7 @@ import type { CreateDepartmentType } from "../../services/departmentServices/Dep
 
 class CreateDepartmentAction {
     createDepartment = async (department: CreateDepartmentType, companyId: string) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token provided");
-        }
-        await CreateDepartmentServices.createDepartment(department, companyId, token);
+        await CreateDepartmentServices.createDepartment(department, companyId);
     }
 }
 

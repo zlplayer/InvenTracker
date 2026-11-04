@@ -3,11 +3,7 @@ import type { CreateItemType } from "../../services/itemServices/ItemServiceType
 
 class CreateItemAction {
     createItem = async (item: CreateItemType) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        await CreateItemServices.createItem(item, token);
+        await CreateItemServices.createItem(item);
     }
 }
 export default new CreateItemAction();

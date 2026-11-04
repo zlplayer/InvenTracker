@@ -3,11 +3,7 @@ import type { CreateItemPartitionType } from "../../services/itemPartitionServic
 
 class CreateItemPartitionAction {
     createItemPartition = async (itemPartition: CreateItemPartitionType) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        await CreateItemPartitionServices.createItemPartition(itemPartition, token);
+        await CreateItemPartitionServices.createItemPartition(itemPartition);
     }
 }
 export default new CreateItemPartitionAction();

@@ -3,11 +3,7 @@ import type { UpdateItemType } from "../../services/itemServices/ItemServiceType
 
 class UpdateItemAction {
     updateItem = async (item: UpdateItemType, itemId: string) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        await UpdateItemServices.updateItem(item, itemId, token);
+        await UpdateItemServices.updateItem(item, itemId);
     }
 }
 export default new UpdateItemAction();

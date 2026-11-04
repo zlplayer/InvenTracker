@@ -1,13 +1,13 @@
+import { autoFetch } from "../httpClient";
 import type { CompanyType } from "./ComapnyServiceType.types";
 
 class CreateCompanyServices {
-    public async CreateCompany(company: CompanyType, token: string): Promise<void> {
-        const respond = await fetch('/api/Company',
+    public async CreateCompany(company: CompanyType): Promise<void> {
+        const respond = await autoFetch('/api/Company',
             {
                 method:'POST',
                 headers:{
                     "Content-Type":"application/json",
-                    authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(company)
             }

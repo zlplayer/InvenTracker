@@ -3,11 +3,7 @@ import type { CreateDrawerType } from "../../services/drawerServices/DrawerServi
 
 class CreateDrawerAction {
     createDrawer = async (drawer: CreateDrawerType, wardrobeId: string) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        await CreateDrawerServices.createDrawer(drawer, token, wardrobeId);
+        await CreateDrawerServices.createDrawer(drawer, wardrobeId);
     }
 }
 export default new CreateDrawerAction();

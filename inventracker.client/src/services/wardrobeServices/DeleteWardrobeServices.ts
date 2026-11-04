@@ -1,10 +1,10 @@
+import { autoFetch } from "../httpClient";
+
 class DeleteWardrobeServices {
-  static async deleteWardrobe(id: string, token: string) {
-    const response = await fetch(`/api/wardrobe/${id}`, {
+  static async deleteWardrobe(id: string) {
+    const response = await autoFetch(`/api/wardrobe/${id}`, {
       method: "DELETE",
-      headers: {
-        authorization: `Bearer ${token}`
-      },
+      headers: {},
     });
 
     if (!response.ok) {

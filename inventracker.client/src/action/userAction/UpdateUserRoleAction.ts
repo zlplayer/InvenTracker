@@ -2,11 +2,7 @@ import UpdateUserRoleServices, { type UpdateUserRoleType } from "../../services/
 
 class UpdateUserRoleAction {
     updateUserRole = async (data: UpdateUserRoleType) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        await UpdateUserRoleServices.updateUserRole(data, token);
+        await UpdateUserRoleServices.updateUserRole(data);
     }
 }
 export default new UpdateUserRoleAction();

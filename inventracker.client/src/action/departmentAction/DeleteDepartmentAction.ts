@@ -2,11 +2,7 @@ import DeleteDepartmentServices from "../../services/departmentServices/DeleteDe
 
 class DeleteDepartmentAction {
     deleteDepartment = async (departmentId: string) => {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw new Error("No token");
-        }
-        await DeleteDepartmentServices.deleteDepartment(departmentId, token);
+        await DeleteDepartmentServices.deleteDepartment(departmentId);
     }
 }
 export default new DeleteDepartmentAction();

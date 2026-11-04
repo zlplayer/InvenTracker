@@ -8,6 +8,7 @@ export type User = {
 }
 
 export type LoginResponse = {
+  refreshToken: string
   token: string
   user: User
 }
