@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InvenTracker.Domain.Entities;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -21,7 +22,7 @@ public class CreateDivideDrawerCommandHandler: IRequestHandler<CreateDivideDrawe
     {
         var parentDrawer = await _drawerRepositories.GetDrawer(request.DrawerId);
         if (parentDrawer == null)
-            throw new KeyNotFoundException($"Drawer with id {request.DrawerId} does not exist");
+            throw new NotFoundException($"Drawer with id {request.DrawerId} does not exist");
 
         var available = parentDrawer.AvailablePartitions ?? parentDrawer.TotalPartitions;
 
@@ -30,7 +31,7 @@ public class CreateDivideDrawerCommandHandler: IRequestHandler<CreateDivideDrawe
 
         var partition = await _partitionRepositories.GetPartitionById(request.PartitionId);
         if (partition == null || partition.DrawerId != request.DrawerId)
-            throw new KeyNotFoundException($"Partition with id {request.PartitionId} not found in this drawer");
+            throw new NotFoundException($"Partition with id {request.PartitionId} not found in this drawer");
 
         var subDrawer = _mapper.Map<Drawer>(request);
         subDrawer.WardrobeId = parentDrawer.WardrobeId;

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -15,7 +16,7 @@ public class DeleteDrawerCommandHandler:IRequestHandler<DeleteDrawerCommand>
     public async Task Handle(DeleteDrawerCommand request, CancellationToken cancellationToken)
     {
         var drawer = await _drawerRepositories.GetDrawer(request.DrawerId);
-        if (drawer == null) throw new KeyNotFoundException($"Drawer with id {request.DrawerId} not found");
+        if (drawer == null) throw new NotFoundException($"Drawer with id {request.DrawerId} not found");
         await _drawerRepositories.DeleteDrawer(drawer);
     }
 }

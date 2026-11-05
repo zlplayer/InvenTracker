@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using InvenTracker.Application.Dtos;
 using InvenTracker.Domain.Entities;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -23,7 +24,7 @@ public class CreateDrawerCommandHandler:IRequestHandler<CreateDrawerCommand>
     public async Task Handle(CreateDrawerCommand request, CancellationToken cancellationToken)
     {
        var wardrobe= await _wardrobeRepositories.GetWardrobe(request.WardrobeId);
-       if(wardrobe == null) throw new Exception("Wardrobe not found");
+       if(wardrobe == null) throw new NotFoundException($"Wardrobe with id {request.WardrobeId} not found");
        
        var drawer = _mapper.Map<Drawer>(request);
        await _drawerRepositories.CreateDrawer(drawer);

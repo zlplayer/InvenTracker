@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InvenTracker.Domain.Entities;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -20,7 +21,7 @@ public class CreatePartitionCommandHandler:IRequestHandler<CreatePartitionComman
     public async Task Handle(CreatePartitionCommand request, CancellationToken cancellationToken)
     {
         var drawer = await _drawerRepositories.GetDrawer(request.DrawerId);
-        if (drawer == null) throw new Exception("Drawer not found");
+        if (drawer == null) throw new NotFoundException("Drawer not found");
         
         var partition = _mapper.Map<Partition>(request);
         await _partitionRepositories.CreatePartition(partition);

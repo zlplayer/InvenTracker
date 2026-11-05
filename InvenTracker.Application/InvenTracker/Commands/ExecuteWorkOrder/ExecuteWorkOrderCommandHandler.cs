@@ -2,6 +2,7 @@ using InvenTracker.Application.InvenTracker.Commands.RetrieveItemPartitionFifo;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 using System.Text;
+using InvenTracker.Domain.Exceptions;
 
 namespace InvenTracker.Application.InvenTracker.Commands.ExecuteWorkOrder;
 
@@ -20,7 +21,7 @@ public class ExecuteWorkOrderCommandHandler : IRequestHandler<ExecuteWorkOrderCo
     {
         var workOrder = await _workOrderRepositories.GetWorkOrderByCode(request.Code);
         if (workOrder == null)
-            throw new KeyNotFoundException($"Zlecenie o kodzie '{request.Code}' nie istnieje");
+            throw new NotFoundException($"Zlecenie o kodzie '{request.Code}' nie istnieje");
 
         if (workOrder.Status == "Done")
             throw new InvalidOperationException($"Zlecenie '{request.Code}' zostało już wykonane");

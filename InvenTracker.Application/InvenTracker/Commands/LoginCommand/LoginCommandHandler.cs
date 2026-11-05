@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using InvenTracker.Application.Dtos;
 using InvenTracker.Application.Iterfaces;
-using InvenTracker.Domain.Entities;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -32,14 +32,14 @@ public class LoginCommandHandler: IRequestHandler<LoginCommand, AuthResponseDto>
         
         if (user == null)
         {
-            throw new Exception("Nieprawidłowa nazwa użytkownika lub hasło");
+            throw new UnauthorizedException("Nieprawidłowa nazwa użytkownika lub hasło");
         }
-        
+
         var isPasswordValid = BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash);
-        
+
         if (!isPasswordValid)
         {
-            throw new Exception("Nieprawidłowa nazwa użytkownika lub hasło");
+            throw new UnauthorizedException("Nieprawidłowa nazwa użytkownika lub hasło");
         }
         
         var userDto = _mapper.Map<UserDto>(user);

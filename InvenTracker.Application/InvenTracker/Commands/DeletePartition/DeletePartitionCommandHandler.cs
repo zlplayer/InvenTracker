@@ -1,4 +1,5 @@
-﻿using InvenTracker.Domain.Interfaces;
+﻿using InvenTracker.Domain.Exceptions;
+using InvenTracker.Domain.Interfaces;
 using MediatR;
 
 namespace InvenTracker.Application.InvenTracker.Commands.DeletePartition;
@@ -14,7 +15,7 @@ public class DeletePartitionCommandHandler: IRequestHandler<DeletePartitionComma
     public async Task Handle(DeletePartitionCommand request, CancellationToken cancellationToken)
     {
         var partial = await _partitionRepositories.GetPartitionById(request.Id);
-        if (partial == null) throw new Exception($"Partition with id {request.Id} not found");
+        if (partial == null) throw new NotFoundException($"Partition with id {request.Id} not found");
         await _partitionRepositories.DeletePartition(partial);
     }
 }

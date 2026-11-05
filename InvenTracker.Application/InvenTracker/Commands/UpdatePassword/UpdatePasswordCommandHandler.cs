@@ -1,4 +1,5 @@
-﻿using InvenTracker.Domain.Interfaces;
+﻿using InvenTracker.Domain.Exceptions;
+using InvenTracker.Domain.Interfaces;
 using MediatR;
 
 namespace InvenTracker.Application.InvenTracker.Commands.UpdatePassword;
@@ -15,7 +16,7 @@ public class UpdatePasswordCommandHandler:IRequestHandler<UpdatePasswordCommand>
     public async Task Handle(UpdatePasswordCommand request, CancellationToken cancellationToken)
     {
         var user = await _userRepositories.GetUser(request.UserId);
-        if (user == null) throw new Exception("User not found");
+        if (user == null) throw new NotFoundException($"User with id {request.UserId} not found");
         user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
         await _userRepositories.UpdateUser(user);
     }

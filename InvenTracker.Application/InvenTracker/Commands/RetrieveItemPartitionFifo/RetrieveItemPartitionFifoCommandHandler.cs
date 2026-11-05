@@ -3,6 +3,7 @@ using InvenTracker.Domain.Interfaces;
 using MediatR;
 using System.Text;
 using InvenTracker.Application.Iterfaces;
+using InvenTracker.Domain.Exceptions;
 
 namespace InvenTracker.Application.InvenTracker.Commands.RetrieveItemPartitionFifo;
 
@@ -32,7 +33,7 @@ public class RetrieveItemPartitionFifoCommandHandler : IRequestHandler<RetrieveI
             .GetAllItemPartitionsByWardrobeAndItemFifo(request.WardrobeId, request.ItemId);
 
         if (partitions.Count == 0)
-            throw new KeyNotFoundException($"Przedmiot {request.ItemId} nie znaleziony w szafie {request.WardrobeId}");
+            throw new NotFoundException($"Przedmiot {request.ItemId} nie znaleziony w szafie {request.WardrobeId}");
 
         var totalAvailable = partitions.Sum(p => p.QuantityItem);
         if (totalAvailable < request.Quantity)

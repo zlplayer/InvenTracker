@@ -1,4 +1,5 @@
 ﻿using InvenTracker.Domain.Entities;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,7 +28,7 @@ public class CompanyRepositories:  ICompanyRepositories
             .Include(x=>x.Wardrobes)
             .FirstOrDefaultAsync(x=>x.Id == id);
         
-        if(companyDetails is null) throw new KeyNotFoundException($"Company with id {id} not found");
+        if(companyDetails is null) throw new NotFoundException($"Company with id {id} not found");
         
         return companyDetails;
     }

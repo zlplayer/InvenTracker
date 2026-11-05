@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InvenTracker.Domain.Entities;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -25,13 +26,13 @@ public class CreateWardrobeCommandHandler:IRequestHandler<CreateWardrobeCommand>
         if (request.DepartmentId != null)
         {
             var department= await _departmentRepositories.GetDepartment(request.DepartmentId.Value);
-            if (department == null) throw new Exception("Department not found");
+            if (department == null) throw new NotFoundException("Department not found");
         }
 
         if (request.CompanyId != null)
         {
             var company = await _companyRepositories.GetCompany(request.CompanyId.Value);
-            if (company == null) throw new Exception("Company not found");
+            if (company == null) throw new NotFoundException("Company not found");
         }
         
         var wardrobe = _mapper.Map<Wardrobe>(request);

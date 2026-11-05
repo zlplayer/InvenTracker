@@ -1,3 +1,4 @@
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -19,10 +20,10 @@ public class UpdateWardrobeResponsibleCommandHandler : IRequestHandler<UpdateWar
     public async Task Handle(UpdateWardrobeResponsibleCommand request, CancellationToken cancellationToken)
     {
         var responsible = await _wardrobeResponsibleRepositories.GetWardrobeResponsible(request.WardrobeResponsibleId);
-        if (responsible == null) throw new ArgumentNullException(nameof(responsible));
+        if (responsible == null) throw new NotFoundException($"WardrobeResponsible with id {request.WardrobeResponsibleId} not found");
 
         var user = await _userRepositories.GetUser(request.UserId);
-        if (user == null) throw new Exception("User not found");
+        if (user == null) throw new NotFoundException($"User with id {request.UserId} not found");
 
         responsible.UserId = request.UserId;
         await _wardrobeResponsibleRepositories.UpdateWardrobeResponsible(responsible);

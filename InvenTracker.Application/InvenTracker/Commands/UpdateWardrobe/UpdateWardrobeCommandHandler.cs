@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InvenTracker.Application.Dtos;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -18,7 +19,7 @@ public class UpdateWardrobeCommandHandler:IRequestHandler<UpdateWardrobeCommand>
     public async Task Handle(UpdateWardrobeCommand request, CancellationToken cancellationToken)
     {
         var wardrobe= await _wardrobeRepositories.GetWardrobe(request.WardrobeId);
-        if (wardrobe == null) throw new Exception("Wardrobe not found");
+        if (wardrobe == null) throw new NotFoundException($"Wardrobe with id {request.WardrobeId} not found");
         _mapper.Map(request, wardrobe);
         await _wardrobeRepositories.UpdateWardrobe(wardrobe);
     }

@@ -1,4 +1,5 @@
-﻿using InvenTracker.Domain.Interfaces;
+﻿using InvenTracker.Domain.Exceptions;
+using InvenTracker.Domain.Interfaces;
 using MediatR;
 
 namespace InvenTracker.Application.InvenTracker.Commands.DeleteItems;
@@ -15,7 +16,7 @@ public class DeleteItemCommandHandler: IRequestHandler<DeleteItemCommand>
     public async Task Handle(DeleteItemCommand request, CancellationToken cancellationToken)
     {
         var item= await _itemRepositories.GetItem(request.ItemId);
-        if (item == null) throw new KeyNotFoundException($"Drawer with id {request.ItemId} not found");
+        if (item == null) throw new NotFoundException($"Drawer with id {request.ItemId} not found");
         await _itemRepositories.DeleteItem(item);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InvenTracker.Application.Dtos;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -24,7 +25,7 @@ public class GetUserQueryHandler : IRequestHandler<GetUserQuery, UserDto>
 
         if (user == null)
         {
-            throw new Exception("Użytkownik nie znaleziony");
+            throw new NotFoundException("User not found");
         }
 
         return _mapper.Map<UserDto>(user);

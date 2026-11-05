@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InvenTracker.Domain.Entities;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -22,10 +23,10 @@ public class CreateItemPartitionCommandHandler:IRequestHandler<CreateItemPartiti
     public async Task Handle(CreateItemPartitionCommand request, CancellationToken cancellationToken)
     {
         var item = await _itemRepositories.GetItem(request.ItemId);
-        if (item == null) throw new Exception("Item not found");
+        if (item == null) throw new NotFoundException ("Item not found");
         
         var partition = await _partitionRepositories.GetPartitionById(request.PartitionId);
-        if (partition == null) throw new Exception("Partition not found");
+        if (partition == null) throw new NotFoundException ("Partition not found");
         
        var itemPartition = _mapper.Map<ItemPartition>(request);
        await _itemPartitionRepositories.CreateItemPartition(itemPartition);

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InvenTracker.Domain.Entities;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -23,7 +24,7 @@ public class CreateDepartmentCommandHandler:IRequestHandler<CreateDepartmentComm
         var company = await _companyRepositories.GetCompany(request.CompanyId);
         if (company == null)
         {
-            throw new KeyNotFoundException($"Company with id {request.CompanyId} not found");
+            throw new NotFoundException($"Company with id {request.CompanyId} not found");
         }
 
         var department = _mapper.Map<Department>(request);

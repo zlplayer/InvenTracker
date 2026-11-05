@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -17,7 +18,7 @@ public class UpdateItemPartitionCommandHandler:IRequestHandler<UpdateItemPartiti
     public async Task Handle(UpdateItemPartitionCommand request, CancellationToken cancellationToken)
     {
         var itemPartition= await _itemPartitionRepositories.GetItemPartition(request.ItemPartitionId);
-        if (itemPartition == null) throw new KeyNotFoundException($"ItemPartition with id {request.ItemPartitionId} not found");
+        if (itemPartition == null) throw new NotFoundException($"ItemPartition with id {request.ItemPartitionId} not found");
         
         _mapper.Map(request, itemPartition);
         await _itemPartitionRepositories.UpdateItemPartition(itemPartition);

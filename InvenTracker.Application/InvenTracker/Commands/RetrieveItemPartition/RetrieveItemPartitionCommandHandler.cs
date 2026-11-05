@@ -1,4 +1,5 @@
 ﻿using InvenTracker.Domain.Entities;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -20,14 +21,14 @@ public class RetrieveItemPartitionCommandHandler: IRequestHandler<RetrieveItemPa
             .GetItemPartitionByWardrobeAndItem(request.WardrobeId, request.ItemId);
 
         if (itemPartition == null)
-            throw new KeyNotFoundException($"Item {request.ItemId} not found in wardrobe {request.WardrobeId}");
+            throw new NotFoundException($"Item {request.ItemId} not found in wardrobe {request.WardrobeId}");
         
         var quntity = itemPartition.QuantityItem - request.Quantity;
 
         if (quntity == 0)
         {
             var itemPartitionDetail = await _itemPartitionRepositories.GetItemPartition(itemPartition.Id);
-            if (itemPartitionDetail == null) throw new KeyNotFoundException($"Item {itemPartition.Id} not found");
+            if (itemPartitionDetail == null) throw new NotFoundException($"Item {itemPartition.Id} not found");
             await  _itemPartitionRepositories.DeleteItemPartition(itemPartitionDetail);
             
             await _itemHistoryRepositories.CreateItemHistory(new ItemHistory
@@ -48,7 +49,7 @@ public class RetrieveItemPartitionCommandHandler: IRequestHandler<RetrieveItemPa
         else if (quntity > 0)
         {
             var itemPartitionDetail = await _itemPartitionRepositories.GetItemPartition(itemPartition.Id);
-            if (itemPartitionDetail == null) throw new KeyNotFoundException($"Item {itemPartition.Id} not found");
+            if (itemPartitionDetail == null) throw new NotFoundException($"Item {itemPartition.Id} not found");
             itemPartitionDetail.QuantityItem = quntity;
             await _itemPartitionRepositories.UpdateItemPartition(itemPartitionDetail);
             

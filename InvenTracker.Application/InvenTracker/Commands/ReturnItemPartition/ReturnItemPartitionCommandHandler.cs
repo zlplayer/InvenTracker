@@ -1,4 +1,5 @@
 ﻿using InvenTracker.Domain.Entities;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -21,7 +22,7 @@ public class ReturnItemPartitionCommandHandler: IRequestHandler<ReturnItemPartit
         var partition = await _itemPartitionRepositories.GetItemPartitionWithDetails(request.ItemPartitionId);
 
         if (partition == null)
-            throw new KeyNotFoundException($"Przegroda {request.ItemPartitionId} nie została znaleziona.");
+            throw new NotFoundException($"Przegroda {request.ItemPartitionId} nie została znaleziona.");
         
         partition.QuantityItem += request.Quantity;
         await _itemPartitionRepositories.UpdateItemPartition(partition);

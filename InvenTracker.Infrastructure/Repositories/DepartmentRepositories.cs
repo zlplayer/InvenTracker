@@ -1,4 +1,5 @@
 ﻿using InvenTracker.Domain.Entities;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +26,7 @@ public class DepartmentRepositories : IDepartmentRepositories
             .Include(x=>x.Wardrobes)
             .FirstOrDefaultAsync(x => x.Id == id);
         
-        if(departmetDetails is null) throw new KeyNotFoundException($"Department with id {id} not found");
+        if(departmetDetails is null) throw new NotFoundException($"Department with id {id} not found");
         
         return departmetDetails;
     }
@@ -36,7 +37,7 @@ public class DepartmentRepositories : IDepartmentRepositories
             .Include(x => x.Address)
             .Where(x => x.CompanyId == companyId)
             .ToListAsync();
-        if(department is null) throw new KeyNotFoundException($"Department with id {companyId} not found");
+        if(department is null) throw new NotFoundException($"Department with id {companyId} not found");
         
         return department;
     }

@@ -1,6 +1,7 @@
 using InvenTracker.Application.Extensions;
 using InvenTracker.Infrastructure.Extensions;
 using InvenTracker.Infrastructure.Seeders;
+using InvenTracker.Server.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,7 +33,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();
