@@ -1,0 +1,4 @@
+2026-11-08 18:51:33.810 +01:00 [ERR] There was an error trying to launch the SPA proxy.
+System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   at Microsoft.AspNetCore.SpaProxy.SpaProxyLaunchManager.StartSpaProcessAndProbeForLiveness(CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.SpaProxy.SpaProxyLaunchManager.<StartInBackground>g__UpdateStatus|7_0(Task launchTask)

@@ -220,3 +220,13 @@ C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\ru
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\runtimes\win-x86\native\qpdf.dll
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\runtimes\win-x86\native\zlib1.dll
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\obj\Debug\net9.0\swae.build.ex.cache
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\Serilog.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\Serilog.AspNetCore.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\Serilog.Extensions.Hosting.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\Serilog.Extensions.Logging.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\Serilog.Formatting.Compact.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\Serilog.Settings.Configuration.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\Serilog.Sinks.Console.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\Serilog.Sinks.Debug.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\Serilog.Sinks.File.dll
+C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Server\bin\Debug\net9.0\logs\applogs20261108.json

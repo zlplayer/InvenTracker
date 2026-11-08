@@ -2,6 +2,8 @@ using InvenTracker.Application.Extensions;
 using InvenTracker.Infrastructure.Extensions;
 using InvenTracker.Infrastructure.Seeders;
 using InvenTracker.Server.Middleware;
+using Serilog;
+using Serilog.Formatting.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Host.UseSerilog((context, configuration) =>
+{
+    configuration
+        .MinimumLevel.Error()
+        .WriteTo.Console()
+        .WriteTo.File("logs/applogs.json", rollingInterval: RollingInterval.Day);
+});
+
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);

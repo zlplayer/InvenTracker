@@ -1,6 +1,6 @@
 {
 "SpaProxyServer": {
-"ServerUrl": "https://localhost:58661",
+"ServerUrl": "http://localhost:58661",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
 "WorkingDirectory": "C:\\Users\\Konzo\\source\\repos\\InvenTracker\\InvenTracker.Server\\..\\inventracker.client",

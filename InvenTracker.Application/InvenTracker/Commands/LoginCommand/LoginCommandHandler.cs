@@ -4,6 +4,7 @@ using InvenTracker.Application.Iterfaces;
 using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace InvenTracker.Application.InvenTracker.Commands.LoginCommand;
 
@@ -13,17 +14,20 @@ public class LoginCommandHandler: IRequestHandler<LoginCommand, AuthResponseDto>
     private readonly IJwtAuth _jwtService;
     private readonly IMapper _mapper;
     private readonly IRefreshTokenRepositories _refreshTokenRepository;
+    private readonly ILogger<LoginCommandHandler> _logger;
 
     public LoginCommandHandler(IUserRepositories userRepository, 
         IJwtAuth jwtService,
         IMapper mapper,
-        IRefreshTokenRepositories  refreshTokenRepository
+        IRefreshTokenRepositories  refreshTokenRepository,
+        ILogger<LoginCommandHandler> logger
         )
     {
         _userRepository = userRepository;
         _jwtService = jwtService;
         _mapper = mapper;
         _refreshTokenRepository = refreshTokenRepository;
+        _logger = logger;
     }
 
     public async Task<AuthResponseDto> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -32,6 +36,7 @@ public class LoginCommandHandler: IRequestHandler<LoginCommand, AuthResponseDto>
         
         if (user == null)
         {
+            _logger.LogWarning("User {Username} not found", request.Username);
             throw new UnauthorizedException("Nieprawidłowa nazwa użytkownika lub hasło");
         }
 
@@ -39,6 +44,7 @@ public class LoginCommandHandler: IRequestHandler<LoginCommand, AuthResponseDto>
 
         if (!isPasswordValid)
         {
+            _logger.LogWarning("Password doesn't match");
             throw new UnauthorizedException("Nieprawidłowa nazwa użytkownika lub hasło");
         }
         
@@ -59,6 +65,8 @@ public class LoginCommandHandler: IRequestHandler<LoginCommand, AuthResponseDto>
         var refreshTokenMap = _mapper.Map<Domain.Entities.RefreshToken>(refreshTokenDto);
         
         await _refreshTokenRepository.CreateRefreshToken(refreshTokenMap);
+        
+        _logger.LogInformation("Logged in {Username}", request.Username);
         
         return new AuthResponseDto
         {

@@ -25,15 +25,15 @@
 
 ## 4. Validatory
 
-- [ ] Stwórz `CreateCompanyCommandValidator`
-- [ ] Stwórz `CreateItemCommandValidator`
-- [ ] Stwórz `CreateWardrobeCommandValidator`
-- [ ] Stwórz `CreateDepartmentCommandValidator`
-- [ ] Stwórz `CreateWorkOrderCommandValidator`
+- ✅ Stwórz `CreateCompanyCommandValidator`
+- ✅ Stwórz `CreateItemCommandValidator`
+- ✅ Stwórz `CreateWardrobeCommandValidator`
+- ✅ Stwórz `CreateDepartmentCommandValidator`
+- ✅ Stwórz `CreateWorkOrderCommandValidator`
 
 ## 5. Logging (Serilog)
 
-- [ ] Dodaj pakiety `Serilog.AspNetCore` i `Serilog.Sinks.Console` do `InvenTracker.Server`
-- [ ] Skonfiguruj Serilog w `Program.cs`
-- [ ] Dodaj logowanie błędów w `ExceptionHandlingMiddleware`
-- [ ] Dodaj `ILogger` do kilku handlerów (np. Login, CreateItem) i zaloguj kluczowe operacje
+- ✅ Dodaj pakiety `Serilog.AspNetCore` i `Serilog.Sinks.Console` do `InvenTracker.Server`
+- ✅ Skonfiguruj Serilog w `Program.cs`
+- ✅ Dodaj logowanie błędów w `ExceptionHandlingMiddleware`
+- ✅ Dodaj `ILogger` do kilku handlerów (np. Login, CreateItem) i zaloguj kluczowe operacje
