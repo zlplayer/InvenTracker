@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using InvenTracker.Application.Dtos;
+using InvenTracker.Domain.Exceptions;
 using InvenTracker.Domain.Interfaces;
 using MediatR;
 
@@ -17,7 +18,8 @@ public class GetItemQueryHandler: IRequestHandler<GetItemQuery, GetDetailsItemDt
     }
     public async Task<GetDetailsItemDto> Handle(GetItemQuery request, CancellationToken cancellationToken)
     {
-        var item =await _itemRepositories.GetItem(request.ItemId);
+        var item = await _itemRepositories.GetItem(request.ItemId);
+        if (item == null) throw new NotFoundException($"Item with ID {request.ItemId} does not exist");
         return _mapper.Map<GetDetailsItemDto>(item);
     }
 }

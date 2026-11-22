@@ -9,7 +9,7 @@ public class DeleteCompanyCommandHandler:IRequestHandler<DeleteCompanyCommand>
     private readonly ICompanyRepositories _companyRepositories;
     private readonly IWardrobeRepositories _wardrobeRepositories;
 
-    public DeleteCompanyCommandHandler(IMapper mapper, ICompanyRepositories companyRepositories, IWardrobeRepositories wardrobeRepositories)
+    public DeleteCompanyCommandHandler(ICompanyRepositories companyRepositories, IWardrobeRepositories wardrobeRepositories)
     {
         _companyRepositories=companyRepositories;
         _wardrobeRepositories=wardrobeRepositories;
