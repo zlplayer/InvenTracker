@@ -1,8 +1,5 @@
 @api = https://localhost:7146
 
-GET {{api}}/weatherforecast/
-Accept: application/json
-
 ### CompanyController
 GET {{api}}/api/Company/
 Accept: application/json

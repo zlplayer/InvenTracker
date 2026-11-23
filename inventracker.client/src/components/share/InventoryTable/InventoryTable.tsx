@@ -7,8 +7,11 @@ import DropdownMenu from "../DropdownMenu/DropdownMenu"
 import Modal from "../Modal/Modal"
 import { EditItemModal } from "./EditItemModal/EditItemModal"
 import DeleteItemAction from "../../../action/itemAction/DeleteItemAction"
+import { useHasRole } from "../../../hooks/useHasRole"
+import { PERMISSIONS } from "../../../constants/roles"
 
 export const InventoryTable = (props: InventoryTableProps)=>{
+    const hasRole = useHasRole()
 
     const [openItemId, setOpenItemId] = useState<string | null>(null);
     const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
@@ -77,14 +80,16 @@ export const InventoryTable = (props: InventoryTableProps)=>{
                             </span>
                         </td>
                         <td>
-                            <button className={styles.burgerDot} onClick={(e) => handleToggleMenu(e, item.id)}><EllipsisVertical/></button>
+                            {hasRole(PERMISSIONS.manageItems) && (<>
+                                <button className={styles.burgerDot} onClick={(e) => handleToggleMenu(e, item.id)}><EllipsisVertical/></button>
 
-                            <DropdownMenu isOpen={openItemId === item.id} onClose={() => setOpenItemId(null)} menuPosition={menuPosition}>
-                                <div className={styles.menuItem}>
-                                    <button className={styles.menuItemButton} onClick={() => setEditItemId(item.id)}>Edytuj</button>
-                                    <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={() => setDeleteItemId(item.id)}>Usuń</button>
-                                </div>
-                            </DropdownMenu>
+                                <DropdownMenu isOpen={openItemId === item.id} onClose={() => setOpenItemId(null)} menuPosition={menuPosition}>
+                                    <div className={styles.menuItem}>
+                                        <button className={styles.menuItemButton} onClick={() => setEditItemId(item.id)}>Edytuj</button>
+                                        <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={() => setDeleteItemId(item.id)}>Usuń</button>
+                                    </div>
+                                </DropdownMenu>
+                            </>)}
                         </td>
                     </tr>
                 ))}

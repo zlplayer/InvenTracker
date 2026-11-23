@@ -7,3 +7,13 @@ export interface CreateDrawerType {
     lengthDrawer: number
     totalPartitions: number
 }
+
+export interface UpdateDrawerType {
+    name: string
+    x: number
+    y: number
+    widthDrawer: number
+    heightDrawer: number
+    lengthDrawer: number
+    totalPartitions: number
+}

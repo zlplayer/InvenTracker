@@ -20,6 +20,17 @@ public class CompanyRepositories:  ICompanyRepositories
         .Include(x=>x.Departments)
         .ToListAsync();
     
+    public async Task<Company?> GetCompanyDetails(Guid id) => await _dbContext.Companies
+        .AsNoTracking()
+        .AsSplitQuery()
+        .Include(x => x.Address)
+        .Include(x => x.Departments).ThenInclude(x => x.Address)
+        .Include(x => x.Wardrobes)
+            .ThenInclude(w => w.Drawers)
+            .ThenInclude(d => d.Partitions)
+            .ThenInclude(p => p.ItemPartitions)
+        .FirstOrDefaultAsync(x => x.Id == id);
+
     public async Task<Company?> GetCompany(Guid id){
         
         var companyDetails= await _dbContext.Companies

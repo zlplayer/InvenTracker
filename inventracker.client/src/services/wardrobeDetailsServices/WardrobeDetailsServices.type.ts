@@ -41,7 +41,7 @@ export interface DrawerType {
     partitions: PartitionType[];
 }
 
-interface PartitionType {
+export interface PartitionType {
     id: string;
     z: number;
     heightPartition: number;
@@ -50,13 +50,14 @@ interface PartitionType {
     item: ItemType | null;
 }
 
-interface ItemType {
+export interface ItemType {
     id: string;
+    itemPartitionId: string;
     name: string;
     description: string;
     status: string;
     minimumQuantityItem: number;
     quantity: number;
-    isPackage: boolean;
-    quantityPerPackage: number;
+    isPackaged: boolean;
+    quantityPerPackage: number | null;
 }

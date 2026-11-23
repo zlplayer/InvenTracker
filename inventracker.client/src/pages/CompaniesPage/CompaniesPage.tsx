@@ -5,8 +5,11 @@ import {Building2, Plus, Briefcase, Package } from 'lucide-react'
 import GetCompanyAction from "../../action/companyAction/GetCompanyAction";
 import type { CompanyServiceType } from "../../services/companyServices/ComapnyServiceType.types";
 import NewCompany from "./New/NewCompany";
+import { useHasRole } from "../../hooks/useHasRole"
+import { PERMISSIONS } from "../../constants/roles"
 
 export default function CompaniesPage() {
+  const hasRole = useHasRole()
 
   const [companies, setCompanies] = useState<CompanyServiceType[]>([]);
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
@@ -38,10 +41,12 @@ export default function CompaniesPage() {
             <span className={styles.descriptionTitle}>Zarzadzaj firmami, dzialami i struktura organizacyjna</span>
           </div>
         </div>
-        <button className={styles.addCompanyButton} onClick={handleIsOpen}>
-          <Plus size={16} />
-          Dodaj firmę
-        </button>
+        {hasRole(PERMISSIONS.manageCompanies) && (
+            <button className={styles.addCompanyButton} onClick={handleIsOpen}>
+              <Plus size={16} />
+              Dodaj firmę
+            </button>
+        )}
         <NewCompany isOpenModal={isOpenModal} handleIsClose={handleIsClose} onCreated={fetchCompanies} />
       </div>
       <div className={styles.stats}>

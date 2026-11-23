@@ -5,8 +5,11 @@ import { useEffect, useState } from 'react'
 import GetItemAction from '../../action/itemAction/GetItemAction'
 import type { ItemLookupType } from '../../services/itemServices/ItemServiceType.type'
 import { NewItemPage } from './New/NewItemPage'
+import { useHasRole } from "../../hooks/useHasRole"
+import { PERMISSIONS } from "../../constants/roles"
 
 export default function InventoryPage() {
+  const hasRole = useHasRole()
 
   const [items, setItems] = useState<ItemLookupType[]>([]);
   const [isOpemModal, setOpenModal] = useState<boolean>(false)
@@ -38,10 +41,12 @@ export default function InventoryPage() {
             <span className={styles.descriptionTitle}>Pelna lista przedmiotow w systemie</span>
           </div>
         </div>
-        <button className={styles.addInventoryItemButton} onClick={handleOpenModal}>
-          <Plus size={16} />
-          Dodaj przedmiot
-        </button>
+        {hasRole(PERMISSIONS.manageItems) && (
+            <button className={styles.addInventoryItemButton} onClick={handleOpenModal}>
+              <Plus size={16} />
+              Dodaj przedmiot
+            </button>
+        )}
         <NewItemPage isOpenModal={isOpemModal} OnCloseModal={handleCloseModal} onCreated={refreshItems} />
       </div>
       <div className={styles.stats}>

@@ -12,6 +12,7 @@ import Layout from './components/Layout/Layout'
 
 import './App.css'
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute'
+import { ROUTE_ROLES } from './constants/roles'
 
 function App() {
  
@@ -22,13 +23,13 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
           <Route path="/" element={<DashboardPage />} />
-          <Route path="/wardrobe" element={<WardrobePage />} />
-          <Route path="/workorder" element={<WorkOrderPage />} />
-          <Route path="/companies" element={<CompaniesPage />} />
-          <Route path="/inventory" element={<InventoryPage />} />
-          <Route path="/users" element={<UsersPage />} />
-          <Route path="/wardrobe/:id" element={<DetailsWardrobePage />} />
-          <Route path="companies/:id" element={<DetailsCompaniesPage />} />
+          <Route path="/wardrobe" element={<ProtectedRoute allowedRoles={ROUTE_ROLES.wardrobe}><WardrobePage /></ProtectedRoute>} />
+          <Route path="/wardrobe/:id" element={<ProtectedRoute allowedRoles={ROUTE_ROLES.wardrobe}><DetailsWardrobePage /></ProtectedRoute>} />
+          <Route path="/workorder" element={<ProtectedRoute allowedRoles={ROUTE_ROLES.workOrders}><WorkOrderPage /></ProtectedRoute>} />
+          <Route path="/companies" element={<ProtectedRoute allowedRoles={ROUTE_ROLES.companies}><CompaniesPage /></ProtectedRoute>} />
+          <Route path="/companies/:id" element={<ProtectedRoute allowedRoles={ROUTE_ROLES.companies}><DetailsCompaniesPage /></ProtectedRoute>} />
+          <Route path="/inventory" element={<ProtectedRoute allowedRoles={ROUTE_ROLES.inventory}><InventoryPage /></ProtectedRoute>} />
+          <Route path="/users" element={<ProtectedRoute allowedRoles={ROUTE_ROLES.users}><UsersPage /></ProtectedRoute>} />
         </Route>
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>

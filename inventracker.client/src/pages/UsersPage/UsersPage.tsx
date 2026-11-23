@@ -5,8 +5,11 @@ import { useState, useEffect } from 'react'
 import GetUserAction from '../../action/userAction/GetUserAction'
 import type { UserServiceType } from '../../services/userService/UserServiceType.type'
 import { NewUserPage } from './New/NewUserPage'
+import { useHasRole } from "../../hooks/useHasRole"
+import { PERMISSIONS } from "../../constants/roles"
 
 export default function UsersPage() {
+  const hasRole = useHasRole()
 
   const [users, setUsers] = useState<UserServiceType[]>([]);
   const [isOpenNewUserModal, setIsOpenNewWorkOrderModal] = useState<boolean>(false)
@@ -37,10 +40,12 @@ export default function UsersPage() {
             <span className={styles.descriptionTitle}>Zarzadzaj uzytkownikami i uprawnieniami w systemie</span>
           </div>
         </div>
-        <button className={styles.addUserButton} onClick={handleIsOpenNewWorkOrderModal}>
-          <Plus size={16} />
-          Dodaj uzytkownika
-        </button>
+        {hasRole(PERMISSIONS.manageUsers) && (
+            <button className={styles.addUserButton} onClick={handleIsOpenNewWorkOrderModal}>
+              <Plus size={16} />
+              Dodaj uzytkownika
+            </button>
+        )}
 
         <NewUserPage  handleIsClose={handleIsCloseNewWorkOrderModal} isOpenModal={isOpenNewUserModal} onCreated={fetchUsers}/>
 

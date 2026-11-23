@@ -8,8 +8,11 @@ import EditCompany from "./Partial/EditCompany/EditCompany"
 import {useParams} from "react-router-dom"
 import type { CompanyDetailsServicesType } from "../../../services/companyDetailsServices/CompanyDetailsServices.type";
 import CompanyDetailsAction from "../../../action/companyDetailsAction/CompanyDetailsAction";
+import { useHasRole } from "../../../hooks/useHasRole"
+import { PERMISSIONS } from "../../../constants/roles"
 
 const DetailsCompaniesPage = () => {
+    const hasRole = useHasRole()
     type Tab = "department" | "wardrobe";
 
     const {id: companyId} = useParams()
@@ -54,10 +57,12 @@ const DetailsCompaniesPage = () => {
                     
                 </div>
                 <div className={styles.buttonSection}>
-                    <button className={styles.editCompanyButton} onClick={handleEditCompanyModalOpen}>
-                        <SquarePen size={20}/>
-                        Edytuj firme
-                    </button>
+                    {hasRole(PERMISSIONS.manageCompanies) && (
+                        <button className={styles.editCompanyButton} onClick={handleEditCompanyModalOpen}>
+                            <SquarePen size={20}/>
+                            Edytuj firme
+                        </button>
+                    )}
 
                     {companyDetails && <EditCompany isOpen={isEditCompanyModalOpen} onClose={handleEditCompanyModalClose} onCreated={fetchData} data={companyDetails} />}
                 </div>

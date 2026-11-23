@@ -10,8 +10,12 @@ import type { WardrobeDetailsServicesType } from "../../../services/wardrobeDeta
 import type { ItemHistoryServiceType } from "../../../services/itemHistoryService/ItemHistoryService.type";
 import GetWardrobeDetailsAction from "../../../action/wardrobeDetailsAction/GetWardrobeDetailsAction";
 import GetItemHistoryAction from "../../../action/itemHistoryAction/GetItemHistoryAction";
+import { useHasRole } from "../../../hooks/useHasRole"
+import { PERMISSIONS } from "../../../constants/roles"
 
  const DetailsWardrobePage =()=>{
+    const hasRole = useHasRole()
+    const canViewHistory = hasRole(PERMISSIONS.viewWardrobeHistory)
 
     const [wardrobeDetails, setWardrobeDetails] = useState<WardrobeDetailsServicesType>()
     const [itemHistory, setItemHistory] = useState<ItemHistoryServiceType[]>()
@@ -21,8 +25,8 @@ import GetItemHistoryAction from "../../../action/itemHistoryAction/GetItemHisto
     useEffect(() => {
         if (!wardrobeId) return;
         GetWardrobeDetailsAction.getWardrobeDetailsAction(wardrobeId).then(setWardrobeDetails)
-        GetItemHistoryAction.getItemHistoryAction(wardrobeId).then(setItemHistory)
-    }, [wardrobeId])
+        if (canViewHistory) GetItemHistoryAction.getItemHistoryAction(wardrobeId).then(setItemHistory)
+    }, [wardrobeId, canViewHistory])
 
     const isOnline = wardrobeDetails?.isOnline
     const location = wardrobeDetails?.department?.addressDepartment ?? wardrobeDetails?.company?.addressCompany
@@ -76,17 +80,21 @@ import GetItemHistoryAction from "../../../action/itemHistoryAction/GetItemHisto
                 
             </div>
             <div className={styles.buttonSection}>
-                <button className={styles.addCWardrobeButton} onClick={handleIsOpen}>
-                    <SquarePen size={20}/>
-                    Edytuj
-                </button>
+                {hasRole(PERMISSIONS.manageWardrobes) && (
+                    <button className={styles.addCWardrobeButton} onClick={handleIsOpen}>
+                        <SquarePen size={20}/>
+                        Edytuj
+                    </button>
+                )}
                 
                 {wardrobeDetails && <EditWardrobe handleIsClose={handleIsClose} isOpenModal={isOpenModal} data={wardrobeDetails} onEdited={handleEdited}/>}
 
-                <button className={styles.addCWardrobeButton}>
-                    <Settings size={20}/>
-                    Ustawienia
-                </button>
+                {hasRole(PERMISSIONS.manageWardrobes) && (
+                    <button className={styles.addCWardrobeButton}>
+                        <Settings size={20}/>
+                        Ustawienia
+                    </button>
+                )}
             </div>
         </div>
         <div className={styles.wardrobeInfo}>
@@ -110,7 +118,9 @@ import GetItemHistoryAction from "../../../action/itemHistoryAction/GetItemHisto
 
         <div className={styles.tabs}>
             <button className={activeTab == "content" ? styles.activeTab : styles.tabButton} onClick={()=>handleTabButtonClick("content")}>Zawartośc szafy</button>
-            <button className={activeTab == "history" ? styles.activeTab : styles.tabButton} onClick={()=>handleTabButtonClick("history")}>Historia zmian</button>
+            {hasRole(PERMISSIONS.viewWardrobeHistory) && (
+                <button className={activeTab == "history" ? styles.activeTab : styles.tabButton} onClick={()=>handleTabButtonClick("history")}>Historia zmian</button>
+            )}
             <button className={activeTab == "info" ? styles.activeTab : styles.tabButton} onClick={()=>handleTabButtonClick("info")}>Informacje techniczne</button>
         </div>
         

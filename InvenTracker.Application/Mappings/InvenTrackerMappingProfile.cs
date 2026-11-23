@@ -118,6 +118,7 @@ public class InvenTrackerMappingProfile: Profile
 
 
         CreateMap<ItemPartition, GetItemDto>()
+            .ForMember(dest => dest.ItemPartitionId, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Item.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Item.Name))
             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Item.Description))

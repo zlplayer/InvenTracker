@@ -9,8 +9,11 @@ import DeleteCompanyAction from "../../../action/companyAction/DeleteCompanyActi
 import CompanyDetailsAction from "../../../action/companyDetailsAction/CompanyDetailsAction"
 import EditCompany from "../../../pages/CompaniesPage/Podsumowanie/Partial/EditCompany/EditCompany"
 import type { CompanyDetailsServicesType } from "../../../services/companyDetailsServices/CompanyDetailsServices.type"
+import { useHasRole } from "../../../hooks/useHasRole"
+import { PERMISSIONS } from "../../../constants/roles"
 
 export const CompanyCard = ( props: CompanyCardProps ) => {
+    const hasRole = useHasRole()
 
     const buttonRef = useRef<HTMLButtonElement>(null);
     const navigate = useNavigate()
@@ -67,8 +70,10 @@ export const CompanyCard = ( props: CompanyCardProps ) => {
                 <DropdownMenu isOpen={props.isMenuOpen} onClose={props.onToggleMenu} menuPosition={menuPosition}>
                     <div className={styles.menuItem}>
                         <button className={styles.menuItemButton} onClick={handleGoToDetail}>Wyświetl szczegóły</button>
-                        <button className={styles.menuItemButton} onClick={handleOpenEditModal}>Edytuj</button>
-                        <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={handleDeleteModal}>Usuń</button>
+                        {hasRole(PERMISSIONS.manageCompanies) && (<>
+                            <button className={styles.menuItemButton} onClick={handleOpenEditModal}>Edytuj</button>
+                            <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={handleDeleteModal}>Usuń</button>
+                        </>)}
                     </div>
                 </DropdownMenu>
                 <DeleteModal isOpen={isOpenDeleteModal} onClose={handleCloseDeleteModal} onDelete={handleDelete} />

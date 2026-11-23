@@ -10,8 +10,11 @@ import DeleteWardrobeAction from "../../../action/wardrobeAction/DeleteWardrobeA
 import GetWardrobeDetailsAction from "../../../action/wardrobeDetailsAction/GetWardrobeDetailsAction"
 import EditWardrobe from "../../../pages/WardrobePage/Podsumowanie/Partial/EditWardrobe/EditWardrobe"
 import type { WardrobeDetailsServicesType } from "../../../services/wardrobeDetailsServices/WardrobeDetailsServices.type"
+import { useHasRole } from "../../../hooks/useHasRole"
+import { PERMISSIONS } from "../../../constants/roles"
 
 export const WardrobeCard = (props: WardrobeCardProps) => {
+    const hasRole = useHasRole()
 
     const navigate = useNavigate()
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -84,8 +87,10 @@ export const WardrobeCard = (props: WardrobeCardProps) => {
                 <DropdownMenu isOpen={props.isMenuOpen} onClose={props.onToggleMenu} menuPosition={menuPosition}>
                     <div className={styles.menuItem}>
                         <button className={styles.menuItemButton} onClick={handleGoToDetail}>Wyświetl szczegóły</button>
-                        <button className={styles.menuItemButton} onClick={handleOpenEditModal}>Edytuj</button>
-                        <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={handleDeleteModal}>Usuń</button>
+                        {hasRole(PERMISSIONS.manageWardrobes) && (<>
+                            <button className={styles.menuItemButton} onClick={handleOpenEditModal}>Edytuj</button>
+                            <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={handleDeleteModal}>Usuń</button>
+                        </>)}
                     </div>
                 </DropdownMenu>
                 <DeleteModal isOpen={isOpenDeleteModal} onClose={handleCloseDeleteModal} onDelete={handleDelete} />

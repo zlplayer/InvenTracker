@@ -7,8 +7,11 @@ import AddDepartmentModal from "../AddDepartmentModal/AddDepartmentModal"
 import Modal from "../../../../../components/share/Modal/Modal"
 import EditDepartmentModal from "../EditDepartmentModal/EditDepartmentModal"
 import DeleteDepartmentAction from "../../../../../action/departmentAction/DeleteDepartmentAction"
+import { useHasRole } from "../../../../../hooks/useHasRole"
+import { PERMISSIONS } from "../../../../../constants/roles"
 
 const DepartmentSection = (props : DepartmentSectionProps) => {
+    const hasRole = useHasRole()
 
     const [isAddDepartmentModalOpen, setIsAddDepartmentModalOpen] = useState(false);
     const [editDepartmentId, setEditDepartmentId] = useState<string | null>(null);
@@ -45,10 +48,12 @@ const DepartmentSection = (props : DepartmentSectionProps) => {
                     <span className={styles.headerSection}>Oddzialy firmy</span>
                 </div>
                 <div className={styles.buttonsConfig}>
-                    <button className={styles.addItemButton} onClick={handleAddDepartmentModalOpen}>
-                        <Plus size={16} />
-                        Dodaj oddział
-                    </button>
+                    {hasRole(PERMISSIONS.manageCompanies) && (<>
+                        <button className={styles.addItemButton} onClick={handleAddDepartmentModalOpen}>
+                            <Plus size={16} />
+                            Dodaj oddział
+                        </button>
+                    </>)}
 
                     <AddDepartmentModal isOpen={isAddDepartmentModalOpen} onClose={handleAddDepartmentModalClose} companyId={props.companyId} onCreated={props.onCreated} />
 
@@ -74,16 +79,18 @@ const DepartmentSection = (props : DepartmentSectionProps) => {
                             <span className={styles.wardrobeCountTitle}>Szafy</span>
                         </div>
 
-                        <button className={styles.acctionButton} onClick={(e) => handleToggleMenu(e, department.id)}><EllipsisVertical /></button>
+                        {hasRole(PERMISSIONS.manageCompanies) && (<>
+                            <button className={styles.acctionButton} onClick={(e) => handleToggleMenu(e, department.id)}><EllipsisVertical /></button>
 
-                        <DropdownMenu isOpen={openDepartmentId === department.id} onClose={() => setOpenDepartmentId(null)} menuPosition={menuPosition}>
-                            <div className={styles.menuItem}>
-                                <button className={styles.menuItemButton} onClick={() => setEditDepartmentId(department.id)}>Edytuj oddział</button>
+                            <DropdownMenu isOpen={openDepartmentId === department.id} onClose={() => setOpenDepartmentId(null)} menuPosition={menuPosition}>
+                                <div className={styles.menuItem}>
+                                    <button className={styles.menuItemButton} onClick={() => setEditDepartmentId(department.id)}>Edytuj oddział</button>
 
-                                {/* <button className={styles.menuItemButton}>Przypisz szafę</button> */}
-                                <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={() => setDeleteDepartmentId(department.id)}>Usuń oddział</button>
-                            </div>
-                        </DropdownMenu>
+                                    {/* <button className={styles.menuItemButton}>Przypisz szafę</button> */}
+                                    <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={() => setDeleteDepartmentId(department.id)}>Usuń oddział</button>
+                                </div>
+                            </DropdownMenu>
+                        </>)}
 
                         {editDepartmentId === department.id &&
                             <EditDepartmentModal isOpen={editDepartmentId === department.id} onClose={() => setEditDepartmentId(null)} onEdited={props.onCreated} department={department} />

@@ -1,6 +1,7 @@
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using InvenTracker.Application.InvenTracker.Queries.GetItemHistoryByUser;
 using InvenTracker.Application.InvenTracker.Queries.GetItemHistoryByWardrobe;
+using InvenTracker.Server.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ public class ItemHistoryController : ControllerBase
         // User może widzieć tylko swoją historię
         if (User.IsInRole("User"))
         {
-            var currentUserId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+            var currentUserId = User.GetUserId();
             if (currentUserId != userId)
                 return Forbid();
         }

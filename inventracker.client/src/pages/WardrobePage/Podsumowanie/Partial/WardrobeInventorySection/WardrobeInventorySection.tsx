@@ -1,9 +1,15 @@
 import styles from "./WardrobeInventorySection.module.sass"
-import { Plus, Settings2, SquarePen,Trash } from "lucide-react"
+import { Plus, Settings2, SquarePen, Trash, PackagePlus } from "lucide-react"
 import AddItem from "./Partial/AddItem/AddItem"
 import { useState } from "react"
 import ConfigureWardrobe from "./Partial/ConfigureWardrobe/ConfigureWardrobe"
-import type { DrawerType } from "../../../../../services/wardrobeDetailsServices/WardrobeDetailsServices.type";
+import EditItem from "./Partial/EditItem/EditItem"
+import RestockItem from "./Partial/RestockItem/RestockItem"
+import Modal from "../../../../../components/share/Modal/Modal"
+import DeleteItemPartitionAction from "../../../../../action/itemPartitionAction/DeleteItemPartitionAction"
+import { useHasRole } from "../../../../../hooks/useHasRole"
+import { PERMISSIONS } from "../../../../../constants/roles"
+import type { DrawerType, PartitionType } from "../../../../../services/wardrobeDetailsServices/WardrobeDetailsServices.type";
 
 interface WardrobeInventorySectionProps {
     data: DrawerType[];
@@ -13,6 +19,7 @@ interface WardrobeInventorySectionProps {
 
 const WardrobeInventorySection = ({ data, wardrobeId, onCreated }: WardrobeInventorySectionProps) =>
 {
+    const hasRole = useHasRole()
     const [isOpenModal, setIsOpen] = useState<boolean>(false)
     const [isOpenConfigure, setIsOpenConfigure] = useState<boolean>(false)
     
@@ -32,6 +39,17 @@ const WardrobeInventorySection = ({ data, wardrobeId, onCreated }: WardrobeInven
         setIsOpenConfigure(false)
     }
 
+    const [editingPartition, setEditingPartition] = useState<PartitionType | null>(null)
+    const [deletingPartition, setDeletingPartition] = useState<PartitionType | null>(null)
+    const [restockingPartition, setRestockingPartition] = useState<PartitionType | null>(null)
+
+    const handleDelete = async () => {
+        if (!deletingPartition?.item) return;
+        await DeleteItemPartitionAction.deleteItemPartition(deletingPartition.item.itemPartitionId);
+        setDeletingPartition(null);
+        onCreated();
+    }
+
 
     return(
         <div>
@@ -41,16 +59,20 @@ const WardrobeInventorySection = ({ data, wardrobeId, onCreated }: WardrobeInven
                     <span className={styles.timeInfo}>Zarządzaj przedmiotami w skonfigurowanych przegrodach.</span>
                 </div>
                 <div className={styles.buttonsConfig}>
-                    <button className={styles.addDrawerButton} onClick={handleIsOpenConfigure}>
-                        <Settings2 size={20}/>
-                        Konfiguruj szuflady
-                    </button>
-                    <button className={styles.addItemButton} onClick={handleIsOpen}>
-                        <Plus size={16} />
-                        Dodaj przedmiot
-                    </button>
+                    {hasRole(PERMISSIONS.configureDrawers) && (
+                        <button className={styles.addDrawerButton} onClick={handleIsOpenConfigure}>
+                            <Settings2 size={20}/>
+                            Konfiguruj szuflady
+                        </button>
+                    )}
+                    {hasRole(PERMISSIONS.manageWardrobeContent) && (
+                        <button className={styles.addItemButton} onClick={handleIsOpen}>
+                            <Plus size={16} />
+                            Dodaj przedmiot
+                        </button>
+                    )}
 
-                    <ConfigureWardrobe isOpenModal={isOpenConfigure} handleIsClose={handleIsCloseConfigure} wardrobeId={wardrobeId} onCreated={onCreated} />
+                    {isOpenConfigure && <ConfigureWardrobe handleIsClose={handleIsCloseConfigure} wardrobeId={wardrobeId} drawers={data} onCreated={onCreated} />}
                     <AddItem isOpenModal={isOpenModal} handleIsClose={handleIsClose} drawers={data} onCreated={onCreated} />
 
                 </div>
@@ -82,13 +104,22 @@ const WardrobeInventorySection = ({ data, wardrobeId, onCreated }: WardrobeInven
                                             <span className={styles.ItemCount}>{partition.item.quantity}/{partition.item.minimumQuantityItem}</span>
                                         </div>
                                         <div className={styles.itemWrapper3}>
-                                            <button className={styles.editButton}>
-                                                <SquarePen size={16}/>
-                                                Edytuj
-                                            </button>
-                                            <button className={styles.deleteButton}>
-                                                <Trash size={16}/>
-                                            </button>
+                                            {hasRole(PERMISSIONS.restockItems) && (
+                                                <button className={styles.restockButton} title="Uzupełnij stan" onClick={() => setRestockingPartition(partition)}>
+                                                    <PackagePlus size={16}/>
+                                                </button>
+                                            )}
+                                            {hasRole(PERMISSIONS.manageWardrobeContent) && (
+                                                <>
+                                                    <button className={styles.editButton} onClick={() => setEditingPartition(partition)}>
+                                                        <SquarePen size={16}/>
+                                                        Edytuj
+                                                    </button>
+                                                    <button className={styles.deleteButton} onClick={() => setDeletingPartition(partition)}>
+                                                        <Trash size={16}/>
+                                                    </button>
+                                                </>
+                                            )}
                                         </div>
                                     </>
                                 ) : (
@@ -101,7 +132,55 @@ const WardrobeInventorySection = ({ data, wardrobeId, onCreated }: WardrobeInven
                     </div>
                 </div>
             )})}
+
+            {editingPartition && (
+                <EditItem
+                    partition={editingPartition}
+                    handleIsClose={() => setEditingPartition(null)}
+                    onEdited={onCreated}
+                />
+            )}
+
+            {restockingPartition && (
+                <RestockItem
+                    partition={restockingPartition}
+                    handleIsClose={() => setRestockingPartition(null)}
+                    onRestocked={onCreated}
+                />
+            )}
+
+            {deletingPartition?.item && (
+                <DeleteModal
+                    isOpen={deletingPartition !== null}
+                    onClose={() => setDeletingPartition(null)}
+                    onDelete={handleDelete}
+                    itemName={deletingPartition.item.name}
+                    partitionNumber={deletingPartition.z}
+                />
+            )}
         </div>
+    )
+}
+
+interface DeleteModalProps {
+    isOpen: boolean
+    onClose: () => void
+    onDelete: () => void
+    itemName: string
+    partitionNumber: number
+}
+
+const DeleteModal = ({ isOpen, onClose, onDelete, itemName, partitionNumber }: DeleteModalProps) => {
+
+    return (
+        <Modal isOpen={isOpen} onClose={onClose}>
+            <h2>Usuń przedmiot z przegrody</h2>
+            <p>Czy na pewno chcesz usunąć przedmiot {itemName} z przegrody {partitionNumber}? Tej operacji nie można cofnąć.</p>
+            <div className={styles.modalButtons}>
+                <button className={styles.modalButton} onClick={onClose}>Anuluj</button>
+                <button className={styles.modalButtonDanger} onClick={onDelete}>Usuń</button>
+            </div>
+        </Modal>
     )
 }
 

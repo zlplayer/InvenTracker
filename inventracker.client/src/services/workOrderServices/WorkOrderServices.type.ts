@@ -25,5 +25,4 @@ interface WorkOrderItemType {
 
 export interface ExecuteWorkOrderType {
     code: string;
-    userId: string;
 }

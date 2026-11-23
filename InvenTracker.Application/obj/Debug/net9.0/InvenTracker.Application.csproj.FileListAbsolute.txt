@@ -14,3 +14,6 @@ C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Application\bin\Debug\net9
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Application\obj\Debug\net9.0\InvenTracker.Application.csproj.AssemblyReference.cache
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Application\obj\Debug\net9.0\InvenTracker.Application.sourcelink.json
 C:\Users\Konzo\source\repos\InvenTracker\InvenTracker.Application\obj\Debug\net9.0\InvenTra.6DECCB47.Up2Date
+C:\Users\Konzo\AppData\Local\Temp\invtrk_build\InvenTracker.Application.deps.json
+C:\Users\Konzo\AppData\Local\Temp\invtrk_build\InvenTracker.Application.dll
+C:\Users\Konzo\AppData\Local\Temp\invtrk_build\InvenTracker.Application.pdb

@@ -5,7 +5,10 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import type { WardrobeSectionProps } from "./WardrobeSectionProps.type"
 import DropdownMenu from "../../../../../components/share/DropdownMenu/DropdownMenu"
+import { useHasRole } from "../../../../../hooks/useHasRole"
+import { PERMISSIONS } from "../../../../../constants/roles"
 const WardrobeSection = ( props: WardrobeSectionProps ) => {
+    const hasRole = useHasRole()
 
     const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
     // const [isOpenAssignWardrobeModal, setOpenAssignWardrobeModal] = useState(false)
@@ -67,20 +70,22 @@ const WardrobeSection = ( props: WardrobeSectionProps ) => {
 
                     <div className={styles.infoTileWrapperAction}>
                         <div className={styles.wardrobeCount}>
-                            <span className={styles.wardrobeCountDetail}>{wardrobe.itemCount}</span>
+                            <span className={styles.wardrobeCountDetail}>{wardrobe.itemsCount}</span>
                             <span className={styles.wardrobeCountTitle}>Przedmioty</span>
                         </div>
                         
-                        <button className={styles.acctionButton} onClick={(e) => handleToggleMenu(e, wardrobe.id)}><EllipsisVertical /></button>
+                        {hasRole(PERMISSIONS.manageWardrobes) && (<>
+                            <button className={styles.acctionButton} onClick={(e) => handleToggleMenu(e, wardrobe.id)}><EllipsisVertical /></button>
 
-                        <DropdownMenu isOpen={openWardrobeId === wardrobe.id} onClose={() => setOpenWardrobeId(null)} menuPosition={menuPosition}>
-                            <div className={styles.menuItem}>
-                                <button className={styles.menuItemButton}>Zmień oddział</button>
+                            <DropdownMenu isOpen={openWardrobeId === wardrobe.id} onClose={() => setOpenWardrobeId(null)} menuPosition={menuPosition}>
+                                <div className={styles.menuItem}>
+                                    <button className={styles.menuItemButton}>Zmień oddział</button>
 
-                                <button className={styles.menuItemButton}>Synchronizuj</button>
-                                <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`}>Odłącz od firmy</button>
-                            </div>
-                        </DropdownMenu>
+                                    <button className={styles.menuItemButton}>Synchronizuj</button>
+                                    <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`}>Odłącz od firmy</button>
+                                </div>
+                            </DropdownMenu>
+                        </>)}
                     </div>
                 </div>
             )})}

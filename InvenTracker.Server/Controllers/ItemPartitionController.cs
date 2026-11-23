@@ -1,9 +1,11 @@
-using InvenTracker.Application.InvenTracker.Commands.CreateItemPartition;
+﻿using InvenTracker.Application.InvenTracker.Commands.CreateItemPartition;
 using InvenTracker.Application.InvenTracker.Commands.DeleteItemPartition;
+using InvenTracker.Application.InvenTracker.Commands.RestockItemPartition;
 using InvenTracker.Application.InvenTracker.Commands.RetrieveItemPartition;
 using InvenTracker.Application.InvenTracker.Commands.RetrieveItemPartitionFifo;
 using InvenTracker.Application.InvenTracker.Commands.ReturnItemPartition;
 using InvenTracker.Application.InvenTracker.Commands.UpdateItemPartition;
+using InvenTracker.Server.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +25,7 @@ public class ItemPartitionController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin,Technik,Dostawca")]
+    [Authorize(Roles = "Admin,Technik")]
     public async Task<IActionResult> CreateItemPartition([FromBody] CreateItemPartitionCommand command)
     {
         await _mediator.Send(command);
@@ -31,12 +33,23 @@ public class ItemPartitionController : ControllerBase
     }
 
     [HttpPut("{itemPartitionId}")]
-    [Authorize(Roles = "Admin,Technik,Dostawca")]
+    [Authorize(Roles = "Admin,Technik")]
     public async Task<IActionResult> UpdateItemPartition(Guid itemPartitionId, [FromBody] UpdateItemPartitionCommand command)
     {
         command.ItemPartitionId = itemPartitionId;
         await _mediator.Send(command);
         return Ok();
+    }
+
+    // Dostawca może tylko dołożyć ilość — pełna edycja (przedmiot, przegroda, minimum) jest dla Admin/Technik
+    [HttpPut("{itemPartitionId}/restock")]
+    [Authorize(Roles = "Admin,Technik,Dostawca")]
+    public async Task<IActionResult> RestockItemPartition(Guid itemPartitionId, [FromBody] RestockItemPartitionCommand command)
+    {
+        command.ItemPartitionId = itemPartitionId;
+        command.UserId = User.GetUserId();
+        var result = await _mediator.Send(command);
+        return Ok(result);
     }
 
     [HttpDelete("{itemPartitionId}")]
@@ -49,28 +62,28 @@ public class ItemPartitionController : ControllerBase
 
     [HttpGet("wardrobe/{wardrobeId}/item/{itemId}")]
     [Authorize(Roles = "Admin,Technik,User")]
-    public async Task<IActionResult> RetrieveItemPartition(Guid wardrobeId, Guid itemId, [FromQuery] int quantity, [FromQuery] Guid userId)
+    public async Task<IActionResult> RetrieveItemPartition(Guid wardrobeId, Guid itemId, [FromQuery] int quantity)
     {
         var result = await _mediator.Send(new RetrieveItemPartitionCommand
         {
             WardrobeId = wardrobeId,
             ItemId = itemId,
             Quantity = quantity,
-            UserId = userId
+            UserId = User.GetUserId()
         });
         return Ok(result);
     }
 
     [HttpGet("fifo/wardrobe/{wardrobeId}/item/{itemId}")]
     [Authorize(Roles = "Admin,Technik,User")]
-    public async Task<IActionResult> RetrieveItemPartitionFifo(Guid wardrobeId, Guid itemId, [FromQuery] int quantity, [FromQuery] Guid userId)
+    public async Task<IActionResult> RetrieveItemPartitionFifo(Guid wardrobeId, Guid itemId, [FromQuery] int quantity)
     {
         var result = await _mediator.Send(new RetrieveItemPartitionFifoCommand
         {
             WardrobeId = wardrobeId,
             ItemId = itemId,
             Quantity = quantity,
-            UserId = userId
+            UserId = User.GetUserId()
         });
         return Ok(result);
     }
@@ -79,6 +92,7 @@ public class ItemPartitionController : ControllerBase
     [Authorize(Roles = "Admin,Technik,User")]
     public async Task<IActionResult> ReturnItemPartition([FromBody] ReturnItemPartitionCommand command)
     {
+        command.UserId = User.GetUserId();
         var result = await _mediator.Send(command);
         return Ok(result);
     }

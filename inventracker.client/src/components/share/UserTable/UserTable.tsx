@@ -10,9 +10,12 @@ import DeleteUserAction from "../../../action/userAction/DeleteUserAction"
 import EditUserModal from "./EditUserModal/EditUserModal"
 import { EditPasswordUserModal } from "./EditPasswordUserModal/EditPasswordUserModal"
 import { EditRoleUserModal } from "./EditRoleUserModal/EditRoleUserModal"
+import { useHasRole } from "../../../hooks/useHasRole"
+import { PERMISSIONS } from "../../../constants/roles"
 
 
 export const UserTable = (props: UserTableProps)=>{
+    const hasRole = useHasRole()
 
     const [openUserId, setOpenUserId] = useState<string | null>(null);
     const [menuPosition, setMenuPosition] = useState({ top: 0, right: 0 });
@@ -74,17 +77,19 @@ export const UserTable = (props: UserTableProps)=>{
                             </span>
                         </td>
                         <td>
-                            <button className={styles.burgerDot} onClick={(e) => handleToggleMenu(e, user.id)}><EllipsisVertical/></button>
+                            {hasRole(PERMISSIONS.manageUsers) && (<>
+                                <button className={styles.burgerDot} onClick={(e) => handleToggleMenu(e, user.id)}><EllipsisVertical/></button>
 
-                            <DropdownMenu isOpen={openUserId === user.id} onClose={() => setOpenUserId(null)} menuPosition={menuPosition}>
-                                <div className={styles.menuItem}>
-                                    {/* <button className={styles.menuItemButton}>Wyświetl szczegóły</button> */}
-                                    <button className={styles.menuItemButton} onClick={() => setEditUserId(user.id)}>Edytuj dane</button>
-                                    <button className={styles.menuItemButton} onClick={() => setEditRoleUserId(user.id)}>Zmień uprawnienia</button>
-                                    <button className={styles.menuItemButton} onClick={() => setEditPasswordUserId(user.id)}>Zmień hasło</button>
-                                    <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={() => setDeleteUserId(user.id)}>Usuń</button>
-                                </div>
-                            </DropdownMenu>
+                                <DropdownMenu isOpen={openUserId === user.id} onClose={() => setOpenUserId(null)} menuPosition={menuPosition}>
+                                    <div className={styles.menuItem}>
+                                        {/* <button className={styles.menuItemButton}>Wyświetl szczegóły</button> */}
+                                        <button className={styles.menuItemButton} onClick={() => setEditUserId(user.id)}>Edytuj dane</button>
+                                        <button className={styles.menuItemButton} onClick={() => setEditRoleUserId(user.id)}>Zmień uprawnienia</button>
+                                        <button className={styles.menuItemButton} onClick={() => setEditPasswordUserId(user.id)}>Zmień hasło</button>
+                                        <button className={`${styles.menuItemButton} ${styles.menuItemButtonDanger}`} onClick={() => setDeleteUserId(user.id)}>Usuń</button>
+                                    </div>
+                                </DropdownMenu>
+                            </>)}
                         </td>
                     </tr>
                 ))}

@@ -25,5 +25,5 @@ export interface WardrobeType {
     name: string;
     model: string;
     isOnline: boolean;
-    itemCount: number;
+    itemsCount: number;
 }
